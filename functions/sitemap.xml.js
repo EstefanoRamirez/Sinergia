@@ -12,8 +12,11 @@ const PAGINAS = [
   ["/testimonios", "0.7", "monthly"],
   ["/galeria", "0.6", "monthly"],
   ["/biblioteca", "0.6", "monthly"],
+  ["/boletines", "0.5", "monthly"],
   ["/contacto", "0.8", "yearly"],
-  ["/terminos", "0.2", "yearly"]
+  ["/privacidad", "0.2", "yearly"],
+  ["/terminos", "0.2", "yearly"],
+  ["/cookies", "0.1", "yearly"]
 ];
 
 export function onRequestGet({ request }) {

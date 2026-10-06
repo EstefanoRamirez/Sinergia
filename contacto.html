@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  PÁGINA: CONTACTO — Datos de contacto, redes y formulario que envía el mensaje por WhatsApp.
+  PÁGINA: CONTACTO — Datos de contacto, redes y formulario (llega al correo y a la hoja de cálculo; respuesta por WhatsApp).
   Archivo generado: contacto.html (no editar aquí; editar plantillas/paginas/contacto.html y ejecutar: bash plantillas/armar-paginas.sh)
   Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".
 -->
@@ -12,7 +12,7 @@
   <title>Contacto · Sinergia Capacitación Empresarial</title>
   <meta name="description" content="Contáctenos por WhatsApp, teléfono o correo. Sinergia Capacitación Empresarial, Calle E8-A e Ismael Solís, Quito, Ecuador.">
   <meta name="author" content="Sinergia Capacitación Empresarial Oportuna">
-  <meta name="theme-color" content="#141112">
+  <meta name="theme-color" content="#bb0f17">
   <meta name="format-detection" content="telephone=no">
   <link rel="canonical" href="https://www.sinergia.ec/contacto">
   <meta property="og:type" content="website">
@@ -29,17 +29,21 @@
   <link rel="icon" href="images/marca/icono-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/marca/icono-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="color-scheme" content="light dark">
   <script src="js/tema.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/fuentes.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/sinergia.css">
 </head>
 
 <body data-page="contacto">
+  <!-- Pantalla de carga (primera visita) y cortina entre páginas -->
+  <div class="sg-carga" aria-hidden="true">
+    <div class="sg-carga-logo"><img src="images/marca/logo-blanco.webp" alt="" width="1200" height="263"></div>
+    <p class="sg-carga-num" data-carga-num>000</p>
+  </div>
+  <div class="sg-cortina" aria-hidden="true"><img src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"></div>
   <svg xmlns="http://www.w3.org/2000/svg" class="sg-sprite" aria-hidden="true" focusable="false">
     <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
@@ -64,6 +68,11 @@
     <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 8.8h3.1V21H3zM9 8.8h3v1.7c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.5 4.5 5.8V21H17v-6c0-1.4 0-3.3-2-3.3s-2.4 1.6-2.4 3.2V21H9z"/></symbol>
     <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12c0 1.3.1 2.5.4 3.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.3.4-2.5.4-3.8s-.1-2.5-.4-3.8zM10 15.2V8.8l5.2 3.2z"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="1.5"/><path d="M2.5 8.5h19M6 6.3h.01M8.5 6.3h.01"/></symbol>
   </svg>
 
   <a class="sg-skip" href="#contenido">Saltar al contenido</a>
@@ -71,7 +80,7 @@
   <header class="sg-header" data-header>
     <div class="sg-wrap sg-header-inner">
       <a class="sg-logo" href="index.html" aria-label="Sinergia Capacitación Empresarial Oportuna, inicio">
-        <img src="images/marca/simbolo-rojo.webp" alt="" width="40" height="37" class="sg-logo-mark">
+        <img src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" class="sg-logo-mark">
         <span class="sg-logo-text">
           <span class="sg-logo-name">SINERGIA</span>
           <span class="sg-logo-tag">Capacitación Empresarial Oportuna</span>
@@ -79,54 +88,48 @@
       </a>
 
       <nav class="sg-nav" aria-label="Principal">
+        <a class="sg-nav-link" href="index.html">Inicio</a>
         <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
         <a class="sg-nav-link" href="servicios.html">Servicios</a>
         <a class="sg-nav-link" href="webinars.html">Webinars</a>
-        <a class="sg-nav-link" href="clientes.html">Clientes</a>
-        <a class="sg-nav-link" href="contacto.html" aria-current="page">Contacto</a>
+        <div class="sg-sub" data-sub>
+          <button class="sg-nav-link" type="button" aria-expanded="false" aria-controls="sub-biblioteca">Biblioteca <svg aria-hidden="true"><use href="#i-down"/></svg></button>
+          <div class="sg-sub-list" id="sub-biblioteca">
+            <a href="biblioteca.html">Biblioteca</a>
+            <a href="boletines.html">Boletines</a>
+            <a href="clientes.html">Clientes</a>
+          </div>
+        </div>
+        <a class="sg-nav-link" href="galeria.html">Galería</a>
+        <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
+        <a class="sg-nav-link" href="contacto.html" aria-current="page">Contáctanos</a>
       </nav>
 
-      <div class="sg-header-actions">
-        <button class="sg-icon-btn" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro" title="Cambiar tema">
-          <svg class="sg-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="sg-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <button class="sg-menu-btn" type="button" aria-controls="sg-menu" aria-expanded="false" data-menu-toggle>
-          <span class="sg-menu-btn-label">Menú</span>
-          <span class="sg-menu-btn-lines" aria-hidden="true"><span></span><span></span></span>
-        </button>
-      </div>
+      <button class="sg-btn sg-btn--chico" type="button" data-abrir-registro>Inscríbete</button>
+
+      <button class="sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
+        <span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <div class="sg-menu" id="sg-menu" data-menu hidden>
-    <div class="sg-wrap sg-menu-inner">
-      <nav class="sg-menu-nav" aria-label="Todas las páginas">
-        <ol>
-          <li><a class="sg-nav-link" href="index.html"><span>01</span>Inicio</a></li>
-          <li><a class="sg-nav-link" href="nosotros.html"><span>02</span>Nosotros</a></li>
-          <li><a class="sg-nav-link" href="servicios.html"><span>03</span>Servicios</a></li>
-          <li><a class="sg-nav-link" href="webinars.html"><span>04</span>Webinars</a></li>
-          <li><a class="sg-nav-link" href="clientes.html"><span>05</span>Clientes</a></li>
-          <li><a class="sg-nav-link" href="testimonios.html"><span>06</span>Testimonios</a></li>
-          <li><a class="sg-nav-link" href="galeria.html"><span>07</span>Galería</a></li>
-          <li><a class="sg-nav-link" href="biblioteca.html"><span>08</span>Biblioteca</a></li>
-          <li><a class="sg-nav-link" href="contacto.html" aria-current="page"><span>09</span>Contacto</a></li>
-        </ol>
-      </nav>
-      <div class="sg-menu-aside">
-        <p class="sg-eyebrow">Escríbenos</p>
-        <p><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></p>
-        <p><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></p>
-        <p class="sg-eyebrow">Visítanos</p>
-        <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
-        <ul class="sg-social">
-          <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
-          <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
-          <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
-          <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
-        </ul>
-      </div>
+  <div class="sg-movil" id="sg-movil" data-movil hidden>
+    <nav class="sg-movil-nav" aria-label="Menú">
+      <a class="sg-nav-link" href="index.html">Inicio</a>
+      <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
+      <a class="sg-nav-link" href="servicios.html">Servicios</a>
+      <a class="sg-nav-link" href="webinars.html">Webinars</a>
+      <a class="sg-nav-link" href="biblioteca.html">Biblioteca</a>
+      <a class="sg-nav-link" href="boletines.html">Boletines</a>
+      <a class="sg-nav-link" href="clientes.html">Clientes</a>
+      <a class="sg-nav-link" href="galeria.html">Galería</a>
+      <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
+      <a class="sg-nav-link" href="contacto.html" aria-current="page">Contáctanos</a>
+    </nav>
+    <div class="sg-movil-pie">
+      <button class="sg-btn sg-btn--blanco" type="button" data-abrir-registro>Inscríbete gratis</button>
+      <p class="sg-mt">+593 96 909 4855 · info@sinergia.ec</p>
+      <p>Calle E8-A e Ismael Solís, Quito</p>
     </div>
   </div>
 
@@ -134,60 +137,43 @@
 
     <!-- ================= INICIO DEL CONTENIDO: CONTACTO ================= -->
 
-    <section class="sg-page-hero">
-      <img src="images/contacto/reunion-700.webp" srcset="images/contacto/reunion-700.webp 700w, images/contacto/reunion.webp 1400w" sizes="100vw" width="1400" height="1399" alt="" fetchpriority="high" data-parallax="0.15">
+    <section class="sg-cabecera sg-cabecera--media">
+      <div class="sg-cabecera-img"><img src="images/contacto/reunion-700.webp" srcset="images/contacto/reunion-700.webp 700w, images/contacto/reunion.webp 1400w" sizes="100vw" width="1400" height="1399" alt="" fetchpriority="high"></div>
       <div class="sg-wrap">
-        <ol class="sg-crumbs"><li><a href="index.html">Inicio</a></li><li>Contacto</li></ol>
-        <h1 class="sg-lines"><span class="sg-line"><span>Hablemos</span></span></h1>
-        <p class="sg-page-lead" data-reveal data-delay="0.3">¿Desea conocer más sobre Sinergia y nuestros cursos? Escríbanos y le respondemos a la brevedad.</p>
+        <ol class="sg-migas" data-anim="entra"><li><a href="index.html">Inicio</a></li><li>Contáctanos</li></ol>
+        <h1 data-anim="lineas">Contác<em>tanos</em></h1>
+        <p class="sg-cabecera-lead" data-anim="entra">¿Deseas conocer más sobre Sinergia Capacitación Empresarial Oportuna y sus cursos? Contáctate con nosotros.</p>
       </div>
     </section>
 
-    <section class="sg-section">
-      <div class="sg-wrap sg-split sg-split--top">
-        <div data-reveal>
-          <p class="sg-eyebrow">Contáctese con nosotros</p>
-          <ul class="sg-contact-list">
-            <li><svg aria-hidden="true"><use href="#i-wa"/></svg><div><small>WhatsApp y celular</small><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></div></li>
-            <li><svg aria-hidden="true"><use href="#i-phone"/></svg><div><small>Teléfono</small><a href="tel:+59322191187">(02) 219-1187</a></div></li>
-            <li><svg aria-hidden="true"><use href="#i-mail"/></svg><div><small>Correo</small><a href="mailto:info@sinergia.ec">info@sinergia.ec</a><br><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></div></li>
-            <li><svg aria-hidden="true"><use href="#i-pin"/></svg><div><small>Dirección</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20E8-A%20e%20Ismael%20Sol%C3%ADs%2C%20Quito%20170803%2C%20Ecuador" target="_blank" rel="noopener">Calle E8-A e Ismael Solís, Quito 170803, Ecuador</a></div></li>
-          </ul>
-          <p class="sg-eyebrow">Redes sociales</p>
-          <ul class="sg-social">
-            <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
-            <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
-            <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
-            <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
-          </ul>
+    <section class="sg-seccion">
+      <div class="sg-wrap sg-dos sg-dos--5-7 sg-dos--arriba">
+        <div class="sg-datos" data-anim="grupo">
+          <div class="sg-dato"><small>Dirección</small><a href="https://www.google.com/maps/search/?api=1&amp;query=Calle%20E8-A%20e%20Ismael%20Sol%C3%ADs%2C%20Quito%20170803%2C%20Ecuador" target="_blank" rel="noopener">Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</a></div>
+          <div class="sg-dato"><small>Teléfono</small><a href="tel:+59322191187">(02) 219-1187</a></div>
+          <div class="sg-dato"><small>Celular y WhatsApp</small><a href="https://wa.me/593969094855" data-wa>+593 096-909-4855</a></div>
+          <div class="sg-dato"><small>Email</small><a href="mailto:info@sinergia.ec">info@sinergia.ec</a><br><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></div>
+          <div class="sg-dato"><small>Redes sociales</small>
+            <ul class="sg-redes sg-mt">
+              <li><a href="https://wa.me/593969094855" data-wa aria-label="WhatsApp"><svg aria-hidden="true"><use href="#i-wa"/></svg></a></li>
+              <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+              <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+              <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+              <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+            </ul>
+          </div>
         </div>
 
-        <!-- El formulario no se envía a ningún servidor: arma el mensaje y abre WhatsApp (js/sitio.js) -->
-        <form class="sg-form" data-contact-form novalidate data-reveal>
-          <h2>Envíenos un mensaje</h2>
-          <div class="sg-fields">
-            <div class="sg-field">
-              <label for="c-nombre">Nombre *</label>
-              <input id="c-nombre" name="nombre" type="text" autocomplete="given-name" required maxlength="60">
-            </div>
-            <div class="sg-field">
-              <label for="c-apellido">Apellido *</label>
-              <input id="c-apellido" name="apellido" type="text" autocomplete="family-name" required maxlength="60">
-            </div>
-            <div class="sg-field">
-              <label for="c-email">Correo electrónico *</label>
-              <input id="c-email" name="email" type="email" autocomplete="email" required maxlength="120">
-            </div>
-            <div class="sg-field">
-              <label for="c-telefono">Teléfono (opcional)</label>
-              <input id="c-telefono" name="telefono" type="tel" autocomplete="tel" maxlength="20">
-            </div>
-            <div class="sg-field sg-field--full">
-              <label for="c-empresa">Empresa (opcional)</label>
-              <input id="c-empresa" name="empresa" type="text" autocomplete="organization" maxlength="100">
-            </div>
-            <div class="sg-field sg-field--full">
-              <label for="c-interes">¿Qué le interesa?</label>
+        <form class="sg-form" data-form="contacto" novalidate data-anim="sube">
+          <h2 class="sg-titulo">Envíanos un mensaje</h2>
+          <div class="sg-campos">
+            <div class="sg-campo"><label for="c-nombre">Nombre *</label><input id="c-nombre" name="nombre" autocomplete="given-name" placeholder="Nombre" required maxlength="60"></div>
+            <div class="sg-campo"><label for="c-apellido">Apellido *</label><input id="c-apellido" name="apellido" autocomplete="family-name" placeholder="Apellido" required maxlength="60"></div>
+            <div class="sg-campo"><label for="c-email">Email *</label><input id="c-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+            <div class="sg-campo"><label for="c-whatsapp">WhatsApp *</label><input id="c-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="09XXXXXXXX" required maxlength="20" pattern="[+0-9 ()-]{7,20}"></div>
+            <div class="sg-campo sg-campo--todo"><label for="c-empresa">Empresa (opcional)</label><input id="c-empresa" name="empresa" autocomplete="organization" placeholder="Empresa" maxlength="100"></div>
+            <div class="sg-campo sg-campo--todo">
+              <label for="c-interes">¿Qué te interesa?</label>
               <select id="c-interes" name="interes">
                 <option value="">Elegir (opcional)</option>
                 <option>Capacitación In Company – On Line</option>
@@ -196,20 +182,21 @@
                 <option>Reportes de Ventas a Crédito</option>
                 <option>Auditorías Externas</option>
                 <option>Estudios Actuariales</option>
+                <option>Manual de Políticas y Procedimientos Contables</option>
+                <option>Asesoría contable o tributaria</option>
                 <option>Búsqueda de Resultados</option>
                 <option>Desarrollo de Negocios</option>
-                <option>Manual de Políticas y Procedimientos Contables</option>
+                <option>Páginas web</option>
                 <option>Otro tema</option>
               </select>
             </div>
-            <div class="sg-field sg-field--full">
-              <label for="c-mensaje">Mensaje *</label>
-              <textarea id="c-mensaje" name="mensaje" required maxlength="1500" placeholder="Cuéntenos qué necesita: tema, número de participantes, fechas…"></textarea>
-            </div>
+            <div class="sg-campo sg-campo--todo"><label for="c-mensaje">Mensaje *</label><textarea id="c-mensaje" name="mensaje" placeholder="Cuéntanos qué necesitas: tema, número de participantes, fechas…" required maxlength="1500"></textarea></div>
           </div>
-          <button type="submit" class="sg-btn sg-btn--rojo">Enviar por WhatsApp <svg aria-hidden="true"><use href="#i-wa"/></svg></button>
-          <p class="sg-form-status" role="status" aria-live="polite"></p>
-          <p class="sg-form-note">Al enviar se abrirá WhatsApp con su mensaje listo; solo tiene que confirmarlo. Sus datos se tratan según nuestros <a href="terminos.html">términos y protección de datos</a>.</p>
+          <label class="sg-check"><input type="checkbox" name="novedades" value="si"> Quiero recibir boletines y novedades.</label>
+          <label class="sg-check"><input type="checkbox" name="acepto" value="si" required> Acepto la <a href="privacidad.html" target="_blank">Política de privacidad y protección de datos</a>. *</label>
+          <div class="sg-trampa" aria-hidden="true"><label>No llenar<input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
+          <button class="sg-btn" type="submit">Enviar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="sg-estado" role="status" aria-live="polite"></p>
         </form>
       </div>
     </section>
@@ -218,46 +205,24 @@
 
   </main>
 
-  <footer class="sg-footer">
+  <footer class="sg-pie">
     <div class="sg-wrap">
-      <div class="sg-footer-cta">
-        <p class="sg-eyebrow">¿Hablamos?</p>
-        <a class="sg-footer-big" href="contacto.html">Capacitemos a tu equipo <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-      </div>
-
-      <div class="sg-footer-grid">
-        <div class="sg-footer-brand">
-          <img src="images/marca/logo-blanco.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="1200" height="263" loading="lazy">
-          <p>Capacitación empresarial en gerencia, ventas, contabilidad, tributación y administración para el sector público y privado del Ecuador. Desde 2016.</p>
+      <div class="sg-pie-grid">
+        <div>
+          <h2>Contacto</h2>
+          <p>Teléfono: <a href="tel:+59322191187">(02) 219-1187</a></p>
+          <p>Celular: <a href="https://wa.me/593969094855" data-wa>+593 096-909-4855</a></p>
+          <p class="sg-pie-correos"><a href="mailto:info@sinergia.ec">info@sinergia.ec</a> -<br><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></p>
         </div>
 
-        <nav aria-label="Páginas">
-          <h2 class="sg-footer-title">Sinergia</h2>
-          <ul>
-            <li><a href="nosotros.html">Nosotros</a></li>
-            <li><a href="servicios.html">Servicios</a></li>
-            <li><a href="webinars.html">Webinars</a></li>
-            <li><a href="clientes.html">Clientes</a></li>
-            <li><a href="testimonios.html">Testimonios</a></li>
-            <li><a href="galeria.html">Galería</a></li>
-            <li><a href="biblioteca.html">Biblioteca</a></li>
-          </ul>
-        </nav>
+        <a href="index.html" class="sg-pie-centro" aria-label="Sinergia, inicio">
+          <img class="sg-pie-logo" src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy">
+        </a>
 
-        <div>
-          <h2 class="sg-footer-title">Contacto</h2>
-          <ul class="sg-footer-contact">
-            <li><a href="tel:+59322191187">(02) 219-1187</a></li>
-            <li><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></li>
-            <li><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></li>
-            <li><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="sg-footer-title">Dirección</h2>
+        <div class="sg-pie-der">
+          <h2>Dirección</h2>
           <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
-          <ul class="sg-social">
+          <ul class="sg-redes" aria-label="Redes sociales">
             <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
             <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
             <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
@@ -266,17 +231,77 @@
         </div>
       </div>
 
-      <div class="sg-footer-bottom">
-        <p>© <span data-year>2026</span> Sinergia Capacitación Empresarial. Todos los derechos reservados.</p>
-        <p><a href="terminos.html">Términos y protección de datos</a> · Página web por Estéfano Ramírez</p>
+      <nav class="sg-pie-links" aria-label="Páginas">
+        <a href="nosotros.html">Nosotros</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="webinars.html">Webinars</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="boletines.html">Boletines</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="galeria.html">Galería</a>
+        <a href="testimonios.html">Testimonios</a>
+        <a href="contacto.html">Contáctanos</a>
+      </nav>
+
+      <div class="sg-pie-bajo">
+        <p>Todos los derechos reservados a Sinergia Capacitación Empresarial © <span data-anio>2026</span>.</p>
+        <p class="sg-pie-legal"><a href="privacidad.html">Privacidad y protección de datos</a><a href="terminos.html">Términos y condiciones</a><a href="cookies.html">Cookies</a></p>
+        <p>Página Web por Estéfano Ramírez</p>
       </div>
     </div>
   </footer>
 
-  <a class="sg-wa-float" href="https://wa.me/593969094855" data-wa aria-label="Escríbenos por WhatsApp">
+  <a class="sg-wa" href="https://wa.me/593969094855" data-wa aria-label="Escríbenos por WhatsApp">
     <svg aria-hidden="true"><use href="#i-wa"/></svg>
   </a>
 
+  <!-- Ventana de suscripción / inscripción. Se abre sola en la primera visita y con los botones "Inscríbete". -->
+  <dialog class="sg-modal" data-registro aria-labelledby="registro-titulo">
+    <div class="sg-modal-caja">
+      <div class="sg-modal-form">
+        <h2 id="registro-titulo">¡Inscríbete y recibe novedades!</h2>
+        <p>Regístrate gratis para inscribirte en nuestros cursos y webinars, recibir boletines y entrar a la zona de suscriptores.</p>
+        <form class="sg-form" data-form="registro" novalidate>
+          <div class="sg-campos">
+            <div class="sg-campo"><label for="r-nombre">Nombre *</label><input id="r-nombre" name="nombre" autocomplete="given-name" placeholder="Nombre" required maxlength="60"></div>
+            <div class="sg-campo"><label for="r-apellido">Apellido *</label><input id="r-apellido" name="apellido" autocomplete="family-name" placeholder="Apellido" required maxlength="60"></div>
+            <div class="sg-campo"><label for="r-email">Correo electrónico *</label><input id="r-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+            <div class="sg-campo"><label for="r-whatsapp">WhatsApp *</label><input id="r-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="09XXXXXXXX" required maxlength="20" pattern="[+0-9 ()-]{7,20}"></div>
+            <div class="sg-campo sg-campo--todo">
+              <label for="r-interes">Me interesa</label>
+              <select id="r-interes" name="interes">
+                <option>Webinars</option>
+                <option>Capacitación para mi empresa (In Company)</option>
+                <option>Boletines y novedades</option>
+                <option>Asesoría contable o tributaria</option>
+                <option>Otro tema</option>
+              </select>
+            </div>
+          </div>
+          <label class="sg-check"><input type="checkbox" name="novedades" value="si"> Quiero recibir boletines y novedades por WhatsApp y correo.</label>
+          <label class="sg-check"><input type="checkbox" name="acepto" value="si" required> Acepto la <a href="privacidad.html" target="_blank">Política de privacidad y protección de datos</a>. *</label>
+          <div class="sg-trampa" aria-hidden="true"><label>No llenar<input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
+          <button class="sg-btn" type="submit">Registrarse <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="sg-estado" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="sg-modal-lado">
+        <img class="sg-modal-lado-foto" src="images/nosotros/conferencia-900.webp" alt="" width="900" height="461" loading="lazy">
+        <img class="sg-modal-logo" src="images/marca/logo-blanco.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="1200" height="263" loading="lazy">
+      </div>
+      <button class="sg-modal-cerrar" type="button" data-cerrar-registro aria-label="Cerrar">✕</button>
+    </div>
+  </dialog>
+
+  <!-- Aviso de cookies: pequeño, en una esquina -->
+  <div class="sg-cookies" data-cookies role="region" aria-label="Aviso de cookies" hidden>
+    <p>Este sitio usa solo las cookies necesarias para funcionar y recordar tus preferencias. <a href="cookies.html">Política de cookies</a></p>
+    <button type="button" data-cookies-ok>Entendido</button>
+  </div>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/vendor/SplitText.min.js" defer></script>
   <script src="js/vendor/lenis.min.js" defer></script>
   <script src="js/sitio.js" defer></script>
 </body>

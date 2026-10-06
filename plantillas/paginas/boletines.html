@@ -1,0 +1,52 @@
+Boletines · Sinergia Capacitación Empresarial|Zona de boletines para suscriptores de Sinergia: novedades contables, tributarias y laborales. Registro gratuito.|boletines|BOLETINES — Zona solo para suscriptores: ingreso con correo y código, y lista de boletines.
+    <section class="sg-cabecera sg-cabecera--media">
+      <div class="sg-cabecera-img"><img src="images/galeria/foto-22.webp" width="1032" height="581" alt="" fetchpriority="high"></div>
+      <div class="sg-wrap">
+        <ol class="sg-migas" data-anim="entra"><li><a href="index.html">Inicio</a></li><li><a href="biblioteca.html">Biblioteca</a></li><li>Boletines</li></ol>
+        <h1 data-anim="lineas">Bole<em>tines</em></h1>
+        <p class="sg-cabecera-lead" data-anim="entra">Zona exclusiva para suscriptores. El registro es gratuito.</p>
+      </div>
+    </section>
+
+    <!-- Funciona con /api/acceso y /api/boletines (Cloudflare). Los PDF van en boletines-privados/ -->
+    <section class="sg-seccion" data-boletines>
+      <div class="sg-wrap">
+        <div class="sg-acceso-caja" data-paso="correo">
+          <div class="sg-acceso-caja-form">
+            <p class="sg-etiqueta"><svg aria-hidden="true"><use href="#i-lock"/></svg> Ingreso de suscriptores</p>
+            <h2 class="sg-titulo">Entra a tus boletines</h2>
+            <p>Escribe el correo con el que te registraste. Te enviaremos un código de 6 números para entrar, sin contraseñas.</p>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo"><label for="b-email">Correo electrónico</label><input id="b-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+              <button class="sg-btn" type="submit">Recibir código <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sg-mt">¿Aún no tienes cuenta? <button class="sg-enlace" type="button" data-abrir-registro>Regístrate gratis</button></p>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco.webp" alt="Sinergia" width="1200" height="263" loading="lazy"></div>
+        </div>
+
+        <div class="sg-acceso-caja" data-paso="codigo" hidden>
+          <div class="sg-acceso-caja-form">
+            <p class="sg-etiqueta">Revisa tu correo</p>
+            <h2 class="sg-titulo">Escribe tu código</h2>
+            <p>Enviamos un código a <strong data-correo></strong>. Vence en 10 minutos. Si no lo ves, revisa la carpeta de correo no deseado.</p>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo"><label for="b-codigo">Código de 6 números</label><input id="b-codigo" name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="6" pattern="[0-9]{6}" placeholder="000000" required></div>
+              <button class="sg-btn" type="submit">Entrar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sg-mt"><button class="sg-enlace" type="button" data-volver>Usar otro correo</button></p>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco.webp" alt="" width="1200" height="263" loading="lazy"></div>
+        </div>
+
+        <div data-paso="lista" hidden>
+          <div class="sg-dos sg-mb">
+            <h2 class="sg-titulo">Tus boletines</h2>
+            <p class="sg-centro">Sesión: <strong data-correo-sesion></strong> · <button class="sg-enlace" type="button" data-salir>Salir</button></p>
+          </div>
+          <div class="sg-docs" data-lista-boletines></div>
+        </div>
+      </div>
+    </section>

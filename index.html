@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  PÁGINA: INICIO — Portada con máscara líquida, áreas, quiénes somos, cifras, servicios, accesos, testimonios y clientes.
+  PÁGINA: INICIO — Portada con máscara líquida, cinta de áreas, quiénes somos, accesos con foto, testimonios, galería y llamado a inscribirse.
   Archivo generado: index.html (no editar aquí; editar plantillas/paginas/index.html y ejecutar: bash plantillas/armar-paginas.sh)
   Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".
 -->
@@ -12,7 +12,7 @@
   <title>Sinergia · Capacitación Empresarial Oportuna en Quito, Ecuador</title>
   <meta name="description" content="Capacitación empresarial in company y online en gerencia, ventas, contabilidad, tributación, NIIF y administración para empresas del sector público y privado del Ecuador. Desde 2016.">
   <meta name="author" content="Sinergia Capacitación Empresarial Oportuna">
-  <meta name="theme-color" content="#141112">
+  <meta name="theme-color" content="#bb0f17">
   <meta name="format-detection" content="telephone=no">
   <link rel="canonical" href="https://www.sinergia.ec/">
   <meta property="og:type" content="website">
@@ -29,18 +29,22 @@
   <link rel="icon" href="images/marca/icono-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/marca/icono-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="color-scheme" content="light dark">
   <script src="js/tema.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" href="images/portada/ejecutivo-1200.webp" imagesrcset="images/portada/ejecutivo-1200.webp 1200w, images/portada/ejecutivo.webp 2400w" imagesizes="100vw" fetchpriority="high">
+  <link rel="stylesheet" href="css/fuentes.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/sinergia.css">
 </head>
 
 <body data-page="inicio">
+  <!-- Pantalla de carga (primera visita) y cortina entre páginas -->
+  <div class="sg-carga" aria-hidden="true">
+    <div class="sg-carga-logo"><img src="images/marca/logo-blanco.webp" alt="" width="1200" height="263"></div>
+    <p class="sg-carga-num" data-carga-num>000</p>
+  </div>
+  <div class="sg-cortina" aria-hidden="true"><img src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"></div>
   <svg xmlns="http://www.w3.org/2000/svg" class="sg-sprite" aria-hidden="true" focusable="false">
     <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
     <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
@@ -65,6 +69,11 @@
     <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
     <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 8.8h3.1V21H3zM9 8.8h3v1.7c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.5 4.5 5.8V21H17v-6c0-1.4 0-3.3-2-3.3s-2.4 1.6-2.4 3.2V21H9z"/></symbol>
     <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12c0 1.3.1 2.5.4 3.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.3.4-2.5.4-3.8s-.1-2.5-.4-3.8zM10 15.2V8.8l5.2 3.2z"/></symbol>
+    <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10.5" rx="1.5"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-download" viewBox="0 0 24 24"><path d="M12 3v12M7 10l5 5 5-5M4 20h16"/></symbol>
+    <symbol id="i-web" viewBox="0 0 24 24"><rect x="2.5" y="4" width="19" height="16" rx="1.5"/><path d="M2.5 8.5h19M6 6.3h.01M8.5 6.3h.01"/></symbol>
   </svg>
 
   <a class="sg-skip" href="#contenido">Saltar al contenido</a>
@@ -72,7 +81,7 @@
   <header class="sg-header" data-header>
     <div class="sg-wrap sg-header-inner">
       <a class="sg-logo" href="index.html" aria-label="Sinergia Capacitación Empresarial Oportuna, inicio">
-        <img src="images/marca/simbolo-rojo.webp" alt="" width="40" height="37" class="sg-logo-mark">
+        <img src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" class="sg-logo-mark">
         <span class="sg-logo-text">
           <span class="sg-logo-name">SINERGIA</span>
           <span class="sg-logo-tag">Capacitación Empresarial Oportuna</span>
@@ -80,54 +89,48 @@
       </a>
 
       <nav class="sg-nav" aria-label="Principal">
+        <a class="sg-nav-link" href="index.html" aria-current="page">Inicio</a>
         <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
         <a class="sg-nav-link" href="servicios.html">Servicios</a>
         <a class="sg-nav-link" href="webinars.html">Webinars</a>
-        <a class="sg-nav-link" href="clientes.html">Clientes</a>
-        <a class="sg-nav-link" href="contacto.html">Contacto</a>
+        <div class="sg-sub" data-sub>
+          <button class="sg-nav-link" type="button" aria-expanded="false" aria-controls="sub-biblioteca">Biblioteca <svg aria-hidden="true"><use href="#i-down"/></svg></button>
+          <div class="sg-sub-list" id="sub-biblioteca">
+            <a href="biblioteca.html">Biblioteca</a>
+            <a href="boletines.html">Boletines</a>
+            <a href="clientes.html">Clientes</a>
+          </div>
+        </div>
+        <a class="sg-nav-link" href="galeria.html">Galería</a>
+        <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
+        <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
       </nav>
 
-      <div class="sg-header-actions">
-        <button class="sg-icon-btn" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro" title="Cambiar tema">
-          <svg class="sg-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="sg-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
-        </button>
-        <button class="sg-menu-btn" type="button" aria-controls="sg-menu" aria-expanded="false" data-menu-toggle>
-          <span class="sg-menu-btn-label">Menú</span>
-          <span class="sg-menu-btn-lines" aria-hidden="true"><span></span><span></span></span>
-        </button>
-      </div>
+      <button class="sg-btn sg-btn--chico" type="button" data-abrir-registro>Inscríbete</button>
+
+      <button class="sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
+        <span></span><span></span>
+      </button>
     </div>
   </header>
 
-  <div class="sg-menu" id="sg-menu" data-menu hidden>
-    <div class="sg-wrap sg-menu-inner">
-      <nav class="sg-menu-nav" aria-label="Todas las páginas">
-        <ol>
-          <li><a class="sg-nav-link" href="index.html" aria-current="page"><span>01</span>Inicio</a></li>
-          <li><a class="sg-nav-link" href="nosotros.html"><span>02</span>Nosotros</a></li>
-          <li><a class="sg-nav-link" href="servicios.html"><span>03</span>Servicios</a></li>
-          <li><a class="sg-nav-link" href="webinars.html"><span>04</span>Webinars</a></li>
-          <li><a class="sg-nav-link" href="clientes.html"><span>05</span>Clientes</a></li>
-          <li><a class="sg-nav-link" href="testimonios.html"><span>06</span>Testimonios</a></li>
-          <li><a class="sg-nav-link" href="galeria.html"><span>07</span>Galería</a></li>
-          <li><a class="sg-nav-link" href="biblioteca.html"><span>08</span>Biblioteca</a></li>
-          <li><a class="sg-nav-link" href="contacto.html"><span>09</span>Contacto</a></li>
-        </ol>
-      </nav>
-      <div class="sg-menu-aside">
-        <p class="sg-eyebrow">Escríbenos</p>
-        <p><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></p>
-        <p><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></p>
-        <p class="sg-eyebrow">Visítanos</p>
-        <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
-        <ul class="sg-social">
-          <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
-          <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
-          <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
-          <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
-        </ul>
-      </div>
+  <div class="sg-movil" id="sg-movil" data-movil hidden>
+    <nav class="sg-movil-nav" aria-label="Menú">
+      <a class="sg-nav-link" href="index.html" aria-current="page">Inicio</a>
+      <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
+      <a class="sg-nav-link" href="servicios.html">Servicios</a>
+      <a class="sg-nav-link" href="webinars.html">Webinars</a>
+      <a class="sg-nav-link" href="biblioteca.html">Biblioteca</a>
+      <a class="sg-nav-link" href="boletines.html">Boletines</a>
+      <a class="sg-nav-link" href="clientes.html">Clientes</a>
+      <a class="sg-nav-link" href="galeria.html">Galería</a>
+      <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
+      <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
+    </nav>
+    <div class="sg-movil-pie">
+      <button class="sg-btn sg-btn--blanco" type="button" data-abrir-registro>Inscríbete gratis</button>
+      <p class="sg-mt">+593 96 909 4855 · info@sinergia.ec</p>
+      <p>Calle E8-A e Ismael Solís, Quito</p>
     </div>
   </div>
 
@@ -141,223 +144,172 @@
         <img class="sg-hero-base" src="images/portada/ejecutivo-1200.webp" srcset="images/portada/ejecutivo-1200.webp 1200w, images/portada/ejecutivo.webp 2400w" sizes="100vw" width="2400" height="1345" alt="" fetchpriority="high" decoding="async">
         <div class="sg-hero-tint"></div>
       </div>
-      <div class="sg-hero-shade"></div>
-      <p class="sg-hero-hint" aria-hidden="true">Mueve el cursor</p>
+      <div class="sg-hero-sombra"></div>
+      <p class="sg-hero-pista" aria-hidden="true">Mueve el cursor</p>
 
-      <div class="sg-wrap sg-hero-content">
-        <p class="sg-eyebrow" data-reveal="fade">Capacitación Empresarial Oportuna · Desde 2016</p>
-        <h1 class="sg-hero-title sg-lines" id="hero-titulo">
-          <span class="sg-line"><span>El éxito nace</span></span>
-          <span class="sg-line"><span>de la ambición</span></span>
-          <span class="sg-line"><span>y florece en la <em>Sinergia</em></span></span>
-        </h1>
-        <div class="sg-hero-foot">
-          <div data-reveal data-delay="0.5">
+      <div class="sg-wrap sg-hero-contenido">
+        <p class="sg-etiqueta" data-anim="entra">Capacitación Empresarial Oportuna · Quito, desde 2016</p>
+        <h1 class="sg-hero-titulo" id="hero-titulo" data-anim="lineas">El éxito nace de la ambición<br> y florece en la <em>Sinergia</em></h1>
+        <div class="sg-hero-pie">
+          <div data-anim="entra">
             <p class="sg-hero-lead">Formamos equipos más productivos y competitivos con capacitación práctica en gerencia, ventas, contabilidad, tributación y administración.</p>
-            <div class="sg-btn-row sg-mt">
-              <a class="sg-btn sg-btn--rojo" href="servicios.html">Ver servicios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-              <a class="sg-btn sg-btn--claro" href="https://wa.me/593969094855" data-wa>Escríbenos <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+            <div class="sg-btns">
+              <button class="sg-btn" type="button" data-abrir-registro>Inscríbete <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <a class="sg-btn sg-btn--linea" href="servicios.html">Nuestros servicios</a>
             </div>
           </div>
-          <a class="sg-scroll-cue" href="#quienes-somos">Descubre<span></span></a>
+          <div class="sg-hero-datos" data-anim="entra">
+            <p>Webinars · In company</p>
+            <p>Desliza ↓</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Áreas de capacitación en movimiento -->
-    <div class="sg-marquee" aria-label="Áreas de capacitación">
-      <div class="sg-marquee-track">
-        <span class="sg-marquee-word">Gerencia</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
-        <span class="sg-marquee-word">Ventas</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
-        <span class="sg-marquee-word">Contabilidad</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
-        <span class="sg-marquee-word">Tributación</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
-        <span class="sg-marquee-word">NIIF</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
-        <span class="sg-marquee-word">Administración</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+    <!-- Áreas en movimiento -->
+    <div class="sg-cinta" aria-label="Áreas de capacitación">
+      <div class="sg-cinta-pista">
+        <span class="sg-cinta-palabra">Gerencia</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
+        <span class="sg-cinta-palabra">Ventas</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
+        <span class="sg-cinta-palabra">Contabilidad</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
+        <span class="sg-cinta-palabra">Tributación</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
+        <span class="sg-cinta-palabra">NIIF</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
+        <span class="sg-cinta-palabra">Administración</span><img class="sg-cinta-simbolo" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465">
       </div>
     </div>
 
     <!-- Quiénes somos -->
-    <section class="sg-section" id="quienes-somos">
-      <div class="sg-wrap sg-split">
+    <section class="sg-seccion" id="quienes-somos">
+      <div class="sg-wrap sg-dos sg-dos--arriba">
         <div>
-          <p class="sg-eyebrow" data-reveal>Quiénes somos</p>
-          <h2 class="sg-h2 sg-lines">
-            <span class="sg-line"><span>Capacitación</span></span>
-            <span class="sg-line"><span>que <em>transforma</em></span></span>
-            <span class="sg-line"><span>empresas</span></span>
-          </h2>
-          <div data-reveal>
-            <p class="sg-lead">En Sinergia Capacitación Empresarial Oportuna estamos comprometidos en brindar capacitaciones empresariales de alta calidad en las áreas gerenciales, ventas, contabilidad, tributación y administración.</p>
-            <p>Nuestro equipo de expertos cuenta con años de experiencia en el campo empresarial y está dedicado a ayudar a nuestros clientes a alcanzar el éxito en sus negocios. Nos enorgullecemos de ofrecer un servicio personalizado y adaptado a las necesidades de cada cliente.</p>
-            <a class="sg-link" href="nosotros.html">Conoce más de nosotros <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          </div>
+          <p class="sg-etiqueta" data-anim="sube">Quiénes somos</p>
+          <h2 class="sg-display" data-anim="lineas">Capacitación que <em>transforma</em> empresas</h2>
         </div>
-        <figure class="sg-figure sg-figure--tall" data-reveal="mask">
-          <img src="images/portada/relojes-700.webp" srcset="images/portada/relojes-700.webp 700w, images/portada/relojes.webp 1400w" sizes="(max-width: 900px) 92vw, 46vw" width="1400" height="1285" alt="Dos relojes de arena sobre una mesa: el tiempo bien invertido" loading="lazy" decoding="async" data-parallax="0.08">
-        </figure>
+        <div data-anim="sube">
+          <p class="sg-lead">En Sinergia Capacitación Empresarial Oportuna estamos comprometidos en brindar capacitaciones empresariales de alta calidad en las áreas gerenciales, ventas, contabilidad, tributación y administración.</p>
+          <p>Nuestro equipo de expertos cuenta con años de experiencia en el campo empresarial y está dedicado a ayudar a nuestros clientes a alcanzar el éxito en sus negocios. Nos enorgullecemos de ofrecer un servicio personalizado y adaptado a las necesidades de cada cliente.</p>
+          <a class="sg-enlace" href="nosotros.html">Ver más <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
       </div>
     </section>
 
-    <!-- Cifras -->
-    <!-- PENDIENTE: si tienen los números reales de empresas asesoradas, personas capacitadas
-         y talleres realizados, se pueden agregar aquí con el mismo formato. -->
-    <section class="sg-section--tight sg-section--surface">
+    <!-- Foto grande que se abre al bajar -->
+    <div class="sg-abre" data-anim="abre">
+      <img src="images/nosotros/conferencia-900.webp" srcset="images/nosotros/conferencia-900.webp 900w, images/nosotros/conferencia.webp 2000w" sizes="100vw" width="2000" height="1025" alt="Auditorio lleno durante una conferencia de capacitación" loading="lazy">
+      <div class="sg-abre-texto">
+        <p>Hemos capacitado a altos ejecutivos y equipos de las empresas más importantes del <em>Ecuador</em>.</p>
+      </div>
+    </div>
+
+    <!-- Accesos (los botones de la portada anterior) -->
+    <section class="sg-seccion">
       <div class="sg-wrap">
-        <div class="sg-stats" data-reveal>
-          <div class="sg-stat"><span class="sg-stat-num" data-count="10" data-since="2016">10</span><span class="sg-stat-label">años capacitando desde 2016</span></div>
-          <div class="sg-stat"><span class="sg-stat-num" data-count="30" data-prefix="+">+30</span><span class="sg-stat-label">empresas e instituciones nos confían</span></div>
-          <div class="sg-stat"><span class="sg-stat-num" data-count="5">5</span><span class="sg-stat-label">áreas de especialización</span></div>
-          <div class="sg-stat"><span class="sg-stat-num" data-count="3">3</span><span class="sg-stat-label">modalidades: virtual, presencial y mixta</span></div>
+        <p class="sg-etiqueta" data-anim="sube">Explora Sinergia</p>
+        <h2 class="sg-display" data-anim="lineas">Todo para tu <em>crecimiento</em></h2>
+        <div class="sg-accesos sg-mt-lg" data-anim="grupo">
+          <a class="sg-acceso" href="webinars.html">
+            <img src="images/webinars/sesion-virtual-900.webp" srcset="images/webinars/sesion-virtual-900.webp 900w, images/webinars/sesion-virtual.webp 2000w" sizes="(max-width: 900px) 100vw, 50vw" width="2000" height="1333" alt="" loading="lazy">
+            <span class="sg-acceso-texto"><span><span class="sg-acceso-num">01</span><h3>Webinars</h3><p>Temas contables, financieros, laborales y tributarios por Zoom.</p></span><span class="sg-acceso-flecha"><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </a>
+          <a class="sg-acceso" href="servicios.html">
+            <img src="images/servicios/acuerdo-900.webp" srcset="images/servicios/acuerdo-900.webp 900w, images/servicios/acuerdo.webp 2000w" sizes="(max-width: 900px) 100vw, 50vw" width="2000" height="1125" alt="" loading="lazy">
+            <span class="sg-acceso-texto"><span><span class="sg-acceso-num">02</span><h3>Servicios</h3><p>Capacitación in company, auditoría y asesoría.</p></span><span class="sg-acceso-flecha"><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </a>
+          <a class="sg-acceso" href="biblioteca.html">
+            <img src="images/galeria/foto-15-640.webp" width="640" height="427" alt="" loading="lazy">
+            <span class="sg-acceso-texto"><span><span class="sg-acceso-num">03</span><h3>Biblioteca</h3><p>NIIF actualizadas y textos de interés.</p></span><span class="sg-acceso-flecha"><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </a>
+          <a class="sg-acceso" href="boletines.html">
+            <img src="images/galeria/foto-22-640.webp" width="640" height="360" alt="" loading="lazy">
+            <span class="sg-acceso-texto"><span><span class="sg-acceso-num">04</span><h3>Boletines</h3><p>Zona exclusiva para suscriptores.</p></span><span class="sg-acceso-flecha"><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </a>
+          <a class="sg-acceso" href="clientes.html">
+            <img src="images/galeria/foto-04-640.webp" width="640" height="476" alt="" loading="lazy">
+            <span class="sg-acceso-texto"><span><span class="sg-acceso-num">05</span><h3>Clientes</h3><p>Empresas, universidades e instituciones.</p></span><span class="sg-acceso-flecha"><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></span>
+          </a>
         </div>
       </div>
     </section>
 
-    <!-- Servicios: la columna izquierda queda fija mientras pasan las tarjetas -->
-    <section class="sg-section" aria-labelledby="servicios-titulo">
-      <div class="sg-wrap sg-pin" data-progress-scope>
-        <div class="sg-pin-side">
-          <p class="sg-eyebrow">Nuestros servicios</p>
-          <h2 class="sg-h2" id="servicios-titulo">Soluciones a la <em>medida</em> de su empresa</h2>
-          <p class="sg-lead">Ofrecemos una amplia gama de servicios de formación y asesoría diseñados para potenciar el desarrollo profesional y el crecimiento de su organización.</p>
-          <div class="sg-progress" aria-hidden="true"><span data-progress></span></div>
-          <a class="sg-btn" href="servicios.html">Ver todos los servicios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-        </div>
-        <div class="sg-cards">
-          <a class="sg-card" href="servicios.html#in-company" data-reveal><span class="sg-card-num">01</span><h3>Capacitación In Company – On Line</h3><p>Programas a la medida, presenciales en sus instalaciones, virtuales o mixtos.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#auditoria-tributaria-espejo" data-reveal><span class="sg-card-num">02</span><h3>Auditoría Tributaria Espejo</h3><p>Revisión preventiva de sus obligaciones tributarias antes de un control.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#reportes-ventas-credito" data-reveal><span class="sg-card-num">03</span><h3>Reportes de Ventas a Crédito</h3><p>Elaboración de los reportes que se presentan ante la Superintendencia.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#auditorias-externas" data-reveal><span class="sg-card-num">04</span><h3>Auditorías Externas</h3><p>Opinión independiente sobre sus estados financieros.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#estudios-actuariales" data-reveal><span class="sg-card-num">05</span><h3>Estudios Actuariales</h3><p>Provisiones de jubilación patronal y desahucio.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#busqueda-de-resultados" data-reveal><span class="sg-card-num">06</span><h3>Búsqueda de Resultados</h3><p>Metas e indicadores para medir y mejorar el desempeño.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#desarrollo-de-negocios" data-reveal><span class="sg-card-num">07</span><h3>Desarrollo de Negocios</h3><p>Oportunidades de crecimiento y planes comerciales.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-          <a class="sg-card" href="servicios.html#manual-politicas-contables" data-reveal><span class="sg-card-num">08</span><h3>Manual de Políticas y Procedimientos Contables</h3><p>Sus políticas contables documentadas bajo NIIF.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Accesos rápidos (los botones de la portada anterior) -->
-    <section class="sg-section sg-section--surface" aria-labelledby="explora-titulo">
+    <!-- Testimonios: tarjetas rojas con la foto al centro; al pasar el cursor se voltean -->
+    <section class="sg-seccion sg-seccion--blanca">
       <div class="sg-wrap">
-        <div class="sg-head">
-          <h2 class="sg-h2" id="explora-titulo" data-reveal>Explora <em>Sinergia</em></h2>
-          <p class="sg-lead" data-reveal>Webinars, servicios, material de consulta y las organizaciones que confían en nosotros.</p>
+        <h2 class="sg-titulo sg-titulo--centro" data-anim="sube">Testimonios</h2>
+        <div class="sg-testimonios sg-mt-lg">
+          <div class="sg-tarjeta" tabindex="0" role="button" aria-pressed="false" aria-label="Testimonio de la Dra. Alexandra Valle (voltear)">
+            <div class="sg-tarjeta-giro">
+              <div class="sg-tarjeta-cara">
+                <img class="sg-tarjeta-foto" src="images/testimonios/alexandra-valle.webp" alt="" width="195" height="195" loading="lazy">
+                <h3>Dra. Alexandra Valle</h3>
+                <p class="sg-tarjeta-cargo">Ex Decana de la Facultad de Contabilidad de la Universidad Técnica de Ambato</p>
+                <span class="sg-tarjeta-pista" aria-hidden="true">Ver testimonio</span>
+              </div>
+              <div class="sg-tarjeta-cara sg-tarjeta-cara--atras">
+                <blockquote>Me dirijo a usted a nombre de la Facultad de Contabilidad y Auditoría, para extenderle nuestro agradecimiento y felicitación por su acertada participación como ponente con la temática: “La implementación de las NIIF en el Ecuador y la revolución contable”.</blockquote>
+              </div>
+            </div>
+          </div>
+          <div class="sg-tarjeta" tabindex="0" role="button" aria-pressed="false" aria-label="Testimonio del Eco. Patricio Barrera (voltear)">
+            <div class="sg-tarjeta-giro">
+              <div class="sg-tarjeta-cara">
+                <img class="sg-tarjeta-foto" src="images/testimonios/patricio-barrera.webp" alt="" width="320" height="320" loading="lazy">
+                <h3>Eco. Patricio Barrera</h3>
+                <p class="sg-tarjeta-cargo">Ex Director Ejecutivo del Colegio de Contadores de Pichincha</p>
+                <span class="sg-tarjeta-pista" aria-hidden="true">Ver testimonio</span>
+              </div>
+              <div class="sg-tarjeta-cara sg-tarjeta-cara--atras">
+                <blockquote>Es instructor en los diferentes cursos que se programan en el Colegio de Contadores Públicos de Pichincha y del Ecuador, desde el año 2010 hasta la fecha. Durante este tiempo no hemos tenido ninguna queja acerca de los cursos y el servicio que nos proporciona.</blockquote>
+              </div>
+            </div>
+          </div>
+          <div class="sg-tarjeta" tabindex="0" role="button" aria-pressed="false" aria-label="Testimonio del CPA. Ernesto Mackliff (voltear)">
+            <div class="sg-tarjeta-giro">
+              <div class="sg-tarjeta-cara">
+                <img class="sg-tarjeta-foto" src="images/testimonios/ernesto-mackliff.webp" alt="" width="320" height="320" loading="lazy">
+                <h3>CPA. Ernesto Mackliff</h3>
+                <p class="sg-tarjeta-cargo">Ex Presidente del Colegio de Contadores Bachilleres y Públicos del Guayas</p>
+                <span class="sg-tarjeta-pista" aria-hidden="true">Ver testimonio</span>
+              </div>
+              <div class="sg-tarjeta-cara sg-tarjeta-cara--atras">
+                <blockquote>Carlos presta sus servicios profesionales en esta institución como capacitador desde el año 2015, en las Escuelas de Formación en NIIF y la Escuela de Expertos en Control Contable y Tributario, con toda solvencia.</blockquote>
+              </div>
+            </div>
+          </div>
         </div>
-        <ul class="sg-index" data-preview-list>
-          <li class="sg-index-item" data-reveal><a href="webinars.html" data-preview="images/galeria/foto-05-640.webp"><span class="sg-index-num">01</span><span class="sg-index-title">Webinars</span><span class="sg-index-desc"><span>Temas contables, financieros, laborales y tributarios por Zoom.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
-          <li class="sg-index-item" data-reveal><a href="servicios.html" data-preview="images/servicios/acuerdo-900.webp"><span class="sg-index-num">02</span><span class="sg-index-title">Servicios</span><span class="sg-index-desc"><span>Capacitación in company, auditoría y asesoría.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
-          <li class="sg-index-item" data-reveal><a href="biblioteca.html" data-preview="images/galeria/foto-15-640.webp"><span class="sg-index-num">03</span><span class="sg-index-title">Biblioteca</span><span class="sg-index-desc"><span>NIIF actualizadas y textos de interés.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
-          <li class="sg-index-item" data-reveal><a href="biblioteca.html#boletines" data-preview="images/galeria/foto-22-640.webp"><span class="sg-index-num">04</span><span class="sg-index-title">Boletines</span><span class="sg-index-desc"><span>Novedades contables y tributarias.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
-          <li class="sg-index-item" data-reveal><a href="clientes.html" data-preview="images/galeria/foto-04-640.webp"><span class="sg-index-num">05</span><span class="sg-index-title">Clientes</span><span class="sg-index-desc"><span>Empresas, universidades e instituciones.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
-        </ul>
+        <p class="sg-centro sg-mt-lg"><a class="sg-enlace" href="testimonios.html">Ver todos los testimonios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
       </div>
     </section>
 
-    <!-- Testimonios destacados -->
-    <section class="sg-section sg-section--dark" aria-labelledby="testimonios-titulo">
-      <div class="sg-wrap sg-slider" data-slider>
-        <div class="sg-head">
-          <div>
-            <p class="sg-eyebrow" data-reveal>Testimonios</p>
-            <h2 class="sg-h2" id="testimonios-titulo" data-reveal>Lo que dicen de <em>nosotros</em></h2>
-          </div>
-          <div class="sg-slider-nav">
-            <button type="button" data-prev aria-label="Testimonio anterior"><svg aria-hidden="true"><use href="#i-chev-left"/></svg></button>
-            <button type="button" data-next aria-label="Testimonio siguiente"><svg aria-hidden="true"><use href="#i-chev-right"/></svg></button>
-          </div>
-        </div>
-        <div class="sg-slider-track" tabindex="0" aria-label="Testimonios">
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>Excelente capacitador e instructor. Muy conocedor de la temática y con facilidad para transmitir y aplicar ese conocimiento.</blockquote>
-            <figcaption><img src="images/testimonios/pedro-herrera.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Pedro Herrera Vacas</strong><span>Gerente de Presupuesto, Mutualista Pichincha</span></div></figcaption>
-          </figure>
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>Es instructor en los diferentes cursos que se programan en el Colegio de Contadores Públicos de Pichincha y del Ecuador, desde el año 2010 hasta la fecha. Durante este tiempo no hemos tenido ninguna queja acerca de los cursos y el servicio que nos proporciona.</blockquote>
-            <figcaption><img src="images/testimonios/patricio-barrera.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Eco. Patricio Barrera</strong><span>Ex Director Ejecutivo del Colegio de Contadores de Pichincha</span></div></figcaption>
-          </figure>
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>La empresa Sinergia Capacitación Empresarial junto a Carlos Alfonso Ramírez Lafuente es uno de nuestros excelentes proveedores desde hace más de 3 años, lo que permite dar fe de honestidad y fiel cumplimiento de sus obligaciones y actividades comerciales.</blockquote>
-            <figcaption><img src="images/testimonios/victor-hugo-ramirez.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Víctor Hugo Ramírez</strong><span>Director de Great People Consulting</span></div></figcaption>
-          </figure>
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>Carlos presta sus servicios profesionales en esta institución como capacitador desde el año 2015, en las Escuelas de Formación en NIIF's y la Escuela de Expertos en Control Contable y Tributario, con toda solvencia.</blockquote>
-            <figcaption><img src="images/testimonios/ernesto-mackliff.webp" alt="" width="320" height="320" loading="lazy"><div><strong>CPA. Ernesto Mackliff</strong><span>Ex Presidente del Colegio de Contadores Bachilleres y Públicos del Guayas</span></div></figcaption>
-          </figure>
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>Excelente profesional. Gran conocimiento de normativas y siempre actualizado en el campo contable y financiero. Una gran persona, generosa para compartir conocimiento.</blockquote>
-            <figcaption><img src="images/testimonios/martin-ros.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Martín Ros Cabrera</strong><span>Ingeniero en Finanzas y Auditoría</span></div></figcaption>
-          </figure>
-          <figure class="sg-quote">
-            <svg aria-hidden="true"><use href="#i-quote"/></svg>
-            <blockquote>De los mejores profesores que tuve en mi carrera universitaria; claro, conciso y un gran aporte para cimentar bases sólidas que son ventajas competitivas cuando entras al mercado laboral.</blockquote>
-            <figcaption><img src="images/testimonios/diego-constante.webp" alt="" width="200" height="200" loading="lazy"><div><strong>Ing. Diego Constante Ortega</strong><span>Experto en Modelos de Planificación y Análisis</span></div></figcaption>
-          </figure>
-        </div>
-        <p class="sg-mt-lg"><a class="sg-link" href="testimonios.html">Ver todos los testimonios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
+    <!-- Fotos de nuestra trayectoria en movimiento -->
+    <section class="sg-seccion--corta" aria-label="Galería">
+      <div class="sg-wrap sg-dos sg-mb">
+        <h2 class="sg-display" data-anim="lineas">Nuestra <em>trayectoria</em></h2>
+        <p class="sg-lead" data-anim="sube">Talleres, cursos y graduaciones con profesionales de todo el país. <a class="sg-enlace" href="galeria.html">Ver la galería</a></p>
       </div>
-    </section>
-
-    <!-- Clientes en movimiento -->
-    <section class="sg-section" aria-labelledby="clientes-titulo">
-      <div class="sg-wrap">
-        <div class="sg-head">
-          <h2 class="sg-h2" id="clientes-titulo" data-reveal>Confían en <em>nosotros</em></h2>
-          <p class="sg-lead" data-reveal>Hemos capacitado a altos ejecutivos y equipos de empresas, universidades e instituciones importantes del Ecuador.</p>
+      <div class="sg-tira">
+        <div class="sg-cinta-pista">
+          <img src="images/galeria/foto-03-640.webp" alt="Graduación de un programa de capacitación" width="640" height="480" loading="lazy">
+          <img src="images/galeria/foto-14-640.webp" alt="Capacitador junto al banner de Sinergia" width="640" height="427" loading="lazy">
+          <img src="images/galeria/foto-26-640.webp" alt="Participantes en un aula de capacitación" width="640" height="480" loading="lazy">
+          <img src="images/galeria/foto-10-640.webp" alt="Conferencia en la Universidad de las Fuerzas Armadas ESPE" width="640" height="853" loading="lazy">
+          <img src="images/galeria/foto-06-640.webp" alt="Participantes con sus certificados" width="640" height="426" loading="lazy">
+          <img src="images/galeria/foto-23-640.webp" alt="Grupo de participantes en la entrada de una universidad" width="640" height="478" loading="lazy">
+          <img src="images/galeria/foto-15-640.webp" alt="Capacitador dictando un taller" width="640" height="427" loading="lazy">
+          <img src="images/galeria/foto-31-640.webp" alt="Participantes de un taller" width="640" height="480" loading="lazy">
         </div>
-      </div>
-      <div class="sg-logos-marquee">
-        <div class="sg-marquee" aria-label="Algunos de nuestros clientes">
-          <div class="sg-marquee-track">
-            <span class="sg-logo-tile"><img src="images/clientes/electrolux.webp" alt="Electrolux" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/husqvarna.webp" alt="Husqvarna" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/espe.webp" alt="Universidad de las Fuerzas Armadas ESPE" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/udla.webp" alt="Universidad de las Américas UDLA" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/uta.webp" alt="Universidad Técnica de Ambato" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/iaen.webp" alt="IAEN Universidad de Posgrado del Estado" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/russell-bedford.webp" alt="Russell Bedford" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/colegio-contadores-guayas.webp" alt="Colegio de Contadores Bachilleres y Públicos del Guayas" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/hotel-dann-carlton.webp" alt="Hotel Dann Carlton" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/umet.webp" alt="Universidad Metropolitana UMET" loading="lazy" width="360" height="360"></span>
-          </div>
-        </div>
-        <div class="sg-marquee sg-marquee--reverse" aria-label="Más clientes">
-          <div class="sg-marquee-track">
-            <span class="sg-logo-tile"><img src="images/clientes/great-people.webp" alt="Great People Consulting" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/ute.webp" alt="Universidad UTE" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/ccppe.webp" alt="CCPPE" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/lux.webp" alt="Lux" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/firmesa.webp" alt="Firmesa" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/tamprocorp.webp" alt="Tamprocorp S.A." loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/ecuaex.webp" alt="Ecuaex" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/adisban.webp" alt="Adisbán" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/zurita-zurita.webp" alt="Zurita &amp; Zurita Laboratorios" loading="lazy" width="360" height="360"></span>
-            <span class="sg-logo-tile"><img src="images/clientes/el-cordobes.webp" alt="El Cordobés" loading="lazy" width="360" height="360"></span>
-          </div>
-        </div>
-      </div>
-      <div class="sg-wrap sg-mt-lg">
-        <a class="sg-link" href="clientes.html">Ver todos los clientes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </section>
 
     <!-- Llamado final -->
-    <section class="sg-section sg-section--rojo sg-cta">
-      <img class="sg-cta-mark" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549" loading="lazy" data-parallax="0.1">
-      <div class="sg-wrap sg-cta-inner">
-        <h2 class="sg-h2 sg-lines">
-          <span class="sg-line"><span>Potencie</span></span>
-          <span class="sg-line"><span>a su equipo</span></span>
-        </h2>
-        <div data-reveal>
-          <p>Diseñamos un programa de capacitación a la medida de su empresa: usted elige el tema, las fechas, el horario y la modalidad.</p>
-          <div class="sg-btn-row">
-            <a class="sg-btn" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera una propuesta de capacitación para mi empresa.">Pedir una propuesta <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
-            <a class="sg-btn sg-btn--claro" href="contacto.html">Contacto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
-          </div>
+    <section class="sg-seccion sg-seccion--roja sg-llamado">
+      <img class="sg-llamado-simbolo" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549" loading="lazy" data-parallax="0.3">
+      <div class="sg-wrap">
+        <p class="sg-etiqueta" data-anim="sube">Inscripciones abiertas</p>
+        <h2 class="sg-display" data-anim="lineas">Impulsa a tu <em>equipo</em></h2>
+        <p data-anim="sube">Regístrate gratis para recibir el calendario de webinars, boletines y novedades, o pide una propuesta de capacitación a la medida de tu empresa.</p>
+        <div class="sg-btns" data-anim="sube">
+          <button class="sg-btn sg-btn--blanco" type="button" data-abrir-registro>Inscríbete <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <a class="sg-btn sg-btn--linea" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera una propuesta de capacitación para mi empresa.">Pedir propuesta <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
         </div>
       </div>
     </section>
@@ -366,46 +318,24 @@
 
   </main>
 
-  <footer class="sg-footer">
+  <footer class="sg-pie">
     <div class="sg-wrap">
-      <div class="sg-footer-cta">
-        <p class="sg-eyebrow">¿Hablamos?</p>
-        <a class="sg-footer-big" href="contacto.html">Capacitemos a tu equipo <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
-      </div>
-
-      <div class="sg-footer-grid">
-        <div class="sg-footer-brand">
-          <img src="images/marca/logo-blanco.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="1200" height="263" loading="lazy">
-          <p>Capacitación empresarial en gerencia, ventas, contabilidad, tributación y administración para el sector público y privado del Ecuador. Desde 2016.</p>
+      <div class="sg-pie-grid">
+        <div>
+          <h2>Contacto</h2>
+          <p>Teléfono: <a href="tel:+59322191187">(02) 219-1187</a></p>
+          <p>Celular: <a href="https://wa.me/593969094855" data-wa>+593 096-909-4855</a></p>
+          <p class="sg-pie-correos"><a href="mailto:info@sinergia.ec">info@sinergia.ec</a> -<br><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></p>
         </div>
 
-        <nav aria-label="Páginas">
-          <h2 class="sg-footer-title">Sinergia</h2>
-          <ul>
-            <li><a href="nosotros.html">Nosotros</a></li>
-            <li><a href="servicios.html">Servicios</a></li>
-            <li><a href="webinars.html">Webinars</a></li>
-            <li><a href="clientes.html">Clientes</a></li>
-            <li><a href="testimonios.html">Testimonios</a></li>
-            <li><a href="galeria.html">Galería</a></li>
-            <li><a href="biblioteca.html">Biblioteca</a></li>
-          </ul>
-        </nav>
+        <a href="index.html" class="sg-pie-centro" aria-label="Sinergia, inicio">
+          <img class="sg-pie-logo" src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy">
+        </a>
 
-        <div>
-          <h2 class="sg-footer-title">Contacto</h2>
-          <ul class="sg-footer-contact">
-            <li><a href="tel:+59322191187">(02) 219-1187</a></li>
-            <li><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></li>
-            <li><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></li>
-            <li><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></li>
-          </ul>
-        </div>
-
-        <div>
-          <h2 class="sg-footer-title">Dirección</h2>
+        <div class="sg-pie-der">
+          <h2>Dirección</h2>
           <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
-          <ul class="sg-social">
+          <ul class="sg-redes" aria-label="Redes sociales">
             <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
             <li><a href="https://www.instagram.com/sinergia._ec/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
             <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
@@ -414,17 +344,77 @@
         </div>
       </div>
 
-      <div class="sg-footer-bottom">
-        <p>© <span data-year>2026</span> Sinergia Capacitación Empresarial. Todos los derechos reservados.</p>
-        <p><a href="terminos.html">Términos y protección de datos</a> · Página web por Estéfano Ramírez</p>
+      <nav class="sg-pie-links" aria-label="Páginas">
+        <a href="nosotros.html">Nosotros</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="webinars.html">Webinars</a>
+        <a href="biblioteca.html">Biblioteca</a>
+        <a href="boletines.html">Boletines</a>
+        <a href="clientes.html">Clientes</a>
+        <a href="galeria.html">Galería</a>
+        <a href="testimonios.html">Testimonios</a>
+        <a href="contacto.html">Contáctanos</a>
+      </nav>
+
+      <div class="sg-pie-bajo">
+        <p>Todos los derechos reservados a Sinergia Capacitación Empresarial © <span data-anio>2026</span>.</p>
+        <p class="sg-pie-legal"><a href="privacidad.html">Privacidad y protección de datos</a><a href="terminos.html">Términos y condiciones</a><a href="cookies.html">Cookies</a></p>
+        <p>Página Web por Estéfano Ramírez</p>
       </div>
     </div>
   </footer>
 
-  <a class="sg-wa-float" href="https://wa.me/593969094855" data-wa aria-label="Escríbenos por WhatsApp">
+  <a class="sg-wa" href="https://wa.me/593969094855" data-wa aria-label="Escríbenos por WhatsApp">
     <svg aria-hidden="true"><use href="#i-wa"/></svg>
   </a>
 
+  <!-- Ventana de suscripción / inscripción. Se abre sola en la primera visita y con los botones "Inscríbete". -->
+  <dialog class="sg-modal" data-registro aria-labelledby="registro-titulo">
+    <div class="sg-modal-caja">
+      <div class="sg-modal-form">
+        <h2 id="registro-titulo">¡Inscríbete y recibe novedades!</h2>
+        <p>Regístrate gratis para inscribirte en nuestros cursos y webinars, recibir boletines y entrar a la zona de suscriptores.</p>
+        <form class="sg-form" data-form="registro" novalidate>
+          <div class="sg-campos">
+            <div class="sg-campo"><label for="r-nombre">Nombre *</label><input id="r-nombre" name="nombre" autocomplete="given-name" placeholder="Nombre" required maxlength="60"></div>
+            <div class="sg-campo"><label for="r-apellido">Apellido *</label><input id="r-apellido" name="apellido" autocomplete="family-name" placeholder="Apellido" required maxlength="60"></div>
+            <div class="sg-campo"><label for="r-email">Correo electrónico *</label><input id="r-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+            <div class="sg-campo"><label for="r-whatsapp">WhatsApp *</label><input id="r-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="09XXXXXXXX" required maxlength="20" pattern="[+0-9 ()-]{7,20}"></div>
+            <div class="sg-campo sg-campo--todo">
+              <label for="r-interes">Me interesa</label>
+              <select id="r-interes" name="interes">
+                <option>Webinars</option>
+                <option>Capacitación para mi empresa (In Company)</option>
+                <option>Boletines y novedades</option>
+                <option>Asesoría contable o tributaria</option>
+                <option>Otro tema</option>
+              </select>
+            </div>
+          </div>
+          <label class="sg-check"><input type="checkbox" name="novedades" value="si"> Quiero recibir boletines y novedades por WhatsApp y correo.</label>
+          <label class="sg-check"><input type="checkbox" name="acepto" value="si" required> Acepto la <a href="privacidad.html" target="_blank">Política de privacidad y protección de datos</a>. *</label>
+          <div class="sg-trampa" aria-hidden="true"><label>No llenar<input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
+          <button class="sg-btn" type="submit">Registrarse <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+          <p class="sg-estado" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+      <div class="sg-modal-lado">
+        <img class="sg-modal-lado-foto" src="images/nosotros/conferencia-900.webp" alt="" width="900" height="461" loading="lazy">
+        <img class="sg-modal-logo" src="images/marca/logo-blanco.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="1200" height="263" loading="lazy">
+      </div>
+      <button class="sg-modal-cerrar" type="button" data-cerrar-registro aria-label="Cerrar">✕</button>
+    </div>
+  </dialog>
+
+  <!-- Aviso de cookies: pequeño, en una esquina -->
+  <div class="sg-cookies" data-cookies role="region" aria-label="Aviso de cookies" hidden>
+    <p>Este sitio usa solo las cookies necesarias para funcionar y recordar tus preferencias. <a href="cookies.html">Política de cookies</a></p>
+    <button type="button" data-cookies-ok>Entendido</button>
+  </div>
+
+  <script src="js/vendor/gsap.min.js" defer></script>
+  <script src="js/vendor/ScrollTrigger.min.js" defer></script>
+  <script src="js/vendor/SplitText.min.js" defer></script>
   <script src="js/vendor/lenis.min.js" defer></script>
   <script src="js/sitio.js" defer></script>
   <script src="js/portada.js" defer></script>

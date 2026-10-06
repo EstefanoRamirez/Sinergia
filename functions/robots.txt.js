@@ -8,6 +8,7 @@ export function onRequestGet({ request }) {
     "User-agent: *",
     "Allow: /",
     "Disallow: /docs/",
+    "Disallow: /api/",
     "",
     `Sitemap: ${origen}/sitemap.xml`,
     ""

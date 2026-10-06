@@ -7,7 +7,7 @@
   <title>__TITLE__</title>
   <meta name="description" content="__DESC__">
   <meta name="author" content="Sinergia Capacitación Empresarial Oportuna">
-  <meta name="theme-color" content="#141112">
+  <meta name="theme-color" content="#bb0f17">
   <meta name="format-detection" content="telephone=no">
   <link rel="canonical" href="https://www.sinergia.ec__RUTA__">
   <meta property="og:type" content="website">
@@ -24,15 +24,19 @@
   <link rel="icon" href="images/marca/icono-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/marca/icono-180.png">
   <link rel="manifest" href="manifest.webmanifest">
-  <meta name="color-scheme" content="light dark">
   <script src="js/tema.js"></script>
-
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="fonts/cormorant-garamond-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 __CSS_EXTRA__
+  <link rel="stylesheet" href="css/fuentes.css">
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/sinergia.css">
 </head>
 
-<body data-page="__PAGE__">
+<body data-page="__PAGE__"__BODY_CLASS__>
+  <!-- Pantalla de carga (primera visita) y cortina entre páginas -->
+  <div class="sg-carga" aria-hidden="true">
+    <div class="sg-carga-logo"><img src="images/marca/logo-blanco.webp" alt="" width="1200" height="263"></div>
+    <p class="sg-carga-num" data-carga-num>000</p>
+  </div>
+  <div class="sg-cortina" aria-hidden="true"><img src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"></div>

@@ -1,11 +1,14 @@
 {
   "version": 1,
   "include": [
+    "/api/*",
     "/sitemap.xml",
     "/robots.txt",
     "/docs/*",
     "/functions/*",
+    "/lib/*",
     "/plantillas/*",
+    "/boletines-privados/*",
     "/originales/*",
     "/README.md",
     "/readme.md",

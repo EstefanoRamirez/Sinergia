@@ -1,21 +1,24 @@
-// Aplica el tema claro u oscuro antes de dibujar la página (evita un destello blanco).
-// Se carga en el <head> de todas las páginas.
+// Se carga en el <head> de todas las páginas, antes de dibujar nada.
+// 1) Marca que hay JavaScript (para preparar animaciones sin esconder contenido si algo falla).
+// 2) Muestra la pantalla de carga roja solo la primera vez en la sesión; si no, una cortina breve.
+// 3) Página 404 en una dirección profunda: fija la base "/" para que carguen estilos y fotos.
 (function () {
-  var d = document.documentElement, t;
+  var d = document.documentElement;
 
-  // Página 404 en una dirección profunda (por ejemplo /a/b/c): los estilos, fotos y enlaces
-  // deben buscarse desde la raíz del sitio. Solo aplica con la web publicada (http/https).
   if (d.getAttribute("data-pagina") === "404" && /^https?:$/.test(location.protocol) && !document.querySelector("base")) {
     var base = document.createElement("base");
     base.href = "/";
     document.head.appendChild(base);
   }
 
-  if (d.classList.contains("js")) return; // ya se ejecutó
+  if (d.classList.contains("js")) return;
   d.classList.add("js");
-  try { t = localStorage.getItem("sinergia-tema"); } catch (e) {}
-  if (t !== "dark" && t !== "light") {
-    t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-  }
-  d.setAttribute("data-theme", t);
+
+  var calma = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var visto = false;
+  try { visto = sessionStorage.getItem("sg-cargado") === "1"; } catch (e) {}
+  if (!calma) d.classList.add(visto ? "sg-cortina-on" : "sg-carga-on");
+
+  // Seguro: si por algo no corre el resto del sitio, la pantalla de carga se quita sola.
+  setTimeout(function () { d.classList.remove("sg-carga-on", "sg-cortina-on"); }, 5000);
 })();

@@ -49,6 +49,8 @@ for f in plantillas/paginas/*.html; do
 
     $head =~ s/__TITLE__/$t/g; $head =~ s/__DESC__/$d/g; $head =~ s/__PAGE__/$pg/g; $head =~ s/__RUTA__/$ruta/g;
     $head =~ s/__CSS_EXTRA__\n/$precarga/;
+    my $claseBody = $pg eq "404" ? q{ class="sg-sin-portada"} : "";
+    $head =~ s/__BODY_CLASS__/$claseBody/;
     $footer =~ s/__JS_EXTRA__\n/$jsExtra/;
     $head =~ s/<!DOCTYPE html>\n/<!DOCTYPE html>\n<!--\n  PÁGINA: $nota\n  Archivo generado: $file (no editar aquí; editar plantillas\/paginas\/$file y ejecutar: bash plantillas\/armar-paginas.sh)\n  Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".\n-->\n/;
 
@@ -60,6 +62,7 @@ for f in plantillas/paginas/*.html; do
 
     # Marca la página actual en el menú
     $html =~ s{(<a class="sg-nav-link" href="\Q$file\E")}{$1 aria-current="page"}g;
+    $html =~ s{(<a href="\Q$file\E")(>[^<]+</a>\n\s*(?:<a|</div>))}{$1 aria-current="page"$2}g;
 
     # La página 404 se muestra en cualquier dirección que no exista (incluso /a/b/c).
     # Sus enlaces quedan relativos (así también se ve bien abriéndola en la computadora),
