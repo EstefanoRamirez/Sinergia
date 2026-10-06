@@ -1,0 +1,23 @@
+{
+  "version": 1,
+  "include": [
+    "/api/*",
+    "/producto",
+    "/producto.html",
+    "/tienda",
+    "/tienda.html",
+    "/catalogo",
+    "/catalogo.html",
+    "/sitemap.xml",
+    "/robots.txt",
+    "/docs/*",
+    "/functions/*",
+    "/plantillas/*",
+    "/originales/*",
+    "/README.md",
+    "/readme.md",
+    "/.gitignore",
+    "/.git/*"
+  ],
+  "exclude": []
+}

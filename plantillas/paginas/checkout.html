@@ -1,0 +1,118 @@
+Finalizar compra · Colchones Medicol|Completa tus datos de entrega y pago para confirmar tu pedido en Colchones Medicol.|checkout|FINALIZAR COMPRA (checkout) — Datos del cliente, entrega, forma de pago y confirmación por WhatsApp.
+    <section class="mc-page-hero">
+      <div class="container">
+        <h1 class="mc-title">Finalizar compra</h1>
+        <ol class="mc-crumbs">
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="carrito.html">Carrito</a></li>
+          <li>Finalizar compra</li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="mc-section">
+      <div class="container">
+        <div class="mc-checkout" id="mc-checkout">
+          <form class="mc-form" id="mc-checkout-form" novalidate>
+            <div class="mc-hp" aria-hidden="true">
+              <label for="f-web">No llenar este campo</label>
+              <input id="f-web" name="web" type="text" tabindex="-1" autocomplete="off">
+            </div>
+            <fieldset>
+              <legend>1. Tus datos</legend>
+              <div class="mc-fields">
+                <div class="mc-field mc-field-full">
+                  <label for="f-nombre">Nombre y apellido *</label>
+                  <input id="f-nombre" name="nombre" type="text" autocomplete="name" required>
+                  <p class="mc-field-error">Escribe tu nombre.</p>
+                </div>
+                <div class="mc-field">
+                  <label for="f-telefono">Celular / WhatsApp *</label>
+                  <input id="f-telefono" name="telefono" type="tel" autocomplete="tel" inputmode="tel" pattern="[0-9+ ]{7,15}" placeholder="09xxxxxxxx" required>
+                  <p class="mc-field-error">Escribe un número válido.</p>
+                </div>
+                <div class="mc-field">
+                  <label for="f-email">Correo (opcional)</label>
+                  <input id="f-email" name="email" type="email" autocomplete="email">
+                  <p class="mc-field-error">Revisa el correo.</p>
+                </div>
+                <div class="mc-field mc-field-full">
+                  <label for="f-cedula">Cédula o RUC para factura (opcional)</label>
+                  <input id="f-cedula" name="cedula" type="text" inputmode="numeric" pattern="[0-9]{10,13}">
+                  <p class="mc-field-error">La cédula tiene 10 dígitos y el RUC 13.</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>2. Entrega</legend>
+              <div class="mc-choice">
+                <label>
+                  <input type="radio" name="entrega" value="domicilio" checked>
+                  <strong>Envío a domicilio</strong>
+                  <small>Dentro de Quito, en menos de 5 días. El costo de envío se confirma por WhatsApp.</small>
+                </label>
+                <label>
+                  <input type="radio" name="entrega" value="retiro">
+                  <strong>Retiro en tienda</strong>
+                  <small>Te avisamos por WhatsApp cuando tu pedido esté listo.</small>
+                </label>
+              </div>
+              <div class="mc-fields mt-4" id="mc-address-fields">
+                <div class="mc-field">
+                  <label for="f-ciudad">Ciudad *</label>
+                  <input id="f-ciudad" name="ciudad" type="text" value="Quito" autocomplete="address-level2" data-required required>
+                  <p class="mc-field-error">Escribe tu ciudad.</p>
+                </div>
+                <div class="mc-field">
+                  <label for="f-sector">Sector o barrio *</label>
+                  <input id="f-sector" name="sector" type="text" placeholder="Ej.: La Carolina" data-required required>
+                  <p class="mc-field-error">Escribe tu sector o barrio.</p>
+                </div>
+                <div class="mc-field mc-field-full">
+                  <label for="f-direccion">Dirección *</label>
+                  <input id="f-direccion" name="direccion" type="text" autocomplete="street-address" placeholder="Calle principal, número y calle secundaria" data-required required>
+                  <p class="mc-field-error">Escribe tu dirección.</p>
+                </div>
+                <div class="mc-field mc-field-full">
+                  <label for="f-referencia">Referencia *</label>
+                  <input id="f-referencia" name="referencia" type="text" minlength="5" placeholder="Ej.: Conjunto Los Álamos, casa 12, frente al parque" data-required required>
+                  <p class="mc-field-error">Escribe una referencia para ubicarte (conjunto, edificio, frente a...).</p>
+                </div>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>3. Forma de pago</legend>
+              <div class="mc-choice">
+                <label>
+                  <input type="radio" name="pago" value="transferencia" checked>
+                  <strong>Transferencia bancaria</strong>
+                  <small>Te enviamos los datos de la cuenta por WhatsApp al confirmar el pedido.</small>
+                </label>
+                <label>
+                  <input type="radio" name="pago" value="efectivo">
+                  <strong>Efectivo contra entrega</strong>
+                  <small>Pagas al recibir tu pedido o al retirarlo en tienda.</small>
+                </label>
+                <label>
+                  <input type="radio" name="pago" value="tarjeta">
+                  <strong>Tarjeta de crédito o débito</strong>
+                  <small>Te enviamos un link de pago seguro por WhatsApp.</small>
+                </label>
+              </div>
+            </fieldset>
+
+            <fieldset>
+              <legend>4. Notas (opcional)</legend>
+              <div class="mc-field">
+                <label for="f-notas" class="visually-hidden">Notas del pedido</label>
+                <textarea id="f-notas" name="notas" placeholder="Indicaciones para la entrega, horario preferido, etc."></textarea>
+              </div>
+            </fieldset>
+          </form>
+
+          <aside class="mc-summary" id="mc-checkout-summary" aria-label="Resumen del pedido"></aside>
+        </div>
+      </div>
+    </section>
