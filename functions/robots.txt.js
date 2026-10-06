@@ -7,9 +7,6 @@ export function onRequestGet({ request }) {
   const texto = [
     "User-agent: *",
     "Allow: /",
-    "Disallow: /carrito",
-    "Disallow: /checkout",
-    "Disallow: /api/",
     "Disallow: /docs/",
     "",
     `Sitemap: ${origen}/sitemap.xml`,

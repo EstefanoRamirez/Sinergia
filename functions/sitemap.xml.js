@@ -1,35 +1,27 @@
 /*
   GET /sitemap.xml — lista de páginas para Google.
-  Se arma sola con js/productos.js: al agregar un producto, aparece aquí sin hacer nada más.
+  Si agregas una página nueva en plantillas/paginas/, súmala aquí.
 */
 
 const PAGINAS = [
-  ["/", "1.0", "weekly"],
-  ["/tienda", "0.9", "weekly"],
-  ["/catalogo", "0.8", "monthly"],
-  ["/nosotros", "0.5", "yearly"],
-  ["/contacto", "0.5", "yearly"],
-  ["/envios", "0.4", "yearly"],
-  ["/privacidad", "0.2", "yearly"]
+  ["/", "1.0", "monthly"],
+  ["/servicios", "0.9", "monthly"],
+  ["/webinars", "0.9", "weekly"],
+  ["/nosotros", "0.8", "yearly"],
+  ["/clientes", "0.7", "monthly"],
+  ["/testimonios", "0.7", "monthly"],
+  ["/galeria", "0.6", "monthly"],
+  ["/biblioteca", "0.6", "monthly"],
+  ["/contacto", "0.8", "yearly"],
+  ["/terminos", "0.2", "yearly"]
 ];
 
-export async function onRequestGet({ request, env }) {
+export function onRequestGet({ request }) {
   const origen = new URL(request.url).origin;
-  const res = await env.ASSETS.fetch(new URL("/js/productos.js", request.url));
-  const src = await res.text();
-  const catalogo = JSON.parse(src.slice(src.indexOf("{", src.indexOf("window.MEDICOL")), src.lastIndexOf("}") + 1));
-
-  const urls = PAGINAS.map(([ruta, prioridad, frecuencia]) => ({ loc: origen + ruta, prioridad, frecuencia }))
-    .concat(Object.keys(catalogo.categorias).map((cat) => ({
-      loc: `${origen}/tienda?cat=${cat}`, prioridad: "0.8", frecuencia: "weekly"
-    })))
-    .concat(catalogo.productos.map((p) => ({
-      loc: `${origen}/producto?id=${encodeURIComponent(p.id)}`, prioridad: p.destacado ? "0.8" : "0.7", frecuencia: "monthly"
-    })));
-
   const xml = '<?xml version="1.0" encoding="UTF-8"?>\n' +
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-    urls.map((u) => `  <url><loc>${u.loc.replace(/&/g, "&amp;")}</loc><changefreq>${u.frecuencia}</changefreq><priority>${u.prioridad}</priority></url>`).join("\n") +
+    PAGINAS.map(([ruta, prioridad, frecuencia]) =>
+      `  <url><loc>${origen}${ruta}</loc><changefreq>${frecuencia}</changefreq><priority>${prioridad}</priority></url>`).join("\n") +
     "\n</urlset>\n";
 
   return new Response(xml, {

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  PÁGINA: INICIO — Página principal: banner, categorías, oferta de mascotas, destacados, promoción de cojines y testimonios.
+  PÁGINA: INICIO — Portada con máscara líquida, áreas, quiénes somos, cifras, servicios, accesos, testimonios y clientes.
   Archivo generado: index.html (no editar aquí; editar plantillas/paginas/index.html y ejecutar: bash plantillas/armar-paginas.sh)
   Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".
 -->
@@ -9,22 +9,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Inicio · Colchones Medicol | Colchones para mascotas, ortopédicos y hospitalarios en Quito</title>
-  <meta name="description" content="Colchones para mascotas, colchones ortopédicos y hospitalarios, y cojines terapéuticos. Más de 28 años en Ecuador. Envíos en Quito y retiro en tienda.">
-  <meta name="author" content="Colchones Medicol">
-  <meta name="theme-color" content="#1A2530">
+  <title>Sinergia · Capacitación Empresarial Oportuna en Quito, Ecuador</title>
+  <meta name="description" content="Capacitación empresarial in company y online en gerencia, ventas, contabilidad, tributación, NIIF y administración para empresas del sector público y privado del Ecuador. Desde 2016.">
+  <meta name="author" content="Sinergia Capacitación Empresarial Oportuna">
+  <meta name="theme-color" content="#141112">
   <meta name="format-detection" content="telephone=no">
+  <link rel="canonical" href="https://www.sinergia.ec/">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_EC">
-  <meta property="og:site_name" content="Colchones Medicol">
-  <meta property="og:title" content="Inicio · Colchones Medicol | Colchones para mascotas, ortopédicos y hospitalarios en Quito">
-  <meta property="og:description" content="Colchones para mascotas, colchones ortopédicos y hospitalarios, y cojines terapéuticos. Más de 28 años en Ecuador. Envíos en Quito y retiro en tienda.">
-  <meta property="og:image" content="https://www.colchonesmedicol.com/images/marca/compartir.jpg">
+  <meta property="og:site_name" content="Sinergia Capacitación Empresarial">
+  <meta property="og:title" content="Sinergia · Capacitación Empresarial Oportuna en Quito, Ecuador">
+  <meta property="og:description" content="Capacitación empresarial in company y online en gerencia, ventas, contabilidad, tributación, NIIF y administración para empresas del sector público y privado del Ecuador. Desde 2016.">
+  <meta property="og:url" content="https://www.sinergia.ec/">
+  <meta property="og:image" content="https://www.sinergia.ec/images/marca/compartir.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Colchones Medicol: colchones hospitalarios, cojines y colchones para mascotas en Quito">
+  <meta property="og:image:alt" content="Sinergia Capacitación Empresarial Oportuna, Quito, Ecuador">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="images/marca/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="images/marca/icono-32.png" type="image/png" sizes="32x32">
   <link rel="apple-touch-icon" href="images/marca/icono-180.png">
   <link rel="manifest" href="manifest.webmanifest">
@@ -33,363 +34,331 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&text=MEDICOL&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,300..800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="images/portada/ejecutivo-1200.webp" imagesrcset="images/portada/ejecutivo-1200.webp 1200w, images/portada/ejecutivo.webp 2400w" imagesizes="100vw" fetchpriority="high">
   <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/bootstrap-base.css">
-  <link rel="stylesheet" href="css/vendor/swiper-bundle.min.css">
-  <link rel="preload" as="image" href="images/ambiente/perro-en-cama.webp" fetchpriority="high">
-  <link rel="stylesheet" href="css/base.css">
-  <link rel="stylesheet" href="css/medicol.css">
+  <link rel="stylesheet" href="css/sinergia.css">
 </head>
 
 <body data-page="inicio">
-  <svg xmlns="http://www.w3.org/2000/svg" class="mc-sprite" aria-hidden="true" focusable="false">
-    <symbol id="mc-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
-    <symbol id="i-cart" viewBox="0 0 24 24"><path d="M3 4h2.2l2.3 10.3c.1.4.5.7.9.7h8.9c.4 0 .8-.3.9-.7L20 7.5H6"/><circle cx="9.5" cy="19" r="1.4"/><circle cx="17" cy="19" r="1.4"/></symbol>
-    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></symbol>
-    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M20 12H4M10 6l-6 6 6 6"/></symbol>
-    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
-    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M12 20s-7.5-4.6-7.5-10.2A4.2 4.2 0 0 1 12 7.3a4.2 4.2 0 0 1 7.5 2.5C19.5 15.4 12 20 12 20z"/></symbol>
+  <svg xmlns="http://www.w3.org/2000/svg" class="sg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-wa" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h16M14 6l6 6-6 6"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M7 17 17 7M8 7h9v9"/></symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 6.5 8.5 6.5 8.5-6.5"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M5 3.5h3.2l1.6 4.2-2.1 1.4a11.5 11.5 0 0 0 7.2 7.2l1.4-2.1 4.2 1.6V19a1.6 1.6 0 0 1-1.7 1.6A16.3 16.3 0 0 1 3.4 5.2 1.6 1.6 0 0 1 5 3.5z"/></symbol>
     <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21.5s-6.5-5.9-6.5-11.5a6.5 6.5 0 0 1 13 0c0 5.6-6.5 11.5-6.5 11.5z"/><circle cx="12" cy="10" r="2.3"/></symbol>
-    <symbol id="i-package" viewBox="0 0 24 24"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5z"/><path d="m4 7.5 8 4.5 8-4.5M12 12v9"/></symbol>
-    <symbol id="i-quote" viewBox="0 0 24 24"><path d="M4 18c0-4.6 1.7-8.4 5.6-10.6l.9 1.5C8.3 10.3 7.5 12.1 7.4 13.6H10V18zm9 0c0-4.6 1.7-8.4 5.6-10.6l.9 1.5c-2.2 1.4-3 3.2-3.1 4.7H19V18z"/></symbol>
-    <symbol id="i-send" viewBox="0 0 24 24"><path d="M21 3 3 10.4l7.2 2.4L12.6 20z"/><path d="M21 3 10.2 12.8"/></symbol>
-    <symbol id="i-truck" viewBox="0 0 24 24"><path d="M2 6h12v10H2zM14 9.5h4l3 3.5V16h-7"/><circle cx="6" cy="18" r="1.8"/><circle cx="17.5" cy="18" r="1.8"/></symbol>
-    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.7 5.6 6.1.8-4.5 4.2 1.1 6.1L12 16.8l-5.4 2.9 1.1-6.1-4.5-4.2 6.1-.8z"/></symbol>
-    <symbol id="i-store" viewBox="0 0 24 24"><path d="M3.5 9 5 4h14l1.5 5zM5 9v11h14V9M10 20v-5.5h4V20"/></symbol>
-    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/></symbol>
-    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
-    <symbol id="mc-wave" viewBox="0 0 160 22"><path d="M4 12C38 1 70 20 104 10c18-5 34-6 52-2-20-1-34 3-52 9C70 28 40 12 4 12Z" fill="#4E86B8"/><path d="M26 18c28-8 52 6 80-2 14-4 28-5 44-2-16 0-28 4-44 8-28 7-52-6-80-4Z" fill="#8DB4D6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+    <symbol id="i-video" viewBox="0 0 24 24"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m4.5 12.5 5 5 10-11"/></symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-chev-left" viewBox="0 0 24 24"><path d="m15 5-7 7 7 7"/></symbol>
+    <symbol id="i-chev-right" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v15H6.5A2.5 2.5 0 0 0 4 20.5zM4 20.5A2.5 2.5 0 0 0 6.5 23H20v-5"/></symbol>
+    <symbol id="i-doc" viewBox="0 0 24 24"><path d="M6 2.5h8l5 5v14H6z"/><path d="M14 2.5v5h5M9 13h7M9 17h7"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></symbol>
+    <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 9.5 12 4l9 5.5zM5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20.5h18"/></symbol>
+    <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M17 20h4M20 17v3"/></symbol>
+    <symbol id="i-quote" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4 18c0-4.6 1.7-8.4 5.6-10.6l.9 1.5C8.3 10.3 7.5 12.1 7.4 13.6H10V18zm9 0c0-4.6 1.7-8.4 5.6-10.6l.9 1.5c-2.2 1.4-3 3.2-3.1 4.7H19V18z"/></symbol>
+    <symbol id="i-facebook" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M13.5 21.5v-7.6h2.6l.4-3h-3V9c0-.9.3-1.5 1.5-1.5h1.6V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.2H7.8v3h2.6v7.6z"/></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/></symbol>
+    <symbol id="i-linkedin" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M4.5 3a2 2 0 1 1 0 4 2 2 0 0 1 0-4zM3 8.8h3.1V21H3zM9 8.8h3v1.7c.5-.9 1.7-2 3.6-2 3.8 0 4.5 2.5 4.5 5.8V21H17v-6c0-1.4 0-3.3-2-3.3s-2.4 1.6-2.4 3.2V21H9z"/></symbol>
+    <symbol id="i-youtube" viewBox="0 0 24 24"><path fill="currentColor" stroke="none" d="M22 8.2a3 3 0 0 0-2.1-2.1C18 5.6 12 5.6 12 5.6s-6 0-7.9.5A3 3 0 0 0 2 8.2 31 31 0 0 0 1.6 12c0 1.3.1 2.5.4 3.8a3 3 0 0 0 2.1 2.1c1.9.5 7.9.5 7.9.5s6 0 7.9-.5a3 3 0 0 0 2.1-2.1c.3-1.3.4-2.5.4-3.8s-.1-2.5-.4-3.8zM10 15.2V8.8l5.2 3.2z"/></symbol>
   </svg>
 
-  <a class="mc-skip" href="#contenido">Saltar al contenido</a>
+  <a class="sg-skip" href="#contenido">Saltar al contenido</a>
 
-  <div class="mc-topbar">
-    <div class="container mc-topbar-inner">
-      <p><strong>Promo mascotas</strong> · El 2do colchón a mitad de precio</p>
-      <p>Envíos en Quito en menos de 5 días · Retiro en tienda</p>
-      <a href="#" data-wa><svg class="mc-ico" aria-hidden="true"><use href="#mc-wa"/></svg> 099 880 4606</a>
-    </div>
-  </div>
-
-  <header class="mc-header">
-    <div class="container mc-header-inner">
-      <button class="mc-burger" type="button" aria-controls="mc-nav" aria-expanded="false" aria-label="Abrir menú">
-        <span></span><span></span><span></span>
-      </button>
-
-      <a class="mc-logo" href="index.html" aria-label="Colchones Medicol, inicio">
-        <span class="mc-logo-text">MEDICOL</span>
-        <svg class="mc-logo-wave" aria-hidden="true"><use href="#mc-wave"/></svg>
+  <header class="sg-header" data-header>
+    <div class="sg-wrap sg-header-inner">
+      <a class="sg-logo" href="index.html" aria-label="Sinergia Capacitación Empresarial Oportuna, inicio">
+        <img src="images/marca/simbolo-rojo.webp" alt="" width="40" height="37" class="sg-logo-mark">
+        <span class="sg-logo-text">
+          <span class="sg-logo-name">SINERGIA</span>
+          <span class="sg-logo-tag">Capacitación Empresarial Oportuna</span>
+        </span>
       </a>
 
-      <form class="mc-search" action="tienda.html" method="get" role="search">
-        <input type="search" name="q" id="mc-search-input" placeholder="Buscar colchones, cojines..." aria-label="Buscar productos">
-        <button type="submit" aria-label="Buscar"><svg class="icon" aria-hidden="true"><use href="#i-search"></use></svg></button>
-      </form>
+      <nav class="sg-nav" aria-label="Principal">
+        <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
+        <a class="sg-nav-link" href="servicios.html">Servicios</a>
+        <a class="sg-nav-link" href="webinars.html">Webinars</a>
+        <a class="sg-nav-link" href="clientes.html">Clientes</a>
+        <a class="sg-nav-link" href="contacto.html">Contacto</a>
+      </nav>
 
-      <div class="mc-actions">
-        <button class="mc-theme" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro" title="Cambiar tema">
-          <svg class="mc-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-          <svg class="mc-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
+      <div class="sg-header-actions">
+        <button class="sg-icon-btn" type="button" data-theme-toggle aria-label="Cambiar a modo oscuro" title="Cambiar tema">
+          <svg class="sg-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="sg-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>
         </button>
-        <a class="mc-action mc-action-wa" href="#" data-wa><svg class="mc-ico" aria-hidden="true"><use href="#mc-wa"/></svg> <span class="mc-action-label">WhatsApp</span></a>
-        <a class="mc-action mc-cart" href="carrito.html" data-cart-label aria-label="Carrito">
-          <svg class="icon" aria-hidden="true"><use href="#i-cart"></use></svg>
-          <span class="mc-cart-count" data-cart-count data-count="0">0</span>
-          <span class="mc-action-label">Carrito</span>
-        </a>
+        <button class="sg-menu-btn" type="button" aria-controls="sg-menu" aria-expanded="false" data-menu-toggle>
+          <span class="sg-menu-btn-label">Menú</span>
+          <span class="sg-menu-btn-lines" aria-hidden="true"><span></span><span></span></span>
+        </button>
       </div>
     </div>
+  </header>
 
-    <nav class="mc-nav" id="mc-nav" aria-label="Principal">
-      <div class="container">
-        <ul>
-          <li><a href="index.html">Inicio</a></li>
-          <li class="mc-has-sub">
-            <a href="tienda.html" class="mc-sub-toggle" aria-haspopup="true" aria-expanded="false">Tienda <svg class="mc-caret" viewBox="0 0 12 12" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg></a>
-            <ul class="mc-sub">
-              <li><a href="tienda.html">Ver todos los productos</a></li>
-              <li><a href="tienda.html?cat=colchones">Colchones hospitalarios</a></li>
-              <li><a href="tienda.html?cat=cojines">Cojines y accesorios</a></li>
-              <li><a href="tienda.html?cat=mascotas">Mascotas</a></li>
-              <li><a href="tienda.html?cat=promociones">Promociones</a></li>
-            </ul>
-          </li>
-          <li><a href="tienda.html?cat=mascotas" class="mc-nav-hot">Mascotas <span>Promo</span></a></li>
-          <li><a href="tienda.html?cat=promociones">Promociones</a></li>
-          <li><a href="catalogo.html">Catálogo</a></li>
-          <li><a href="nosotros.html">Nosotros</a></li>
-          <li><a href="contacto.html">Contacto</a></li>
+  <div class="sg-menu" id="sg-menu" data-menu hidden>
+    <div class="sg-wrap sg-menu-inner">
+      <nav class="sg-menu-nav" aria-label="Todas las páginas">
+        <ol>
+          <li><a class="sg-nav-link" href="index.html" aria-current="page"><span>01</span>Inicio</a></li>
+          <li><a class="sg-nav-link" href="nosotros.html"><span>02</span>Nosotros</a></li>
+          <li><a class="sg-nav-link" href="servicios.html"><span>03</span>Servicios</a></li>
+          <li><a class="sg-nav-link" href="webinars.html"><span>04</span>Webinars</a></li>
+          <li><a class="sg-nav-link" href="clientes.html"><span>05</span>Clientes</a></li>
+          <li><a class="sg-nav-link" href="testimonios.html"><span>06</span>Testimonios</a></li>
+          <li><a class="sg-nav-link" href="galeria.html"><span>07</span>Galería</a></li>
+          <li><a class="sg-nav-link" href="biblioteca.html"><span>08</span>Biblioteca</a></li>
+          <li><a class="sg-nav-link" href="contacto.html"><span>09</span>Contacto</a></li>
+        </ol>
+      </nav>
+      <div class="sg-menu-aside">
+        <p class="sg-eyebrow">Escríbenos</p>
+        <p><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></p>
+        <p><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></p>
+        <p class="sg-eyebrow">Visítanos</p>
+        <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
+        <ul class="sg-social">
+          <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+          <li><a href="https://www.instagram.com/sinergiacapacitaciones2016/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+          <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+          <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
         </ul>
       </div>
-    </nav>
-  </header>
+    </div>
+  </div>
 
   <main id="contenido">
 
     <!-- ================= INICIO DEL CONTENIDO: INICIO ================= -->
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Store",
-      "name": "Colchones Medicol",
-      "slogan": "Donde la salud descansa mejor",
-      "description": "Colchones hospitalarios, cojines terapéuticos y colchones para mascotas. Más de 28 años sirviendo al Ecuador.",
-      "url": "https://www.colchonesmedicol.com/",
-      "logo": "https://www.colchonesmedicol.com/images/marca/icono-512.png",
-      "image": "https://www.colchonesmedicol.com/images/marca/compartir.jpg",
-      "telephone": "+593997272879",
-      "email": "medicolscc@hotmail.com",
-      "priceRange": "$17 - $216",
-      "currenciesAccepted": "USD",
-      "address": { "@type": "PostalAddress", "addressLocality": "Quito", "addressCountry": "EC" },
-      "contactPoint": [
-        { "@type": "ContactPoint", "contactType": "sales", "telephone": "+593998804606", "availableLanguage": "es" },
-        { "@type": "ContactPoint", "contactType": "customer service", "telephone": "+593997272879", "availableLanguage": "es" }
-      ]
-    }
-    </script>
-
-    <!-- Banner principal -->
-    <section class="mc-hero" aria-label="Destacados">
-      <div class="swiper">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img class="mc-hero-bg" src="images/ambiente/perro-en-cama.webp" alt="" width="1920" height="1080" fetchpriority="high">
-            <div class="container">
-              <div class="mc-hero-content">
-                <span class="mc-kicker">Colección mascotas</span>
-                <h1 class="mc-hero-title">El descanso que <strong>tu mascota merece</strong></h1>
-                <p class="mc-hero-text">Colchones acolchados que separan a tu perro del piso frío y le dan su propio espacio para dormir.</p>
-                <div class="mc-hero-price">2do colchón <strong>50% off</strong></div>
-                <div class="mc-hero-actions">
-                  <a href="producto.html?id=colchon-mascota" class="btn-mc btn-mc-light">Comprar ahora</a>
-                  <a href="tienda.html?cat=mascotas" class="btn-mc btn-mc-outline-light">Ver mascotas</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide">
-            <img class="mc-hero-bg" src="images/ambiente/dormitorio-moderno.webp" alt="" width="1920" height="1080" loading="lazy">
-            <div class="container">
-              <div class="mc-hero-content">
-                <span class="mc-kicker">Salud y cuidado en casa</span>
-                <h2 class="mc-hero-title">Colchones <strong>ortopédicos y hospitalarios</strong></h2>
-                <p class="mc-hero-text">Articulados, antiescaras y con forro impermeable, pensados para el cuidado diario del paciente.</p>
-                <div class="mc-hero-actions">
-                  <a href="tienda.html?cat=colchones" class="btn-mc btn-mc-light">Ver colchones</a>
-                  <a href="#" data-wa="Me gustaría recibir asesoría para elegir un colchón hospitalario." class="btn-mc btn-mc-outline-light">Pedir asesoría</a>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="swiper-slide mc-hero-slide-split">
-            <div class="container">
-              <div class="mc-hero-split">
-                <div class="mc-hero-content">
-                  <span class="mc-kicker">Promoción cojines geriátricos</span>
-                  <h2 class="mc-hero-title">Tres cojines <strong>por $79</strong></h2>
-                  <p class="mc-hero-text">Herradura antiescaras, cojín para silla de ruedas y cojín auxiliar para cambio de pañal adulto.</p>
-                  <div class="mc-hero-actions">
-                    <a href="producto.html?id=combo-cojines-geriatricos" class="btn-mc btn-mc-light">Aprovechar promo</a>
-                    <a href="tienda.html?cat=cojines" class="btn-mc btn-mc-outline-light">Ver cojines</a>
-                  </div>
-                </div>
-                <div class="mc-hero-split-media">
-                  <img src="images/productos/cojin-herradura/principal.webp" alt="Cojín antiescaras forma de herradura" width="600" height="545" loading="lazy">
-                  <img src="images/productos/cojin-silla-ruedas/principal.webp" alt="Cojín antiescaras para silla de ruedas" width="555" height="495" loading="lazy">
-                  <img src="images/productos/cojin-cambio-panal/principal.webp" alt="Cojín auxiliar para cambio de pañal adulto" width="610" height="545" loading="lazy">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="swiper-pagination"></div>
+    <!-- Portada: la foto se ve en blanco y negro; el cursor revela el color (js/portada.js) -->
+    <section class="sg-hero" data-hero aria-labelledby="hero-titulo">
+      <div class="sg-hero-media">
+        <img class="sg-hero-base" src="images/portada/ejecutivo-1200.webp" srcset="images/portada/ejecutivo-1200.webp 1200w, images/portada/ejecutivo.webp 2400w" sizes="100vw" width="2400" height="1345" alt="" fetchpriority="high" decoding="async">
+        <div class="sg-hero-tint"></div>
       </div>
-      <div class="mc-hero-arrows">
-        <button type="button" class="mc-hero-pause" aria-label="Pausar el banner" aria-pressed="false">
-          <svg class="mc-ico-pause" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="2" width="3.5" height="12"/><rect x="9.5" y="2" width="3.5" height="12"/></svg>
-          <svg class="mc-ico-play" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2l10 6-10 6z"/></svg>
-        </button>
-        <button type="button" class="mc-hero-prev" aria-label="Anterior"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg></button>
-        <button type="button" class="mc-hero-next" aria-label="Siguiente"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></button>
+      <div class="sg-hero-shade"></div>
+      <p class="sg-hero-hint" aria-hidden="true">Mueve el cursor</p>
+
+      <div class="sg-wrap sg-hero-content">
+        <p class="sg-eyebrow" data-reveal="fade">Capacitación Empresarial Oportuna · Desde 2016</p>
+        <h1 class="sg-hero-title sg-lines" id="hero-titulo">
+          <span class="sg-line"><span>El éxito nace</span></span>
+          <span class="sg-line"><span>de la ambición</span></span>
+          <span class="sg-line"><span>y florece en la <em>Sinergia</em></span></span>
+        </h1>
+        <div class="sg-hero-foot">
+          <div data-reveal data-delay="0.5">
+            <p class="sg-hero-lead">Formamos equipos más productivos y competitivos con capacitación práctica en gerencia, ventas, contabilidad, tributación y administración.</p>
+            <div class="sg-btn-row sg-mt">
+              <a class="sg-btn sg-btn--rojo" href="servicios.html">Ver servicios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+              <a class="sg-btn sg-btn--claro" href="https://wa.me/593969094855" data-wa>Escríbenos <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+            </div>
+          </div>
+          <a class="sg-scroll-cue" href="#quienes-somos">Descubre<span></span></a>
+        </div>
       </div>
     </section>
 
-    <!-- Beneficios -->
-    <section class="mc-benefits" aria-label="Por qué comprar en Medicol">
-      <div class="container">
-        <ul>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-user"></use></svg><span>Asesoría personalizada<small>Te ayudamos a elegir</small></span></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-truck"></use></svg><span>Envío rápido<small>Quito, menos de 5 días</small></span></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-store"></use></svg><span>Retiro en tienda<small>Recoge tu pedido</small></span></li>
-          <li><svg class="icon" aria-hidden="true"><use href="#i-package"></use></svg><span>Empaque seguro<small>Llega en perfecto estado</small></span></li>
-          <li><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><span>+28 años<small>Sirviendo al Ecuador</small></span></li>
+    <!-- Áreas de capacitación en movimiento -->
+    <div class="sg-marquee" aria-label="Áreas de capacitación">
+      <div class="sg-marquee-track">
+        <span class="sg-marquee-word">Gerencia</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+        <span class="sg-marquee-word">Ventas</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+        <span class="sg-marquee-word">Contabilidad</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+        <span class="sg-marquee-word">Tributación</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+        <span class="sg-marquee-word">NIIF</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+        <span class="sg-marquee-word">Administración</span><img class="sg-marquee-dot" src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" loading="lazy">
+      </div>
+    </div>
+
+    <!-- Quiénes somos -->
+    <section class="sg-section" id="quienes-somos">
+      <div class="sg-wrap sg-split">
+        <div>
+          <p class="sg-eyebrow" data-reveal>Quiénes somos</p>
+          <h2 class="sg-h2 sg-lines">
+            <span class="sg-line"><span>Capacitación</span></span>
+            <span class="sg-line"><span>que <em>transforma</em></span></span>
+            <span class="sg-line"><span>empresas</span></span>
+          </h2>
+          <div data-reveal>
+            <p class="sg-lead">En Sinergia Capacitación Empresarial Oportuna estamos comprometidos en brindar capacitaciones empresariales de alta calidad en las áreas gerenciales, ventas, contabilidad, tributación y administración.</p>
+            <p>Nuestro equipo de expertos cuenta con años de experiencia en el campo empresarial y está dedicado a ayudar a nuestros clientes a alcanzar el éxito en sus negocios. Nos enorgullecemos de ofrecer un servicio personalizado y adaptado a las necesidades de cada cliente.</p>
+            <a class="sg-link" href="nosotros.html">Conoce más de nosotros <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          </div>
+        </div>
+        <figure class="sg-figure sg-figure--tall" data-reveal="mask">
+          <img src="images/portada/relojes-700.webp" srcset="images/portada/relojes-700.webp 700w, images/portada/relojes.webp 1400w" sizes="(max-width: 900px) 92vw, 46vw" width="1400" height="1285" alt="Dos relojes de arena sobre una mesa: el tiempo bien invertido" loading="lazy" decoding="async" data-parallax="0.08">
+        </figure>
+      </div>
+    </section>
+
+    <!-- Cifras -->
+    <!-- PENDIENTE: si tienen los números reales de empresas asesoradas, personas capacitadas
+         y talleres realizados, se pueden agregar aquí con el mismo formato. -->
+    <section class="sg-section--tight sg-section--surface">
+      <div class="sg-wrap">
+        <div class="sg-stats" data-reveal>
+          <div class="sg-stat"><span class="sg-stat-num" data-count="10" data-since="2016">10</span><span class="sg-stat-label">años capacitando desde 2016</span></div>
+          <div class="sg-stat"><span class="sg-stat-num" data-count="30" data-prefix="+">+30</span><span class="sg-stat-label">empresas e instituciones nos confían</span></div>
+          <div class="sg-stat"><span class="sg-stat-num" data-count="5">5</span><span class="sg-stat-label">áreas de especialización</span></div>
+          <div class="sg-stat"><span class="sg-stat-num" data-count="3">3</span><span class="sg-stat-label">modalidades: virtual, presencial y mixta</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Servicios: la columna izquierda queda fija mientras pasan las tarjetas -->
+    <section class="sg-section" aria-labelledby="servicios-titulo">
+      <div class="sg-wrap sg-pin" data-progress-scope>
+        <div class="sg-pin-side">
+          <p class="sg-eyebrow">Nuestros servicios</p>
+          <h2 class="sg-h2" id="servicios-titulo">Soluciones a la <em>medida</em> de su empresa</h2>
+          <p class="sg-lead">Ofrecemos una amplia gama de servicios de formación y asesoría diseñados para potenciar el desarrollo profesional y el crecimiento de su organización.</p>
+          <div class="sg-progress" aria-hidden="true"><span data-progress></span></div>
+          <a class="sg-btn" href="servicios.html">Ver todos los servicios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        </div>
+        <div class="sg-cards">
+          <a class="sg-card" href="servicios.html#in-company" data-reveal><span class="sg-card-num">01</span><h3>Capacitación In Company – On Line</h3><p>Programas a la medida, presenciales en sus instalaciones, virtuales o mixtos.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#auditoria-tributaria-espejo" data-reveal><span class="sg-card-num">02</span><h3>Auditoría Tributaria Espejo</h3><p>Revisión preventiva de sus obligaciones tributarias antes de un control.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#reportes-ventas-credito" data-reveal><span class="sg-card-num">03</span><h3>Reportes de Ventas a Crédito</h3><p>Elaboración de los reportes que se presentan ante la Superintendencia.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#auditorias-externas" data-reveal><span class="sg-card-num">04</span><h3>Auditorías Externas</h3><p>Opinión independiente sobre sus estados financieros.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#estudios-actuariales" data-reveal><span class="sg-card-num">05</span><h3>Estudios Actuariales</h3><p>Provisiones de jubilación patronal y desahucio.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#busqueda-de-resultados" data-reveal><span class="sg-card-num">06</span><h3>Búsqueda de Resultados</h3><p>Metas e indicadores para medir y mejorar el desempeño.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#desarrollo-de-negocios" data-reveal><span class="sg-card-num">07</span><h3>Desarrollo de Negocios</h3><p>Oportunidades de crecimiento y planes comerciales.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+          <a class="sg-card" href="servicios.html#manual-politicas-contables" data-reveal><span class="sg-card-num">08</span><h3>Manual de Políticas y Procedimientos Contables</h3><p>Sus políticas contables documentadas bajo NIIF.</p><svg class="sg-card-go" aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accesos rápidos (los botones de la portada anterior) -->
+    <section class="sg-section sg-section--surface" aria-labelledby="explora-titulo">
+      <div class="sg-wrap">
+        <div class="sg-head">
+          <h2 class="sg-h2" id="explora-titulo" data-reveal>Explora <em>Sinergia</em></h2>
+          <p class="sg-lead" data-reveal>Webinars, servicios, material de consulta y las organizaciones que confían en nosotros.</p>
+        </div>
+        <ul class="sg-index" data-preview-list>
+          <li class="sg-index-item" data-reveal><a href="webinars.html" data-preview="images/galeria/foto-05-640.webp"><span class="sg-index-num">01</span><span class="sg-index-title">Webinars</span><span class="sg-index-desc"><span>Temas contables, financieros, laborales y tributarios por Zoom.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
+          <li class="sg-index-item" data-reveal><a href="servicios.html" data-preview="images/servicios/acuerdo-900.webp"><span class="sg-index-num">02</span><span class="sg-index-title">Servicios</span><span class="sg-index-desc"><span>Capacitación in company, auditoría y asesoría.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
+          <li class="sg-index-item" data-reveal><a href="biblioteca.html" data-preview="images/galeria/foto-15-640.webp"><span class="sg-index-num">03</span><span class="sg-index-title">Biblioteca</span><span class="sg-index-desc"><span>NIIF actualizadas y textos de interés.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
+          <li class="sg-index-item" data-reveal><a href="biblioteca.html#boletines" data-preview="images/galeria/foto-22-640.webp"><span class="sg-index-num">04</span><span class="sg-index-title">Boletines</span><span class="sg-index-desc"><span>Novedades contables y tributarias.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
+          <li class="sg-index-item" data-reveal><a href="clientes.html" data-preview="images/galeria/foto-04-640.webp"><span class="sg-index-num">05</span><span class="sg-index-title">Clientes</span><span class="sg-index-desc"><span>Empresas, universidades e instituciones.</span><svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></span></a></li>
         </ul>
       </div>
     </section>
 
-    <!-- Categorías -->
-    <section class="mc-section" id="categorias">
-      <div class="container">
-        <header class="mc-head mc-reveal">
-          <span class="mc-kicker">Categorías</span>
-          <h2 class="mc-title">Nuestros <strong>productos</strong></h2>
-        </header>
-        <div class="mc-cats">
-          <a class="mc-cat mc-reveal" href="tienda.html?cat=mascotas">
-            <img src="images/productos/colchon-perro-pequeno/principal.webp" alt="" width="800" height="800" loading="lazy">
-            <div class="mc-cat-body">
-              <h3>Mascotas</h3>
-              <span>Ver colección</span>
-            </div>
-          </a>
-          <a class="mc-cat mc-reveal" href="tienda.html?cat=colchones">
-            <img src="images/categorias/colchones-hospitalarios.webp" alt="" width="1100" height="1108" loading="lazy">
-            <div class="mc-cat-body">
-              <h3>Colchones hospitalarios</h3>
-              <span>Ver colección</span>
-            </div>
-          </a>
-          <a class="mc-cat mc-reveal" href="tienda.html?cat=cojines">
-            <img src="images/categorias/cojines.webp" alt="" width="1100" height="1197" loading="lazy">
-            <div class="mc-cat-body">
-              <h3>Cojines y accesorios</h3>
-              <span>Ver colección</span>
-            </div>
-          </a>
+    <!-- Testimonios destacados -->
+    <section class="sg-section sg-section--dark" aria-labelledby="testimonios-titulo">
+      <div class="sg-wrap sg-slider" data-slider>
+        <div class="sg-head">
+          <div>
+            <p class="sg-eyebrow" data-reveal>Testimonios</p>
+            <h2 class="sg-h2" id="testimonios-titulo" data-reveal>Lo que dicen de <em>nosotros</em></h2>
+          </div>
+          <div class="sg-slider-nav">
+            <button type="button" data-prev aria-label="Testimonio anterior"><svg aria-hidden="true"><use href="#i-chev-left"/></svg></button>
+            <button type="button" data-next aria-label="Testimonio siguiente"><svg aria-hidden="true"><use href="#i-chev-right"/></svg></button>
+          </div>
         </div>
-      </div>
-    </section>
-
-    <!-- Oferta mascotas -->
-    <section class="mc-reveal" aria-labelledby="oferta-mascotas">
-      <div class="mc-pet">
-        <div class="mc-pet-media">
-          <img src="images/categorias/mascotas.webp" alt="Perros y gatos descansando en colchones Medicol" width="1100" height="851" loading="lazy">
-          <figure class="mc-pet-real">
-            <img src="images/productos/colchon-mascota/principal.webp" alt="Colchón Medicol para mascota, talla M" width="800" height="800" loading="lazy">
-            <span>Foto real del producto</span>
+        <div class="sg-slider-track" tabindex="0" aria-label="Testimonios">
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>Excelente capacitador e instructor. Muy conocedor de la temática y con facilidad para transmitir y aplicar ese conocimiento.</blockquote>
+            <figcaption><img src="images/testimonios/pedro-herrera.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Pedro Herrera Vacas</strong><span>Gerente de Presupuesto, Mutualista Pichincha</span></div></figcaption>
+          </figure>
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>Es instructor en los diferentes cursos que se programan en el Colegio de Contadores Públicos de Pichincha y del Ecuador, desde el año 2010 hasta la fecha. Durante este tiempo no hemos tenido ninguna queja acerca de los cursos y el servicio que nos proporciona.</blockquote>
+            <figcaption><img src="images/testimonios/patricio-barrera.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Eco. Patricio Barrera</strong><span>Ex Director Ejecutivo del Colegio de Contadores de Pichincha</span></div></figcaption>
+          </figure>
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>La empresa Sinergia Capacitación Empresarial junto a Carlos Alfonso Ramírez Lafuente es uno de nuestros excelentes proveedores desde hace más de 3 años, lo que permite dar fe de honestidad y fiel cumplimiento de sus obligaciones y actividades comerciales.</blockquote>
+            <figcaption><img src="images/testimonios/victor-hugo-ramirez.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Víctor Hugo Ramírez</strong><span>Director de Great People Consulting</span></div></figcaption>
+          </figure>
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>Carlos presta sus servicios profesionales en esta institución como capacitador desde el año 2015, en las Escuelas de Formación en NIIF's y la Escuela de Expertos en Control Contable y Tributario, con toda solvencia.</blockquote>
+            <figcaption><img src="images/testimonios/ernesto-mackliff.webp" alt="" width="320" height="320" loading="lazy"><div><strong>CPA. Ernesto Mackliff</strong><span>Ex Presidente del Colegio de Contadores Bachilleres y Públicos del Guayas</span></div></figcaption>
+          </figure>
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>Excelente profesional. Gran conocimiento de normativas y siempre actualizado en el campo contable y financiero. Una gran persona, generosa para compartir conocimiento.</blockquote>
+            <figcaption><img src="images/testimonios/martin-ros.webp" alt="" width="320" height="320" loading="lazy"><div><strong>Ing. Martín Ros Cabrera</strong><span>Ingeniero en Finanzas y Auditoría</span></div></figcaption>
+          </figure>
+          <figure class="sg-quote">
+            <svg aria-hidden="true"><use href="#i-quote"/></svg>
+            <blockquote>De los mejores profesores que tuve en mi carrera universitaria; claro, conciso y un gran aporte para cimentar bases sólidas que son ventajas competitivas cuando entras al mercado laboral.</blockquote>
+            <figcaption><img src="images/testimonios/diego-constante.webp" alt="" width="200" height="200" loading="lazy"><div><strong>Ing. Diego Constante Ortega</strong><span>Experto en Modelos de Planificación y Análisis</span></div></figcaption>
           </figure>
         </div>
-        <div class="mc-pet-body">
-          <span class="mc-kicker">Colchones para mascotas</span>
-          <h2 class="mc-title" id="oferta-mascotas">Una medida <strong>para cada mascota</strong></h2>
-          <p class="mc-lead">Un descanso cómodo y seguro, que ayuda a reducir el estrés y la ansiedad de tu mascota.</p>
-          <div class="mc-price-table">
-            <a class="mc-price-row" href="producto.html?id=colchon-gato"><span>Gatos<small>50 × 40 cm</small></span><strong>$32</strong></a>
-            <a class="mc-price-row" href="producto.html?id=colchon-perro-pequeno"><span>Perros pequeños<small>70 × 50 cm</small></span><strong>$43</strong></a>
-            <a class="mc-price-row" href="producto.html?id=colchon-perro-mediano"><span>Perros medianos<small>100 × 70 cm</small></span><strong>$55</strong></a>
-            <a class="mc-price-row" href="producto.html?id=colchon-perro-grande"><span>Perros grandes<small>100 × 90 cm</small></span><strong>$72</strong></a>
-            <a class="mc-price-row" href="producto.html?id=colchon-perro-extra-grande"><span>Perros más grandes<small>120 × 100 cm</small></span><strong>$109</strong></a>
-            <a class="mc-price-row is-best" href="producto.html?id=colchon-mascota"><span>Promo talla M · 66 × 100 cm<small>El 2do a mitad de precio</small></span><strong>$39</strong></a>
-          </div>
-          <div class="mc-btn-row">
-            <a href="tienda.html?cat=mascotas" class="btn-mc btn-mc-dark">Ver colchones para mascotas</a>
-            <button type="button" class="btn-mc btn-mc-outline" data-add="colchon-mascota" data-qty="2">Promo: 2 por $58.50</button>
-          </div>
-        </div>
+        <p class="sg-mt-lg"><a class="sg-link" href="testimonios.html">Ver todos los testimonios <svg aria-hidden="true"><use href="#i-arrow"/></svg></a></p>
       </div>
     </section>
 
-    <!-- Destacados -->
-    <section class="mc-section" id="destacados">
-      <div class="container">
-        <header class="mc-head mc-reveal">
-          <span class="mc-kicker">Lo más pedido</span>
-          <h2 class="mc-title">Productos <strong>destacados</strong></h2>
-        </header>
-        <div class="mc-carousel">
-          <div class="swiper">
-            <div class="swiper-wrapper" data-products="destacados" data-slides></div>
-          </div>
-          <button type="button" class="mc-carousel-btn mc-carousel-prev" aria-label="Productos anteriores"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg></button>
-          <button type="button" class="mc-carousel-btn mc-carousel-next" aria-label="Productos siguientes"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></button>
-          <div class="swiper-pagination"></div>
+    <!-- Clientes en movimiento -->
+    <section class="sg-section" aria-labelledby="clientes-titulo">
+      <div class="sg-wrap">
+        <div class="sg-head">
+          <h2 class="sg-h2" id="clientes-titulo" data-reveal>Confían en <em>nosotros</em></h2>
+          <p class="sg-lead" data-reveal>Hemos capacitado a altos ejecutivos y equipos de empresas, universidades e instituciones importantes del Ecuador.</p>
         </div>
-        <p class="text-center mt-5"><a href="tienda.html" class="btn-mc btn-mc-outline">Ver toda la tienda</a></p>
+      </div>
+      <div class="sg-logos-marquee">
+        <div class="sg-marquee" aria-label="Algunos de nuestros clientes">
+          <div class="sg-marquee-track">
+            <span class="sg-logo-tile"><img src="images/clientes/electrolux.webp" alt="Electrolux" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/husqvarna.webp" alt="Husqvarna" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/espe.webp" alt="Universidad de las Fuerzas Armadas ESPE" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/udla.webp" alt="Universidad de las Américas UDLA" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/uta.webp" alt="Universidad Técnica de Ambato" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/iaen.webp" alt="IAEN Universidad de Posgrado del Estado" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/russell-bedford.webp" alt="Russell Bedford" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/colegio-contadores-guayas.webp" alt="Colegio de Contadores Bachilleres y Públicos del Guayas" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/hotel-dann-carlton.webp" alt="Hotel Dann Carlton" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/umet.webp" alt="Universidad Metropolitana UMET" loading="lazy" width="360" height="360"></span>
+          </div>
+        </div>
+        <div class="sg-marquee sg-marquee--reverse" aria-label="Más clientes">
+          <div class="sg-marquee-track">
+            <span class="sg-logo-tile"><img src="images/clientes/great-people.webp" alt="Great People Consulting" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/ute.webp" alt="Universidad UTE" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/ccppe.webp" alt="CCPPE" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/lux.webp" alt="Lux" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/firmesa.webp" alt="Firmesa" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/tamprocorp.webp" alt="Tamprocorp S.A." loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/ecuaex.webp" alt="Ecuaex" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/adisban.webp" alt="Adisbán" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/zurita-zurita.webp" alt="Zurita &amp; Zurita Laboratorios" loading="lazy" width="360" height="360"></span>
+            <span class="sg-logo-tile"><img src="images/clientes/el-cordobes.webp" alt="El Cordobés" loading="lazy" width="360" height="360"></span>
+          </div>
+        </div>
+      </div>
+      <div class="sg-wrap sg-mt-lg">
+        <a class="sg-link" href="clientes.html">Ver todos los clientes <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
     </section>
 
-    <!-- Promoción cojines -->
-    <section class="mc-promo-wrap mc-section">
-      <div class="container mc-promo">
-        <div class="mc-reveal">
-          <span class="mc-kicker">Cuidado del adulto mayor</span>
-          <h2 class="mc-title">Promoción <strong>cojines geriátricos</strong></h2>
-          <div class="mc-promo-price"><strong>$79</strong> por los 3 cojines</div>
-          <ul class="mc-checks">
-            <li>Cojín antiescaras en forma de herradura</li>
-            <li>Cojín antiescaras para silla de ruedas</li>
-            <li>Cojín auxiliar para cambio de pañal adulto</li>
-          </ul>
-          <div class="mc-btn-row">
-            <button type="button" class="btn-mc btn-mc-light" data-add="combo-cojines-geriatricos">Añadir al carrito</button>
-            <a href="producto.html?id=combo-cojines-geriatricos" class="btn-mc btn-mc-outline-light">Ver detalle</a>
+    <!-- Llamado final -->
+    <section class="sg-section sg-section--rojo sg-cta">
+      <img class="sg-cta-mark" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549" loading="lazy" data-parallax="0.1">
+      <div class="sg-wrap sg-cta-inner">
+        <h2 class="sg-h2 sg-lines">
+          <span class="sg-line"><span>Potencie</span></span>
+          <span class="sg-line"><span>a su equipo</span></span>
+        </h2>
+        <div data-reveal>
+          <p>Diseñamos un programa de capacitación a la medida de su empresa: usted elige el tema, las fechas, el horario y la modalidad.</p>
+          <div class="sg-btn-row">
+            <a class="sg-btn" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera una propuesta de capacitación para mi empresa.">Pedir una propuesta <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+            <a class="sg-btn sg-btn--claro" href="contacto.html">Contacto <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>
         </div>
-        <div class="mc-promo-media mc-reveal">
-          <img src="images/productos/combo-cojines-geriatricos/principal.webp" alt="Promoción cojines geriátricos: herradura, silla de ruedas y cambio de pañal, 3 por $79" width="710" height="707" loading="lazy">
-        </div>
-      </div>
-    </section>
-
-    <!-- Testimonios -->
-    <section id="testimonios" class="mc-section mc-testimonials">
-      <div class="container">
-        <header class="mc-head">
-          <span class="mc-kicker">Testimonios</span>
-          <h2 class="mc-title">Lo que dicen <strong>nuestros clientes</strong></h2>
-        </header>
-        <div class="mc-t-wrap">
-            <button type="button" class="mc-t-arrow mc-t-prev" aria-label="Testimonio anterior"><svg class="icon" aria-hidden="true"><use href="#i-arrow-left"></use></svg></button>
-            <div class="swiper testimonial-swiper">
-              <div class="swiper-wrapper">
-                <div class="swiper-slide">
-                  <figure class="mc-t-item">
-                    <svg class="icon icon-fill mc-t-quote" aria-hidden="true"><use href="#i-quote"></use></svg>
-                    <blockquote>“Desde que le compré el colchón ortopédico a mi perrito, duerme mucho mejor y ya no le duelen las articulaciones. ¡Excelente calidad y muy fácil de lavar!”</blockquote>
-                    <div class="mc-t-stars" role="img" aria-label="4 de 5 estrellas">
-                      <svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-star-off" aria-hidden="true"><use href="#i-star"></use></svg>
-                    </div>
-                    <figcaption class="mc-t-name">Laura Mendoza</figcaption>
-                  </figure>
-                </div>
-                <div class="swiper-slide">
-                  <figure class="mc-t-item">
-                    <svg class="icon icon-fill mc-t-quote" aria-hidden="true"><use href="#i-quote"></use></svg>
-                    <blockquote>“Compré el colchón antiescaras articulado para la cama hospitalaria de mi mamá. Se adapta a cada posición, es muy fácil de limpiar y ella descansa mucho mejor. Me asesoraron por WhatsApp y llegó a casa en pocos días.”</blockquote>
-                    <div class="mc-t-stars" role="img" aria-label="4 de 5 estrellas">
-                      <svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-fill" aria-hidden="true"><use href="#i-star"></use></svg><svg class="icon icon-star-off" aria-hidden="true"><use href="#i-star"></use></svg>
-                    </div>
-                    <figcaption class="mc-t-name">Patricia Andrade</figcaption>
-                  </figure>
-                </div>
-              </div>
-            </div>
-            <button type="button" class="mc-t-arrow mc-t-next" aria-label="Testimonio siguiente"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"></use></svg></button>
-        </div>
-        <div class="swiper-pagination mc-t-dots"></div>
-      </div>
-    </section>
-
-    <!-- Catálogo -->
-    <section class="mc-section mc-section-grey">
-      <div class="container mc-split">
-        <div class="mc-reveal">
-          <span class="mc-kicker">Catálogo 2026</span>
-          <h2 class="mc-title">Todos nuestros productos <strong>en un solo lugar</strong></h2>
-          <p class="mc-lead">Colchones hospitalarios, cojines terapéuticos y colchones para mascotas, con sus características y precios. Descárgalo en PDF para compartirlo.</p>
-          <div class="mc-btn-row mt-4">
-            <a href="catalogo.html" class="btn-mc btn-mc-dark">Ver catálogo</a>
-            <a href="descargas/catalogo-colchones-medicol.pdf" class="btn-mc btn-mc-outline" data-catalogo-pdf>Descargar PDF</a>
-            <a href="#" data-wa="Me gustaría recibir el catálogo de productos." class="btn-mc btn-mc-wa"><svg class="mc-ico" aria-hidden="true"><use href="#mc-wa"/></svg> Pedir por WhatsApp</a>
-          </div>
-        </div>
-        <a class="mc-catalog-thumb mc-reveal" href="catalogo.html" aria-label="Ver el catálogo"><img src="images/categorias/portada-catalogo.webp" alt="Portada del catálogo Colchones Medicol" width="900" height="1273" loading="lazy"></a>
       </div>
     </section>
 
@@ -397,67 +366,68 @@
 
   </main>
 
-  <footer class="mc-footer">
-    <div class="container mc-footer-grid">
-      <div class="mc-footer-brand">
-        <a class="mc-logo" href="index.html" aria-label="Colchones Medicol, inicio">
-          <span class="mc-logo-text">MEDICOL</span>
-          <svg class="mc-logo-wave" aria-hidden="true"><use href="#mc-wave"/></svg>
-        </a>
-        <p>Más de 28 años sirviendo al Ecuador. Compromiso con tu salud y confort.</p>
-        <p class="mc-footer-lema">Donde la salud descansa mejor.</p>
+  <footer class="sg-footer">
+    <div class="sg-wrap">
+      <div class="sg-footer-cta">
+        <p class="sg-eyebrow">¿Hablamos?</p>
+        <a class="sg-footer-big" href="contacto.html">Capacitemos a tu equipo <svg aria-hidden="true"><use href="#i-arrow-up-right"/></svg></a>
       </div>
 
-      <nav aria-label="Tienda">
-        <h2 class="mc-footer-title">Tienda</h2>
-        <ul>
-          <li><a href="tienda.html?cat=mascotas">Mascotas</a></li>
-          <li><a href="tienda.html?cat=colchones">Colchones hospitalarios</a></li>
-          <li><a href="tienda.html?cat=cojines">Cojines y accesorios</a></li>
-          <li><a href="tienda.html?cat=promociones">Promociones</a></li>
-          <li><a href="catalogo.html">Catálogo</a></li>
-        </ul>
-      </nav>
+      <div class="sg-footer-grid">
+        <div class="sg-footer-brand">
+          <img src="images/marca/logo-blanco.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="1200" height="263" loading="lazy">
+          <p>Capacitación empresarial en gerencia, ventas, contabilidad, tributación y administración para el sector público y privado del Ecuador. Desde 2016.</p>
+        </div>
 
-      <nav aria-label="Ayuda">
-        <h2 class="mc-footer-title">Ayuda</h2>
-        <ul>
-          <li><a href="carrito.html">Mi carrito</a></li>
-          <li><a href="contacto.html#como-comprar">Cómo comprar</a></li>
-          <li><a href="envios.html">Envíos y devoluciones</a></li>
-          <li><a href="envios.html#garantia">Garantía</a></li>
-          <li><a href="privacidad.html">Política de privacidad</a></li>
-          <li><a href="nosotros.html">Nosotros</a></li>
-        </ul>
-      </nav>
+        <nav aria-label="Páginas">
+          <h2 class="sg-footer-title">Sinergia</h2>
+          <ul>
+            <li><a href="nosotros.html">Nosotros</a></li>
+            <li><a href="servicios.html">Servicios</a></li>
+            <li><a href="webinars.html">Webinars</a></li>
+            <li><a href="clientes.html">Clientes</a></li>
+            <li><a href="testimonios.html">Testimonios</a></li>
+            <li><a href="galeria.html">Galería</a></li>
+            <li><a href="biblioteca.html">Biblioteca</a></li>
+          </ul>
+        </nav>
 
-      <div>
-        <h2 class="mc-footer-title">Contáctanos</h2>
-        <ul class="mc-footer-contact">
-          <li><span>WhatsApp</span><a href="#" data-wa>099 880 4606</a></li>
-          <li><span>Llamadas</span><a href="tel:+593997272879">099 727 2879</a></li>
-          <li><span>Correo</span><a href="mailto:medicolscc@hotmail.com">medicolscc@hotmail.com</a></li>
-          <li><span>Ciudad</span>Quito, Ecuador</li>
-        </ul>
+        <div>
+          <h2 class="sg-footer-title">Contacto</h2>
+          <ul class="sg-footer-contact">
+            <li><a href="tel:+59322191187">(02) 219-1187</a></li>
+            <li><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></li>
+            <li><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></li>
+            <li><a href="mailto:capacitacion@sinergia.ec">capacitacion@sinergia.ec</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h2 class="sg-footer-title">Dirección</h2>
+          <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
+          <ul class="sg-social">
+            <li><a href="https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" target="_blank" rel="noopener" aria-label="Facebook"><svg aria-hidden="true"><use href="#i-facebook"/></svg></a></li>
+            <li><a href="https://www.instagram.com/sinergiacapacitaciones2016/" target="_blank" rel="noopener" aria-label="Instagram"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+            <li><a href="https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg aria-hidden="true"><use href="#i-linkedin"/></svg></a></li>
+            <li><a href="https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw" target="_blank" rel="noopener" aria-label="YouTube"><svg aria-hidden="true"><use href="#i-youtube"/></svg></a></li>
+          </ul>
+        </div>
       </div>
-    </div>
 
-    <div class="mc-footer-bottom">
-      <div class="container">
-        <p>© <span data-year>2026</span> Colchones Medicol. Todos los derechos reservados.</p>
-        <p><a href="privacidad.html">Privacidad</a> · <a href="envios.html">Envíos y devoluciones</a></p>
+      <div class="sg-footer-bottom">
+        <p>© <span data-year>2026</span> Sinergia Capacitación Empresarial. Todos los derechos reservados.</p>
+        <p><a href="terminos.html">Términos y protección de datos</a> · Página web por Estéfano Ramírez</p>
       </div>
     </div>
   </footer>
 
-  <a class="mc-wa-float" href="#" data-wa aria-label="Escríbenos por WhatsApp">
-    <svg class="mc-ico" aria-hidden="true"><use href="#mc-wa"/></svg>
+  <a class="sg-wa-float" href="https://wa.me/593969094855" data-wa aria-label="Escríbenos por WhatsApp">
+    <svg aria-hidden="true"><use href="#i-wa"/></svg>
   </a>
 
-  <script src="js/vendor/swiper-bundle.min.js"></script>
-  <script src="js/productos.js"></script>
-  <script src="js/tienda.js"></script>
-  <script src="js/script.js"></script>
+  <script src="js/vendor/lenis.min.js" defer></script>
+  <script src="js/sitio.js" defer></script>
+  <script src="js/portada.js" defer></script>
 </body>
 
 </html>

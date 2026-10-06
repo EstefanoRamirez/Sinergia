@@ -1,13 +1,6 @@
 {
   "version": 1,
   "include": [
-    "/api/*",
-    "/producto",
-    "/producto.html",
-    "/tienda",
-    "/tienda.html",
-    "/catalogo",
-    "/catalogo.html",
     "/sitemap.xml",
     "/robots.txt",
     "/docs/*",

@@ -1,47 +1,43 @@
-# Colchones Medicol — tienda web
+# Sinergia Capacitación Empresarial — sitio web
 
-Web estática con carrito, checkout por WhatsApp y avisos de pedido, publicada en Cloudflare Pages.
-Guía completa para publicar: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
+Web estática de Sinergia Capacitación Empresarial Oportuna, publicada en Cloudflare Pages.
+Reemplaza al sitio de Wix. Guía para publicar: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
 
 ## Tareas frecuentes
 
 | Quiero… | Qué hacer |
 |---|---|
-| Cambiar un precio, texto o foto de un producto | Editar `js/productos.js` |
-| Agregar un producto | Copiar un bloque en `js/productos.js` y crear su carpeta en `images/productos/<id>/` |
-| Cambiar el número de WhatsApp de los pedidos | `js/productos.js` → `"whatsapp"` y el número visible en `plantillas/partes/encabezado.html` y `pie.html` |
-| Cambiar el menú, la barra superior o el pie | Editar `plantillas/partes/` y ejecutar `bash plantillas/armar-paginas.sh` |
-| Cambiar el contenido de una página | Editar `plantillas/paginas/<página>.html` y ejecutar `bash plantillas/armar-paginas.sh` |
-| Reemplazar el catálogo en PDF | Guardarlo como `descargas/catalogo-colchones-medicol.pdf` (menos de 25 MB) |
+| Cambiar el texto de una página | Editar `plantillas/paginas/<página>.html` y ejecutar `bash plantillas/armar-paginas.sh` |
+| Cambiar el menú, el pie o los íconos | Editar `plantillas/partes/` y ejecutar `bash plantillas/armar-paginas.sh` |
+| Cambiar el número de WhatsApp | `js/sitio.js` → `WHATSAPP`, y el número visible en `plantillas/partes/` y `plantillas/paginas/contacto.html` |
+| Anunciar un webinar | `plantillas/paginas/webinars.html` → copiar un bloque `<article class="sg-card">` en "Próximos webinars" |
+| Agregar una foto a la galería | Ver el comentario al inicio de la galería en `plantillas/paginas/galeria.html` |
+| Agregar un cliente | Guardar el logo en `images/clientes/` (WebP, ~360 px) y copiar una línea en `plantillas/paginas/clientes.html` |
+| Subir documentos a la Biblioteca | Ver el comentario en `plantillas/paginas/biblioteca.html` (los PDF van en `descargas/`) |
 | Publicar los cambios | `git add -A` → `git commit -m "..."` → `git push` |
 
 > Los `.html` de la raíz se **generan** con `bash plantillas/armar-paginas.sh`: no se editan a mano.
-> El comando se ejecuta en la terminal de VS Code (Git Bash), dentro de la carpeta del proyecto.
 
 ## Páginas
-- `index.html` — inicio
-- `tienda.html` — tienda con filtros (`?cat=mascotas|colchones|cojines|promociones`, `?q=búsqueda`)
-- `producto.html?id=...` — ficha de producto (una sola página para todos)
-- `carrito.html` y `checkout.html` — compra; el pedido se confirma por WhatsApp
-- `catalogo.html` — catálogo con descarga del PDF
-- `nosotros.html`, `contacto.html`, `404.html` (dirección inexistente)
+`index` (inicio) · `nosotros` · `servicios` · `webinars` · `clientes` · `testimonios` · `galeria` · `biblioteca` · `contacto` · `terminos` · `404`
+
+## Animaciones
+- **Portada con máscara líquida** (`js/portada.js`): la foto se ve en blanco y negro y el cursor revela el color con una mancha orgánica y una estela. En celular la mancha flota sola y sigue el dedo.
+- **Scroll suave** con [Lenis](https://github.com/darkroomengineering/lenis) (`js/vendor/lenis.min.js`, licencia MIT).
+- **Al bajar** (`js/sitio.js`): títulos que suben línea por línea, fotos que se revelan, paralaje, cifras que cuentan, frase que se ilumina palabra por palabra, servicios con columna fija y barra de avance, cintas de texto y logos en movimiento, vista previa que sigue al cursor en "Explora Sinergia".
+- Todo se desactiva si quien visita activó "reducir movimiento" en su equipo.
 
 ## Carpetas
 - `plantillas/` — piezas con las que se arman las páginas (`partes/`, `paginas/`, `armar-paginas.sh`).
-- `images/productos/<id>/` — `principal.webp` (tarjeta y galería), `principal-400.webp` (celular), `principal.jpg` (vista previa al compartir) y `ficha.webp` (página del catálogo).
-- `images/categorias/`, `images/ambiente/` — fotos del inicio y de las categorías.
-- `images/marca/` — íconos (pestaña, iPhone, Android) e imagen para compartir.
-- `descargas/` — catálogo en PDF.
-- `css/` — `base.css` (tipografía, íconos, pie y testimonios), `medicol.css` (resto del diseño), `bootstrap-base.css` (solo las reglas usadas de Bootstrap), `vendor/` (Swiper).
-- `js/` — `productos.js` (datos), `tienda.js` (tienda, carrito, pedidos), `script.js` (menú, banner, tema), `tema.js` (modo oscuro), `vendor/` (Swiper).
-- `functions/` — servidor en Cloudflare: `api/pedido.js` (avisos de pedido), `producto.js`, `tienda.js`, `catalogo.js` (páginas preparadas para Google), `sitemap.xml.js`, `robots.txt.js`, `_middleware.js` (oculta carpetas internas).
-- `docs/` — guía de publicación y script de la hoja de pedidos.
-- `originales/` — archivos originales pesados (no se suben a GitHub).
+- `images/` — fotos en WebP: `marca/` (logo, íconos, imagen para compartir), `portada/`, `nosotros/`, `servicios/`, `contacto/`, `testimonios/`, `clientes/`, `galeria/` (cada foto con una copia de 640 px para la cuadrícula).
+- `css/sinergia.css` — todo el diseño (modo claro y oscuro, celular).
+- `js/` — `tema.js` (modo oscuro sin parpadeo), `sitio.js` (menú, animaciones, galería, formulario), `portada.js` (máscara de la portada), `vendor/` (Lenis).
+- `functions/` — Cloudflare: `sitemap.xml.js`, `robots.txt.js`, `_middleware.js` (oculta carpetas internas).
 
 ## Seguridad
-- `_headers`: política de seguridad del contenido (CSP), HTTPS obligatorio y caché. Si se agrega un servicio externo (por ejemplo Google Analytics), hay que permitirlo ahí.
-- No se usan scripts escritos dentro del HTML: todo va en archivos `.js` para que la CSP los permita.
-- Los precios de cada pedido se recalculan en el servidor; las claves van como secretos en Cloudflare.
+- `_headers`: política de seguridad del contenido (CSP) estricta — solo scripts y estilos propios, sin código dentro del HTML, sin marcos externos — más HTTPS obligatorio y caché.
+- El formulario de contacto no envía datos a ningún servidor: arma el mensaje y abre WhatsApp.
+- Si se agrega un servicio externo (por ejemplo Google Analytics o un mapa), hay que permitirlo en `_headers`.
 
 ## Créditos
-Diseño y código propios de Colchones Medicol. Librerías de código abierto (licencia MIT): Bootstrap (parte), Swiper y normalize.css; sus avisos de licencia están al inicio de cada archivo.
+Diseño y código propios. Librerías de código abierto (licencia MIT): Lenis y normalize.css.

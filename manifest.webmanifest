@@ -1,11 +1,11 @@
 {
-  "name": "Colchones Medicol",
-  "short_name": "Medicol",
-  "description": "Colchones hospitalarios, cojines terapéuticos y colchones para mascotas en Quito.",
+  "name": "Sinergia Capacitación Empresarial Oportuna",
+  "short_name": "Sinergia",
+  "description": "Capacitación empresarial en gerencia, ventas, contabilidad, tributación y administración en Quito, Ecuador.",
   "start_url": "/",
   "display": "browser",
-  "background_color": "#1A2530",
-  "theme_color": "#1A2530",
+  "background_color": "#141112",
+  "theme_color": "#141112",
   "lang": "es",
   "icons": [
     { "src": "/images/marca/icono-192.png", "sizes": "192x192", "type": "image/png" },

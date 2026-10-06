@@ -13,10 +13,9 @@
 
   if (d.classList.contains("js")) return; // ya se ejecutó
   d.classList.add("js");
-  try { t = localStorage.getItem("medicol-tema"); } catch (e) {}
+  try { t = localStorage.getItem("sinergia-tema"); } catch (e) {}
   if (t !== "dark" && t !== "light") {
     t = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
   }
   d.setAttribute("data-theme", t);
-  d.setAttribute("data-bs-theme", t);
 })();
