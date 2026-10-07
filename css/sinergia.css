@@ -3470,33 +3470,84 @@ button.sg-enlace {
   }
 }
 
-/* Accesos en horizontal (computadora): la sección queda fija y las tarjetas pasan de lado */
-.sg-accesos.is-horizontal {
-  display: flex;
-  gap: 16px;
-  width: max-content;
+/* Menú grande: la barra de arriba se esconde (solo quedan el logo y "Cerrar"),
+   las palabras se ajustan al alto de la pantalla y a la derecha va una foto con los datos */
+.sg-nav,
+.sg-header-inner > .sg-nav-cta:not(.sg-burger) {
+  transition: opacity 0.35s ease, visibility 0.35s;
 }
 
-.sg-accesos.is-horizontal .sg-acceso,
-.sg-accesos.is-horizontal .sg-acceso:nth-child(1),
-.sg-accesos.is-horizontal .sg-acceso:nth-child(2) {
-  flex: 0 0 min(620px, 42vw);
-  min-height: min(62vh, 620px);
+body.sg-menu-abierto .sg-nav,
+body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
+  opacity: 0;
+  visibility: hidden;
 }
 
-/* Pie que aparece debajo de la página, como una cortina (pantallas grandes) */
-@media (min-width: 901px) and (min-height: 640px) {
-  main {
-    position: relative;
-    z-index: 1;
-    background: var(--papel);
-    box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.35);
+.sg-movil-nav a {
+  font-size: clamp(32px, min(5.4vw, calc((100svh - 160px) / 10.6)), 74px);
+}
+
+.sg-movil-inner {
+  grid-template-columns: 1.25fr 1fr;
+  gap: clamp(40px, 6vw, 110px);
+  width: 100%;
+}
+
+.sg-movil-pie {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 32px;
+  align-content: end;
+  padding-bottom: 6px;
+}
+
+.sg-movil-foto {
+  grid-column: 1 / -1;
+  margin: 0 0 30px;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  max-height: 40svh;
+}
+
+.sg-movil-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.12);
+  transition: transform 1.4s var(--curva) 0.2s;
+}
+
+.sg-movil.is-abierto .sg-movil-foto img {
+  transform: none;
+}
+
+.sg-movil-pie .sg-mt {
+  margin-top: 0;
+}
+
+.sg-movil-pie .sg-btn {
+  grid-column: 1 / -1;
+  justify-self: start;
+  margin-top: 28px;
+}
+
+@media (max-width: 1180px) {
+  .sg-movil-inner {
+    grid-template-columns: 1fr;
   }
 
-  .sg-pie {
-    position: sticky;
-    bottom: 0;
-    z-index: 0;
+  .sg-movil-foto {
+    display: none;
+  }
+}
+
+@media (max-width: 560px) {
+  .sg-movil-pie {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-movil-pie .sg-mt {
+    margin-top: 22px;
   }
 }
 
@@ -3557,7 +3608,7 @@ button.sg-enlace {
 }
 
 .sg-acceso-caja-lado img {
-  width: min(120px, 40%);
+  width: min(300px, 74%);
 }
 
 .sg-acceso-caja-lado p {
@@ -3858,4 +3909,11 @@ button.sg-enlace {
 
 .sg-pago:hover .sg-pago-panel-txt {
   transform: translateY(-6px);
+}
+
+/* Que el botón flotante de WhatsApp no tape el crédito del pie */
+@media (min-width: 901px) {
+  .sg-pie-bajo {
+    padding-right: 72px;
+  }
 }

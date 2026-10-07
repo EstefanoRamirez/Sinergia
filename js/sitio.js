@@ -271,18 +271,6 @@
       gsap.to($(".sg-hero-sombra", hero), { backgroundColor: "rgba(10,8,9,0.6)", ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
     }
 
-    // Accesos: en computadora la sección se queda fija y las tarjetas pasan de lado
-    var mm = gsap.matchMedia();
-    mm.add("(min-width: 1024px)", function () {
-      var acc = $(".sg-accesos");
-      if (!acc) return;
-      var seccion = acc.closest("section");
-      acc.classList.add("is-horizontal");
-      var distancia = function () { return Math.max(0, acc.scrollWidth - acc.parentElement.clientWidth); };
-      var tw = gsap.to(acc, { x: function () { return -distancia(); }, ease: "none", scrollTrigger: { trigger: seccion, start: "top top", end: function () { return "+=" + distancia(); }, pin: true, scrub: 1, invalidateOnRefresh: true } });
-      return function () { acc.classList.remove("is-horizontal"); tw.kill(); gsap.set(acc, { clearProps: "transform" }); };
-    });
-
     // Tira de fotos: además de moverse sola, avanza con el scroll
     $$(".sg-tira").forEach(function (t) {
       gsap.fromTo(t, { x: 0 }, { x: -260, ease: "none", scrollTrigger: { trigger: t, start: "top bottom", end: "bottom top", scrub: true } });
