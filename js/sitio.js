@@ -223,7 +223,7 @@
     // Foto que se abre de marco a pantalla completa al bajar (quiénes somos)
     $$("[data-anim='abre']").forEach(function (el) {
       var img = $("img", el);
-      gsap.fromTo(el, { clipPath: "inset(14% 12% 14% 12%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: el, start: "top 90%", end: "top 15%", scrub: true } });
+      gsap.fromTo(el, { clipPath: "inset(8% 7% 8% 7%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: el, start: "top 90%", end: "top 15%", scrub: true } });
       if (img) gsap.fromTo(img, { scale: 1.25 }, { scale: 1, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
     });
 

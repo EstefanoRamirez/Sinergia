@@ -1,32 +1,83 @@
 # Publicar la web de Sinergia
 
-Es el mismo proceso que usaste con Medicol, pero más corto: esta web no tiene carrito, pedidos ni claves secretas.
+Sigue los pasos **en orden**. Cada uno termina con **✅ Cómo saber que salió bien**.
+Tiempo total: 1 a 2 horas. Todo es gratis salvo el dominio, que ya tienes.
 
-## 1. Revisar en tu computadora
-1. En la terminal de VS Code, dentro de la carpeta del proyecto: `bash plantillas/armar-paginas.sh`
-2. Abre `index.html` en el navegador (o, mejor, ejecuta `npx serve .` y entra a la dirección que aparece).
+> Los nombres de los botones de Cloudflare, Resend y Google pueden cambiar un poco o aparecer en inglés.
+> Si no encuentras uno exacto, busca uno parecido en la misma pantalla.
 
-✅ Ves la portada; al mover el mouse aparece la foto a color.
+---
 
-## 2. Crear el proyecto en Cloudflare Pages
+## 1. Publicar en Cloudflare Pages
 1. Cloudflare → **Workers & Pages** → **Create** → **Pages** → **Connect to Git**.
-2. Elige el repositorio **EstefanoRamirez/Sinergia** y la rama que quieras publicar.
-3. Build settings: **Framework preset: None**, **Build command: (vacío)**, **Build output directory: `/`**.
+2. Elige el repositorio **EstefanoRamirez/Sinergia**, rama **main**.
+3. Build settings: **Framework preset: None** · **Build command:** (vacío) · **Build output directory:** `/`
 4. **Save and Deploy**.
 
-✅ Te da una dirección `https://<proyecto>.pages.dev` con la web funcionando.
+✅ Te da una dirección `https://<proyecto>.pages.dev` con la web funcionando (sin formularios todavía: al enviar uno, se abre WhatsApp).
 
-## 3. Conectar el dominio sinergia.ec
-1. En el proyecto de Pages → **Custom domains** → **Set up a custom domain** → escribe `www.sinergia.ec`. Repite con `sinergia.ec`.
-2. Sigue las instrucciones de Cloudflare: si el dominio ya usa Cloudflare, se configura solo; si no, te pedirá agregar un registro DNS (CNAME) donde compraste el dominio.
+## 2. Base de datos de suscriptores (KV)
+Sirve para los registros y el ingreso a Boletines.
+1. Cloudflare → **Storage & Databases** → **KV** → **Create** → nombre: `sinergia-suscriptores`.
+2. En tu proyecto de Pages → **Settings** → **Bindings** → **Add** → **KV namespace**.
+   - Variable name: `SUSCRIPTORES` (exactamente así) · KV namespace: `sinergia-suscriptores`.
+3. Vuelve a publicar: **Deployments** → los tres puntos del último → **Retry deployment**.
 
-⚠️ **Los correos `@sinergia.ec` deben seguir funcionando.** No borres los registros **MX** ni **TXT** del dominio: solo agrega o cambia los registros de la web (CNAME de `www` y el del dominio principal).
+✅ En `/boletines`, al escribir un correo no registrado aparece "Ese correo no está registrado".
 
-⚠️ Si la dirección principal no es `www.sinergia.ec`, cámbiala en `plantillas/partes/cabeza.html` (enlaces `canonical`, `og:url` y `og:image`) y vuelve a armar las páginas.
+## 3. Conectar el dominio www.sinergia.ec
+1. Proyecto de Pages → **Custom domains** → **Set up a custom domain** → `www.sinergia.ec`. Repite con `sinergia.ec`.
+2. Sigue las instrucciones: si el dominio ya está en Cloudflare se configura solo; si no, agrega el registro **CNAME** que te indique donde administras el dominio.
 
-## 4. Aparecer en Google
-1. Entra a [Google Search Console](https://search.google.com/search-console) y agrega `sinergia.ec`.
-2. En **Sitemaps** envía `https://www.sinergia.ec/sitemap.xml`.
+⚠️ **No borres los registros MX ni TXT**: de ellos dependen los correos `@sinergia.ec`.
 
-## 5. Al terminar
-- Cuando la web nueva esté publicada, en Wix puedes despublicar los sitios viejos para que Google no muestre páginas duplicadas.
+✅ `https://www.sinergia.ec` abre la web nueva con el candado.
+
+## 4. Correos con Resend (avisos y códigos de acceso)
+1. Crea una cuenta en [resend.com](https://resend.com) → **Domains** → **Add domain** → `sinergia.ec`.
+2. Agrega en tu DNS los registros que te muestra Resend (son TXT/MX en un subdominio, no tocan tus correos actuales) y espera a que diga **Verified**.
+3. **API Keys** → **Create API key** (permiso *Sending access*) y cópiala.
+
+✅ Resend muestra el dominio en verde.
+
+## 5. Hoja de cálculo de inscripciones (Google Sheets)
+1. Crea una hoja de Google llamada **Inscripciones Sinergia**.
+2. **Extensiones → Apps Script** → borra todo y pega el contenido de `docs/planilla-inscripciones.gs`.
+3. Cambia `CLAVE` por una tuya (letras y números) y guarda.
+4. Elige la función **configurar** y presiona **Ejecutar** (acepta los permisos).
+5. **Implementar → Nueva implementación → Aplicación web** · Ejecutar como: **Yo** · Acceso: **Cualquier usuario** → **Implementar** y copia la URL.
+
+✅ La hoja tiene la fila de títulos en rojo y la columna **Estado** con una lista (Nuevo, Contactado, Inscrito, Pagado, No interesado).
+
+## 6. Aviso por WhatsApp al dueño (CallMeBot, gratis)
+1. Desde el celular del dueño, sigue las instrucciones de [callmebot.com](https://www.callmebot.com/blog/free-api-whatsapp-messages/) para obtener su **apikey**.
+2. Arma el dato así: `593969094855:APIKEY` (varios números se separan con coma).
+
+## 7. Guardar las claves en Cloudflare
+Proyecto de Pages → **Settings** → **Variables and Secrets** → agrega (marca **Encrypt** en las secretas):
+
+| Nombre | Valor | ¿Secreta? |
+|---|---|---|
+| `RESEND_API_KEY` | la clave del paso 4 | Sí |
+| `EMAIL_FROM` | `Sinergia <web@sinergia.ec>` | No |
+| `EMAIL_TO` | `info@sinergia.ec,capacitacion@sinergia.ec` | No |
+| `PLANILLA_URL` | la URL del paso 5 | No |
+| `PLANILLA_CLAVE` | la CLAVE del paso 5 | Sí |
+| `WHATSAPP_AVISOS` | el dato del paso 6 | Sí |
+
+Luego **Retry deployment**.
+
+✅ Prueba final: llena la ventana **Inscríbete** con tus datos. Debe llegar el correo, aparecer una fila en la hoja y un WhatsApp al dueño con el botón para escribirte. Luego entra a **/boletines** con ese correo: te llega un código y ves la zona de suscriptores.
+
+## 8. (Opcional) WhatsApp automático al cliente
+Para que el cliente reciba un WhatsApp automático apenas se inscribe hace falta la **WhatsApp Cloud API de Meta** (cuenta de Meta Business verificada, número dedicado y una plantilla aprobada; los mensajes iniciados por la empresa tienen costo por conversación).
+Cuando lo tengas, agrega `WA_TOKEN`, `WA_PHONE_ID` y `WA_PLANTILLA` (la plantilla debe tener un parámetro: el nombre del cliente).
+Mientras tanto, el dueño recibe el aviso con un botón que abre el chat con el cliente y un saludo ya escrito: un toque y listo.
+
+## 9. Aparecer en Google
+1. [Google Search Console](https://search.google.com/search-console) → agrega `sinergia.ec`.
+2. **Sitemaps** → envía `https://www.sinergia.ec/sitemap.xml`.
+
+## 10. Al terminar
+- Despublica los sitios viejos de Wix para que Google no muestre páginas duplicadas.
+- Activa la verificación en dos pasos en GitHub, Cloudflare, Resend y Google.

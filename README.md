@@ -1,43 +1,53 @@
 # Sinergia Capacitación Empresarial — sitio web
 
-Web estática de Sinergia Capacitación Empresarial Oportuna, publicada en Cloudflare Pages.
-Reemplaza al sitio de Wix. Guía para publicar: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
+Web de Sinergia Capacitación Empresarial Oportuna, publicada en Cloudflare Pages (reemplaza al sitio de Wix).
+Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md).
 
 ## Tareas frecuentes
 
 | Quiero… | Qué hacer |
 |---|---|
 | Cambiar el texto de una página | Editar `plantillas/paginas/<página>.html` y ejecutar `bash plantillas/armar-paginas.sh` |
-| Cambiar el menú, el pie o los íconos | Editar `plantillas/partes/` y ejecutar `bash plantillas/armar-paginas.sh` |
-| Cambiar el número de WhatsApp | `js/sitio.js` → `WHATSAPP`, y el número visible en `plantillas/partes/` y `plantillas/paginas/contacto.html` |
-| Anunciar un webinar | `plantillas/paginas/webinars.html` → copiar un bloque `<article class="sg-card">` en "Próximos webinars" |
-| Agregar una foto a la galería | Ver el comentario al inicio de la galería en `plantillas/paginas/galeria.html` |
-| Agregar un cliente | Guardar el logo en `images/clientes/` (WebP, ~360 px) y copiar una línea en `plantillas/paginas/clientes.html` |
-| Subir documentos a la Biblioteca | Ver el comentario en `plantillas/paginas/biblioteca.html` (los PDF van en `descargas/`) |
+| Cambiar el menú, el pie, la ventana "Inscríbete" o el aviso de cookies | Editar `plantillas/partes/` y ejecutar `bash plantillas/armar-paginas.sh` |
+| Publicar un boletín (solo suscriptores) | Ver `boletines-privados/LEEME.md` |
+| Publicar un PDF en Webinars o Biblioteca | Guardarlo en `descargas/` y seguir el comentario de la tarjeta en `plantillas/paginas/webinars.html` o `biblioteca.html` |
+| Agregar una foto a la galería | Ver el comentario al inicio de `plantillas/paginas/galeria.html` |
+| Agregar un cliente | Logo en `images/clientes/` (WebP, ~360 px) y una línea en `plantillas/paginas/clientes.html` |
+| Cambiar el número de WhatsApp | `js/sitio.js` → `WHATSAPP`, `lib/servidor.js` → `WHATSAPP_SINERGIA` y el número visible en las plantillas |
 | Publicar los cambios | `git add -A` → `git commit -m "..."` → `git push` |
 
 > Los `.html` de la raíz se **generan** con `bash plantillas/armar-paginas.sh`: no se editan a mano.
 
 ## Páginas
-`index` (inicio) · `nosotros` · `servicios` · `webinars` · `clientes` · `testimonios` · `galeria` · `biblioteca` · `contacto` · `terminos` · `404`
+`index` · `nosotros` · `servicios` · `webinars` · `biblioteca` · `boletines` (solo suscriptores) · `clientes` · `galeria` · `testimonios` · `contacto` · `privacidad` · `terminos` · `cookies` · `404`
 
-## Animaciones
-- **Portada con máscara líquida** (`js/portada.js`): la foto se ve en blanco y negro y el cursor revela el color con una mancha orgánica y una estela. En celular la mancha flota sola y sigue el dedo.
-- **Scroll suave** con [Lenis](https://github.com/darkroomengineering/lenis) (`js/vendor/lenis.min.js`, licencia MIT).
-- **Al bajar** (`js/sitio.js`): títulos que suben línea por línea, fotos que se revelan, paralaje, cifras que cuentan, frase que se ilumina palabra por palabra, servicios con columna fija y barra de avance, cintas de texto y logos en movimiento, vista previa que sigue al cursor en "Explora Sinergia".
-- Todo se desactiva si quien visita activó "reducir movimiento" en su equipo.
+## Lo que hace el sitio
+- **Pantalla de carga** roja con el logo subiendo (primera visita) y **cortina roja** al cambiar de página.
+- **Portada con máscara líquida** (`js/portada.js`): la foto se ve en blanco y negro y el cursor revela el color.
+- **Animaciones** con GSAP + ScrollTrigger + SplitText y **scroll suave** con Lenis (`js/sitio.js`). Se desactivan si el visitante pidió "reducir movimiento". El contenido siempre se ve aunque falle una animación.
+- **Testimonios** en tarjetas rojas que se voltean al pasar el cursor (en celular se ve todo de una vez).
+- **Ventana "Inscríbete"** al abrir el sitio (una vez por semana, nunca si ya se registró) y **aviso de cookies** pequeño.
+- **Formularios** (inscripción, registro y contacto) → `/api/formulario`: correo a Sinergia, fila en la hoja de Google y aviso por WhatsApp al dueño con el botón para escribirle al cliente. Si el servidor no responde, se abre WhatsApp con los datos.
+- **Boletines** para suscriptores: ingreso con correo y un código de 6 números (sin contraseñas) → `/api/acceso` y `/api/boletines`.
 
 ## Carpetas
-- `plantillas/` — piezas con las que se arman las páginas (`partes/`, `paginas/`, `armar-paginas.sh`).
-- `images/` — fotos en WebP: `marca/` (logo, íconos, imagen para compartir), `portada/`, `nosotros/`, `servicios/`, `contacto/`, `testimonios/`, `clientes/`, `galeria/` (cada foto con una copia de 640 px para la cuadrícula).
-- `css/sinergia.css` — todo el diseño (modo claro y oscuro, celular).
-- `js/` — `tema.js` (modo oscuro sin parpadeo), `sitio.js` (menú, animaciones, galería, formulario), `portada.js` (máscara de la portada), `vendor/` (Lenis).
-- `functions/` — Cloudflare: `sitemap.xml.js`, `robots.txt.js`, `_middleware.js` (oculta carpetas internas).
+- `plantillas/` — piezas con las que se arman las páginas.
+- `images/` — fotos en WebP (cada foto grande tiene una copia más liviana para celular).
+- `fonts/` y `css/fuentes.css` — tipografías alojadas en el sitio: Cormorant Garamond (portada), Bricolage Grotesque (textos) y DM Mono (etiquetas).
+- `css/sinergia.css` — todo el diseño.
+- `js/` — `tema.js` (pantalla de carga sin parpadeo), `sitio.js`, `portada.js`, `vendor/` (GSAP y Lenis).
+- `functions/` — servidor en Cloudflare: `api/formulario.js`, `api/acceso.js`, `api/boletines.js`, `sitemap.xml.js`, `robots.txt.js`, `_middleware.js`.
+- `lib/servidor.js` — funciones compartidas del servidor (correo, hoja, WhatsApp, sesiones).
+- `boletines-privados/` — PDF de boletines (no públicos).
+- `descargas/` — PDF públicos.
+- `docs/` — guía de publicación y script de la hoja de cálculo.
 
-## Seguridad
-- `_headers`: política de seguridad del contenido (CSP) estricta — solo scripts y estilos propios, sin código dentro del HTML, sin marcos externos — más HTTPS obligatorio y caché.
-- El formulario de contacto no envía datos a ningún servidor: arma el mensaje y abre WhatsApp.
-- Si se agrega un servicio externo (por ejemplo Google Analytics o un mapa), hay que permitirlo en `_headers`.
+## Seguridad y privacidad
+- `_headers`: política de seguridad del contenido estricta (todo se sirve desde el propio sitio; sin código ni estilos dentro del HTML), HTTPS obligatorio y caché.
+- `functions/_middleware.js` oculta carpetas internas (`docs/`, `plantillas/`, `functions/`, `lib/`, `boletines-privados/`).
+- Formularios con campo trampa contra robots, límite de envíos por IP y aceptación obligatoria de la política de privacidad.
+- Zona de boletines sin contraseñas: códigos de un solo uso que vencen en 10 minutos (máximo 5 intentos) y sesión en cookie segura (HttpOnly, Secure). En la base solo se guardan huellas SHA-256 de códigos y sesiones.
+- Política de privacidad conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`), términos y política de cookies.
 
 ## Créditos
-Diseño y código propios. Librerías de código abierto (licencia MIT): Lenis y normalize.css.
+Diseño y desarrollo: Estéfano Ramírez. Librerías: GSAP (licencia estándar gratuita de GreenSock), Lenis y normalize.css (MIT). Fuentes con licencia SIL Open Font License.

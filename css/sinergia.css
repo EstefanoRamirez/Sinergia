@@ -128,8 +128,9 @@ button {
   color: #fff;
 }
 
-.sg-sprite {
-  display: none;
+.sg-sprite,
+[hidden] {
+  display: none !important;
 }
 
 .sg-wrap {
@@ -1078,7 +1079,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 .sg-abre-texto {
   position: absolute;
   inset: auto 0 0;
-  padding: clamp(28px, 5vw, 64px) var(--margen);
+  padding: clamp(28px, 5vw, 64px) max(var(--margen), 8%) max(clamp(28px, 5vw, 64px), 9%);
   background: linear-gradient(0deg, rgba(10, 8, 9, 0.82), transparent);
   color: #fff;
 }
@@ -1429,7 +1430,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 
 .sg-credo li {
   position: relative;
-  padding: 36px 30px 40px;
+  padding: 52px 30px 40px;
   border-right: 1px solid rgba(255, 255, 255, 0.18);
   border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   font-size: 18px;
@@ -1442,10 +1443,10 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 .sg-credo-c {
-  display: block;
-  margin-bottom: 12px;
+  float: left;
+  margin: 2px 4px 0 0;
   font-family: var(--f-portada);
-  font-size: 84px;
+  font-size: 76px;
   font-style: italic;
   line-height: 0.8;
   color: var(--rojo-vivo);
