@@ -3009,3 +3009,118 @@ button.sg-enlace {
   text-transform: uppercase;
   color: var(--rojo);
 }
+
+/* Ventana "Inscríbete" compacta: entra completa en pantalla sin barra de desplazamiento */
+.sg-modal {
+  width: min(940px, calc(100vw - 24px));
+}
+
+.sg-modal-form {
+  padding: clamp(24px, 3.4vw, 40px) clamp(22px, 3.6vw, 44px);
+}
+
+.sg-modal-form h2 {
+  margin-bottom: 10px;
+  font-size: clamp(19px, 1.7vw, 23px);
+  letter-spacing: 0.12em;
+}
+
+.sg-modal-form > p {
+  margin-bottom: 16px;
+  font-size: 14.5px;
+  line-height: 1.55;
+}
+
+.sg-modal .sg-form {
+  gap: 12px;
+}
+
+.sg-modal .sg-campos {
+  gap: 12px 24px;
+}
+
+.sg-modal .sg-campo label {
+  font-size: 13.5px;
+}
+
+.sg-modal .sg-campo input,
+.sg-modal .sg-campo select {
+  padding: 5px 0 7px;
+  font-size: 15.5px;
+}
+
+.sg-modal .sg-check {
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.sg-modal .sg-check input {
+  width: 16px;
+  height: 16px;
+}
+
+.sg-modal .sg-btn {
+  min-height: 44px;
+  margin-top: 4px;
+}
+
+.sg-modal-cerrar {
+  top: 14px;
+  right: 14px;
+  width: 40px;
+  height: 40px;
+}
+
+/* Pantallas bajas (laptops): aún más compacta */
+@media (max-height: 760px) and (min-width: 901px) {
+  .sg-modal-form {
+    padding-block: 22px;
+  }
+
+  .sg-modal-form > p {
+    display: none;
+  }
+}
+
+@media (max-width: 900px) {
+  .sg-modal-lado {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  .sg-modal-lado img.sg-modal-logo {
+    width: 170px;
+  }
+
+  .sg-modal-cerrar {
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+  }
+}
+
+@media (max-width: 640px) {
+  .sg-modal-form {
+    padding: 20px 20px 22px;
+  }
+
+  .sg-modal-form > p {
+    display: none;
+  }
+
+  .sg-modal .sg-campos {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+
+  .sg-modal .sg-campo--todo {
+    grid-column: 1 / -1;
+  }
+}
+
+/* Organigrama: sin recuadro, sobre el mismo fondo de la sección */
+.sg-foto.sg-estructura-diagrama {
+  background: transparent;
+  overflow: visible;
+}
