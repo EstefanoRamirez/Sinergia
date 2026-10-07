@@ -3601,8 +3601,12 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 }
 
 .sg-acceso-caja-lado {
+  display: flex;
   flex-direction: column;
-  gap: 22px;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(56px, 8vh, 96px);
+  padding-top: clamp(60px, 9vh, 110px);
   color: rgba(255, 255, 255, 0.78);
   text-align: center;
 }
@@ -3916,4 +3920,71 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   .sg-pie-bajo {
     padding-right: 72px;
   }
+}
+
+/* Boletines: campo de contraseña con botón para mostrarla y ayuda si se olvida */
+.sg-campo--clave {
+  position: relative;
+}
+
+.sg-campo--clave input {
+  padding-right: 40px;
+}
+
+.sg-ver-clave {
+  position: absolute;
+  right: 0;
+  bottom: 6px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--gris, #6f6668);
+  cursor: pointer;
+  transition: color 0.25s ease;
+}
+
+.sg-ver-clave svg {
+  width: 19px;
+  height: 19px;
+}
+
+.sg-ver-clave:hover,
+.sg-ver-clave[aria-pressed="true"] {
+  color: var(--rojo);
+}
+
+.sg-acceso-olvido {
+  margin: 10px 0 0;
+  font-size: 14px;
+  color: var(--gris, #6f6668);
+}
+
+.sg-acceso-olvido a {
+  color: var(--tinta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Métodos de pago: imagen-ícono sobre fondo claro, que se levanta al pasar el mouse */
+.sg-pago-img--icono {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(160deg, #fff 0%, #f3ede8 100%);
+  border: 1px solid var(--linea);
+}
+
+.sg-pago-img--icono img {
+  width: 88%;
+  height: auto;
+  object-fit: contain;
+  filter: none;
+  transition: transform 1s var(--curva);
+}
+
+.sg-pago:hover .sg-pago-img--icono img {
+  transform: translateY(-8px) rotate(-2deg) scale(1.04);
 }

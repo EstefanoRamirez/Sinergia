@@ -28,7 +28,7 @@ Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DE
 - **Testimonios** en tarjetas rojas que se voltean al pasar el cursor (en celular se ve todo de una vez).
 - **Ventana "Inscríbete"** al abrir el sitio (una vez por semana, nunca si ya se registró) y **aviso de cookies** pequeño.
 - **Formularios** (inscripción, registro y contacto) → `/api/formulario`: correo a Sinergia, fila en la hoja de Google y aviso por WhatsApp al dueño con el botón para escribirle al cliente. Si el servidor no responde, se abre WhatsApp con los datos.
-- **Boletines** para suscriptores: ingreso con correo y un código de 6 números (sin contraseñas) → `/api/acceso` y `/api/boletines`.
+- **Boletines** para suscriptores: registro gratuito e ingreso con correo y contraseña (sin servicio de correos) → `/api/acceso` y `/api/boletines`.
 
 ## Carpetas
 - `plantillas/` — piezas con las que se arman las páginas.
@@ -46,7 +46,7 @@ Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DE
 - `_headers`: política de seguridad del contenido estricta (todo se sirve desde el propio sitio; sin código ni estilos dentro del HTML), HTTPS obligatorio y caché.
 - `functions/_middleware.js` oculta carpetas internas (`docs/`, `plantillas/`, `functions/`, `lib/`, `boletines-privados/`).
 - Formularios con campo trampa contra robots, límite de envíos por IP y aceptación obligatoria de la política de privacidad.
-- Zona de boletines sin contraseñas: códigos de un solo uso que vencen en 10 minutos (máximo 5 intentos) y sesión en cookie segura (HttpOnly, Secure). En la base solo se guardan huellas SHA-256 de códigos y sesiones.
+- Zona de boletines con contraseña: en la base solo se guarda su huella (PBKDF2-SHA256, 100 000 iteraciones, sal aleatoria), con límite de intentos por correo y por IP. Sesión en cookie segura (HttpOnly, Secure) de la que solo se guarda la huella SHA-256.
 - Política de privacidad conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`), términos y política de cookies.
 
 ## Créditos

@@ -537,14 +537,13 @@
   var initBoletines = function () {
     var zona = $("[data-boletines]");
     if (!zona) return;
-    var pasoCorreo = $("[data-paso='correo']", zona);
-    var pasoCodigo = $("[data-paso='codigo']", zona);
+    var pasoEntrar = $("[data-paso='entrar']", zona);
+    var pasoCrear = $("[data-paso='crear']", zona);
     var pasoLista = $("[data-paso='lista']", zona);
     var lista = $("[data-lista-boletines]", zona);
-    var correoActual = "";
 
     var ver = function (paso) {
-      [pasoCorreo, pasoCodigo, pasoLista].forEach(function (p) { if (p) p.hidden = p !== paso; });
+      [pasoEntrar, pasoCrear, pasoLista].forEach(function (p) { if (p) p.hidden = p !== paso; });
     };
     var api = function (cuerpo) {
       return fetch("/api/acceso", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) })
@@ -578,37 +577,68 @@
         .then(function (j) { $("[data-correo-sesion]", zona).textContent = j.email || ""; pintarLista(j.boletines || []); ver(pasoLista); });
     };
 
-    if (!/^https?:$/.test(location.protocol)) { ver(pasoCorreo); return; }
-    cargarLista().catch(function () { ver(pasoCorreo); });
-
-    $("form", pasoCorreo).addEventListener("submit", function (e) {
-      e.preventDefault();
-      var f = e.target, est = $(".sg-estado", f);
-      if (validar(f).length) { est.textContent = "Escribe un correo válido."; return; }
-      correoActual = f.elements.email.value.trim().toLowerCase();
-      est.textContent = "Enviando código…";
-      api({ accion: "codigo", email: correoActual }).then(function (j) {
-        if (j.ok) { est.textContent = ""; $("[data-correo]", pasoCodigo).textContent = correoActual; ver(pasoCodigo); $("input", pasoCodigo).focus(); }
-        else est.textContent = j.error || "No pudimos enviar el código. Intenta otra vez.";
-      }).catch(function () { est.textContent = "No pudimos conectarnos. Intenta otra vez."; });
+    // Mostrar u ocultar la contraseña
+    $$("[data-ver-clave]", zona).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var input = b.parentElement.querySelector("input");
+        var mostrar = input.type === "password";
+        input.type = mostrar ? "text" : "password";
+        b.setAttribute("aria-pressed", String(mostrar));
+        b.setAttribute("aria-label", mostrar ? "Ocultar contraseña" : "Mostrar contraseña");
+      });
+    });
+    $$("[data-ir]", zona).forEach(function (b) {
+      b.addEventListener("click", function () {
+        var destino = b.getAttribute("data-ir") === "crear" ? pasoCrear : pasoEntrar;
+        ver(destino);
+        $("input", destino).focus();
+      });
     });
 
-    $("form", pasoCodigo).addEventListener("submit", function (e) {
+    var enviar = function (f, cuerpo, espera) {
+      var est = $(".sg-estado", f), boton = $("button[type=submit]", f);
+      if (!/^https?:$/.test(location.protocol)) { est.textContent = "La zona de boletines funciona con la web publicada."; return; }
+      boton.disabled = true;
+      est.textContent = espera;
+      api(cuerpo).then(function (j) {
+        boton.disabled = false;
+        if (j.ok) { est.textContent = ""; f.reset(); cargarLista(); }
+        else est.textContent = j.error || "No pudimos completar el ingreso. Intenta otra vez.";
+      }).catch(function () { boton.disabled = false; est.textContent = "No pudimos conectarnos. Intenta otra vez."; });
+    };
+
+    $("form", pasoEntrar).addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = e.target, est = $(".sg-estado", f);
-      var codigo = f.elements.codigo.value.replace(/\D/g, "");
-      if (codigo.length !== 6) { est.textContent = "El código tiene 6 números."; return; }
-      est.textContent = "Verificando…";
-      api({ accion: "verificar", email: correoActual, codigo: codigo }).then(function (j) {
-        if (j.ok) { est.textContent = ""; cargarLista(); }
-        else est.textContent = j.error || "Código incorrecto.";
-      }).catch(function () { est.textContent = "No pudimos conectarnos. Intenta otra vez."; });
+      var f = e.target;
+      if (validar(f).length) { $(".sg-estado", f).textContent = "Escribe tu correo y tu contraseña."; return; }
+      enviar(f, { accion: "entrar", email: f.elements.email.value.trim().toLowerCase(), clave: f.elements.clave.value }, "Ingresando…");
     });
 
-    $$("[data-volver]", zona).forEach(function (b) { b.addEventListener("click", function () { ver(pasoCorreo); }); });
+    $("form", pasoCrear).addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = e.target, est = $(".sg-estado", f);
+      var faltan = validar(f);
+      if (faltan.length) { est.textContent = f.elements.clave.value && f.elements.clave.value.length < 8 ? "La contraseña debe tener al menos 8 caracteres." : "Revisa los campos marcados para continuar."; faltan[0].focus(); return; }
+      if (f.elements.clave.value !== f.elements.clave2.value) {
+        f.elements.clave2.setAttribute("aria-invalid", "true");
+        est.textContent = "Las contraseñas no coinciden.";
+        f.elements.clave2.focus();
+        return;
+      }
+      enviar(f, {
+        accion: "crear",
+        nombre: f.elements.nombre.value.trim(), apellido: f.elements.apellido.value.trim(),
+        email: f.elements.email.value.trim().toLowerCase(), whatsapp: f.elements.whatsapp.value.trim(),
+        clave: f.elements.clave.value, novedades: f.elements.novedades.checked, acepto: f.elements.acepto.checked
+      }, "Creando tu cuenta…");
+    });
+
     $$("[data-salir]", zona).forEach(function (b) {
-      b.addEventListener("click", function () { api({ accion: "salir" }).finally(function () { ver(pasoCorreo); }); });
+      b.addEventListener("click", function () { api({ accion: "salir" }).finally(function () { ver(pasoEntrar); }); });
     });
+
+    if (!/^https?:$/.test(location.protocol)) { ver(pasoEntrar); return; }
+    cargarLista().catch(function () { ver(pasoEntrar); });
   };
 
   // ---------- Cursor propio (solo con mouse): punto rojo que sigue con suavidad ----------

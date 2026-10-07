@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" role="img" aria-label="Transferencia o pago con Deuna desde el celular">
+  <defs>
+    <filter id="s" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#141112" flood-opacity=".28"/></filter>
+    <filter id="s2" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#141112" flood-opacity=".3"/></filter>
+    <linearGradient id="marco" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3536"/><stop offset=".5" stop-color="#141112"/><stop offset="1" stop-color="#2a2627"/></linearGradient>
+    <linearGradient id="brillo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/></linearGradient>
+  </defs>
+  <g transform="rotate(-9 200 152)">
+    <rect x="140" y="34" width="120" height="236" rx="24" fill="url(#marco)" filter="url(#s)"/>
+    <rect x="146" y="40" width="108" height="224" rx="19" fill="#fbfaf8"/>
+    <rect x="186" y="47" width="28" height="7" rx="3.5" fill="#141112"/>
+    <g transform="translate(173 78) scale(2.15)" fill="#141112">
+      <path d="M13.6801 16.8874C13.6801 16.7388 13.7095 16.5922 13.7409 16.4455L17.0439 1H12.1335L10.8598 6.94089C10.4712 5.88353 9.35842 4.85125 7.9689 4.85125C3.7925 4.84932 0.0439453 10.5085 0.0439453 16.8584C0.0439453 20.785 1.81617 23 4.66978 23C6.77172 23 8.06311 21.7902 8.87562 20.372H8.92076C9.643 22.0874 11.3485 22.8746 13.527 22.9865L14.6221 17.8811C14.0412 17.7788 13.6801 17.474 13.6801 16.8874ZM6.29089 19.28C5.29978 19.28 4.87978 18.3924 4.87978 17.0051C4.87978 14.4659 6.35173 8.64848 8.66563 8.64848C9.65477 8.64848 10.2436 9.81775 9.8844 11.4733L8.89329 16.1387C8.47329 18.0875 7.5234 19.28 6.29285 19.28"/>
+      <path d="M19.9728 1C19.7307 1.42198 19.3303 1.82477 18.8135 2.12591C18.3616 2.38868 17.8907 2.53254 17.4559 2.56706L16.8801 5.37512H18.2377L15.6025 17.8234H20.5391L24.0743 1H19.9728Z"/>
+      <path d="M17.7205 18.563C16.551 18.563 15.6025 19.5565 15.6025 20.7815C15.6025 22.0065 16.551 23 17.7205 23C18.89 23 19.8384 22.0065 19.8384 20.7815C19.8384 19.5565 18.89 18.563 17.7205 18.563Z"/>
+    </g>
+    <rect x="162" y="152" width="76" height="9" rx="4.5" fill="#e6dfd9"/>
+    <rect x="174" y="168" width="52" height="6" rx="3" fill="#efe9e3"/>
+    <rect x="162" y="188" width="76" height="1" fill="#e6dfd9"/>
+    <rect x="162" y="198" width="34" height="6" rx="3" fill="#efe9e3"/>
+    <rect x="212" y="198" width="26" height="6" rx="3" fill="#e6dfd9"/>
+    <rect x="160" y="226" width="80" height="24" rx="12" fill="#141112"/>
+    <rect x="186" y="236" width="28" height="4" rx="2" fill="#fbfaf8" opacity=".85"/>
+    <rect x="140" y="34" width="120" height="236" rx="24" fill="url(#brillo)" opacity=".35"/>
+  </g>
+  <g filter="url(#s2)">
+    <circle cx="276" cy="92" r="25" fill="#bb0f17"/>
+    <path d="M265 92.5l7.5 7.5 15-15" fill="none" stroke="#fff" stroke-width="4.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>

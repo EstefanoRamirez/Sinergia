@@ -33,12 +33,14 @@ Sirve para los registros y el ingreso a Boletines.
 
 ✅ `https://www.sinergia.ec` abre la web nueva con el candado.
 
-## 4. Correos con Resend (avisos y códigos de acceso)
+## 4. (Opcional) Correos con Resend
+No es necesario: la web funciona sin servicio de correos (las inscripciones llegan a la hoja de cálculo y al WhatsApp del dueño, y la zona de boletines usa contraseña). Solo si algún día quieres recibir además un correo por cada inscripción:
+
 1. Crea una cuenta en [resend.com](https://resend.com) → **Domains** → **Add domain** → `sinergia.ec`.
 2. Agrega en tu DNS los registros que te muestra Resend (son TXT/MX en un subdominio, no tocan tus correos actuales) y espera a que diga **Verified**.
 3. **API Keys** → **Create API key** (permiso *Sending access*) y cópiala.
 
-✅ Resend muestra el dominio en verde.
+Si lo activas, agrega Resend en la lista de proveedores de la Política de privacidad.
 
 ## 5. Hoja de cálculo de inscripciones (Google Sheets)
 1. Crea una hoja de Google llamada **Inscripciones Sinergia**.
@@ -58,16 +60,17 @@ Proyecto de Pages → **Settings** → **Variables and Secrets** → agrega (mar
 
 | Nombre | Valor | ¿Secreta? |
 |---|---|---|
-| `RESEND_API_KEY` | la clave del paso 4 | Sí |
-| `EMAIL_FROM` | `Sinergia <web@sinergia.ec>` | No |
-| `EMAIL_TO` | `info@sinergia.ec,capacitacion@sinergia.ec` | No |
 | `PLANILLA_URL` | la URL del paso 5 | No |
 | `PLANILLA_CLAVE` | la CLAVE del paso 5 | Sí |
 | `WHATSAPP_AVISOS` | el dato del paso 6 | Sí |
+| `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` | solo si hiciste el paso 4 opcional | Sí / No / No |
 
 Luego **Retry deployment**.
 
-✅ Prueba final: llena la ventana **Inscríbete** con tus datos. Debe llegar el correo, aparecer una fila en la hoja y un WhatsApp al dueño con el botón para escribirte. Luego entra a **/boletines** con ese correo: te llega un código y ves la zona de suscriptores.
+✅ Prueba final: llena la ventana **Inscríbete** con tus datos. Debe aparecer una fila en la hoja y llegar un WhatsApp al dueño con el botón para escribirte. Luego entra a **/boletines**, crea una cuenta con correo y contraseña, y verás la zona de suscriptores.
+
+### Si alguien olvida su contraseña
+No hace falta servicio de correos: la persona te escribe por WhatsApp (hay un enlace bajo el formulario). En Cloudflare → **Workers & Pages** → **KV** → `SUSCRIPTORES` → busca la clave `cuenta:` seguida de su correo (por ejemplo `cuenta:ana@empresa.com`) y bórrala. Luego dile que vuelva a registrarse con una contraseña nueva; sus datos de suscriptora se conservan.
 
 ## 8. (Opcional) WhatsApp automático al cliente
 Para que el cliente reciba un WhatsApp automático apenas se inscribe hace falta la **WhatsApp Cloud API de Meta** (cuenta de Meta Business verificada, número dedicado y una plantilla aprobada; los mensajes iniciados por la empresa tienen costo por conversación).
