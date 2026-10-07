@@ -2067,21 +2067,36 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 /* ---------- Clientes ---------- */
+/* La última fila (incompleta) queda centrada */
 .sg-logos {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  border-top: 1px solid var(--linea);
-  border-left: 1px solid var(--linea);
+  --cols: 6;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1px 0 0 1px;
 }
 
 .sg-logos li {
   display: grid;
   place-items: center;
+  flex: 0 0 calc(100% / var(--cols));
   height: 170px;
+  margin: -1px 0 0 -1px;
   padding: 26px;
-  border-right: 1px solid var(--linea);
-  border-bottom: 1px solid var(--linea);
+  border: 1px solid var(--linea);
   background: #fff;
+}
+
+@media (max-width: 1100px) {
+  .sg-logos {
+    --cols: 4;
+  }
+}
+
+@media (max-width: 760px) {
+  .sg-logos {
+    --cols: 3;
+  }
 }
 
 .sg-logos img {
@@ -2902,7 +2917,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   }
 
   .sg-logos {
-    grid-template-columns: repeat(2, 1fr);
+    --cols: 2;
   }
 
   .sg-logos li {
