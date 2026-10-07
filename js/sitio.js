@@ -283,16 +283,6 @@
       return function () { acc.classList.remove("is-horizontal"); tw.kill(); gsap.set(acc, { clearProps: "transform" }); };
     });
 
-    // Testimonios: la tarjeta del centro flota a otro ritmo
-    mm.add("(min-width: 901px)", function () {
-      $$(".sg-testimonios").forEach(function (g) {
-        $$(".sg-tarjeta", g).forEach(function (t, i) {
-          if (i % 3 !== 1) return;
-          gsap.fromTo(t, { y: 70 }, { y: -70, ease: "none", scrollTrigger: { trigger: g, start: "top bottom", end: "bottom top", scrub: true } });
-        });
-      });
-    });
-
     // Tira de fotos: además de moverse sola, avanza con el scroll
     $$(".sg-tira").forEach(function (t) {
       gsap.fromTo(t, { x: 0 }, { x: -260, ease: "none", scrollTrigger: { trigger: t, start: "top bottom", end: "bottom top", scrub: true } });
@@ -304,7 +294,7 @@
     });
 
     // Fotos: se inclinan un poco según la velocidad del scroll
-    var inclinables = $$(".sg-acceso, .sg-tira img, .sg-galeria-item");
+    var inclinables = $$(".sg-tira img");
     if (inclinables.length) {
       var inclinar = gsap.quickTo(inclinables, "skewY", { duration: 0.6, ease: "power3" });
       ST.create({ onUpdate: function (self) { inclinar(Math.max(-2.5, Math.min(2.5, self.getVelocity() / -700))); } });
@@ -543,13 +533,13 @@
   // ---------- Aviso de cookies ----------
   var initCookies = function () {
     var aviso = $("[data-cookies]");
-    if (!aviso || leer("sg-cookies") === "ok") return;
+    if (!aviso || leer("sg-cookies-v2") === "ok") return;
     setTimeout(function () {
       aviso.hidden = false;
       requestAnimationFrame(function () { aviso.classList.add("is-visible"); });
     }, 1800);
     $("[data-cookies-ok]", aviso).addEventListener("click", function () {
-      guardar("sg-cookies", "ok");
+      guardar("sg-cookies-v2", "ok");
       aviso.classList.remove("is-visible");
       setTimeout(function () { aviso.hidden = true; }, 600);
     });
@@ -582,7 +572,7 @@
         var art = document.createElement("article");
         art.className = "sg-doc";
         art.innerHTML =
-          '<div class="sg-doc-portada sg-doc-portada--roja"><span class="sg-doc-tipo"></span><img class="sg-doc-sello" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"><h3></h3></div>' +
+          '<div class="sg-doc-portada sg-doc-portada--roja"><span class="sg-doc-contra" aria-hidden="true"></span><span class="sg-doc-paginas" aria-hidden="true"></span><span class="sg-doc-brillo" aria-hidden="true"></span><span class="sg-doc-tipo"></span><img class="sg-doc-sello" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"><h3></h3></div>' +
           '<div class="sg-doc-info"><p></p><div class="sg-doc-acciones"><a target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-eye"/></svg>Ver</a><a download><svg aria-hidden="true"><use href="#i-download"/></svg>Descargar</a></div></div>';
         $(".sg-doc-tipo", art).textContent = "Boletín · " + (b.fecha || "");
         $("h3", art).textContent = b.titulo;
