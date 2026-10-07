@@ -3988,3 +3988,83 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-pago:hover .sg-pago-img--icono img {
   transform: translateY(-8px) rotate(-2deg) scale(1.04);
 }
+
+/* Webinars: lista de talleres en filas (título grande, descripción y enlace) */
+.sg-taller-datos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  padding: 0;
+  list-style: none;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.sg-taller-datos li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.sg-taller-datos li::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--rojo);
+}
+
+.sg-talleres {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(20, 17, 18, 0.18);
+}
+
+.sg-taller {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr) auto;
+  gap: 18px clamp(24px, 4vw, 64px);
+  align-items: center;
+  padding: clamp(22px, 2.6vw, 34px) 0;
+  border-bottom: 1px solid rgba(20, 17, 18, 0.18);
+}
+
+.sg-taller h3 {
+  margin: 0;
+  font-size: clamp(28px, 3.4vw, 50px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 0.95;
+  text-transform: uppercase;
+  transition: color 0.35s ease, transform 0.6s var(--curva);
+}
+
+.sg-taller p {
+  margin: 0;
+  color: var(--gris);
+}
+
+.sg-taller .sg-enlace {
+  white-space: nowrap;
+}
+
+.sg-taller:hover h3 {
+  color: var(--rojo);
+  transform: translateX(10px);
+}
+
+@media (max-width: 900px) {
+  .sg-taller {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .sg-taller .sg-enlace {
+    justify-self: start;
+  }
+}
