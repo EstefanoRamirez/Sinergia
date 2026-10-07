@@ -16,7 +16,6 @@
 
   var hero = document.querySelector("[data-hero]");
   if (!hero) return;
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   var foto = hero.querySelector(".sg-hero-base");
   if (!foto) return;
 
@@ -49,7 +48,7 @@
     canvas.height = Math.round(H * dpr);
     mascara.width = Math.max(1, Math.round(W * ESCALA_MASCARA));
     mascara.height = Math.max(1, Math.round(H * ESCALA_MASCARA));
-    R = Math.min(W, H) * (tactil ? 0.26 : 0.17);
+    R = Math.min(W, H) * (tactil ? 0.28 : 0.22);
   };
 
   // Igual que object-fit: cover; object-position: 50% 40% del CSS

@@ -14,10 +14,9 @@
   if (d.classList.contains("js")) return;
   d.classList.add("js");
 
-  var calma = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var visto = false;
   try { visto = sessionStorage.getItem("sg-cargado") === "1"; } catch (e) {}
-  if (!calma) d.classList.add(visto ? "sg-cortina-on" : "sg-carga-on");
+  d.classList.add(visto ? "sg-cortina-on" : "sg-carga-on");
 
   // Seguro: si por algo no corre el resto del sitio, la pantalla de carga se quita sola.
   setTimeout(function () { d.classList.remove("sg-carga-on", "sg-cortina-on"); }, 5000);

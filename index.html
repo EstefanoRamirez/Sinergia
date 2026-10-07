@@ -82,14 +82,9 @@
     <div class="sg-wrap sg-header-inner">
       <a class="sg-logo" href="index.html" aria-label="Sinergia Capacitación Empresarial Oportuna, inicio">
         <img src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" class="sg-logo-mark">
-        <span class="sg-logo-text">
-          <span class="sg-logo-name">SINERGIA</span>
-          <span class="sg-logo-tag">Capacitación Empresarial Oportuna</span>
-        </span>
       </a>
 
       <nav class="sg-nav" aria-label="Principal">
-        <a class="sg-nav-link" href="index.html" aria-current="page">Inicio</a>
         <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
         <a class="sg-nav-link" href="servicios.html">Servicios</a>
         <a class="sg-nav-link" href="webinars.html">Webinars</a>
@@ -103,34 +98,42 @@
         </div>
         <a class="sg-nav-link" href="galeria.html">Galería</a>
         <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
-        <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
+        <a class="sg-nav-link" href="contacto.html">Contacto</a>
       </nav>
 
-      <button class="sg-btn sg-btn--chico" type="button" data-abrir-registro>Inscríbete</button>
+      <button class="sg-nav-cta" type="button" data-abrir-registro>Inscríbete <span class="sg-punto" aria-hidden="true"></span></button>
 
-      <button class="sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
-        <span></span><span></span>
+      <button class="sg-nav-cta sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
+        <span class="sg-burger-txt">Menú</span> <span class="sg-punto" aria-hidden="true"></span>
       </button>
     </div>
   </header>
 
+  <!-- Menú a pantalla completa (botón "Menú ●") -->
   <div class="sg-movil" id="sg-movil" data-movil hidden>
-    <nav class="sg-movil-nav" aria-label="Menú">
-      <a class="sg-nav-link" href="index.html" aria-current="page">Inicio</a>
-      <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
-      <a class="sg-nav-link" href="servicios.html">Servicios</a>
-      <a class="sg-nav-link" href="webinars.html">Webinars</a>
-      <a class="sg-nav-link" href="biblioteca.html">Biblioteca</a>
-      <a class="sg-nav-link" href="boletines.html">Boletines</a>
-      <a class="sg-nav-link" href="clientes.html">Clientes</a>
-      <a class="sg-nav-link" href="galeria.html">Galería</a>
-      <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
-      <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
-    </nav>
-    <div class="sg-movil-pie">
-      <button class="sg-btn sg-btn--blanco" type="button" data-abrir-registro>Inscríbete gratis</button>
-      <p class="sg-mt">+593 96 909 4855 · info@sinergia.ec</p>
-      <p>Calle E8-A e Ismael Solís, Quito</p>
+    <div class="sg-wrap sg-movil-inner">
+      <nav class="sg-movil-nav" aria-label="Todas las páginas">
+        <ol>
+          <li><a class="sg-nav-link" href="index.html" aria-current="page"><span>01</span>Inicio</a></li>
+          <li><a class="sg-nav-link" href="nosotros.html"><span>02</span>Nosotros</a></li>
+          <li><a class="sg-nav-link" href="servicios.html"><span>03</span>Servicios</a></li>
+          <li><a class="sg-nav-link" href="webinars.html"><span>04</span>Webinars</a></li>
+          <li><a class="sg-nav-link" href="clientes.html"><span>05</span>Clientes</a></li>
+          <li><a class="sg-nav-link" href="testimonios.html"><span>06</span>Testimonios</a></li>
+          <li><a class="sg-nav-link" href="galeria.html"><span>07</span>Galería</a></li>
+          <li><a class="sg-nav-link" href="biblioteca.html"><span>08</span>Biblioteca</a></li>
+          <li><a class="sg-nav-link" href="boletines.html"><span>09</span>Boletines</a></li>
+          <li><a class="sg-nav-link" href="contacto.html"><span>10</span>Contacto</a></li>
+        </ol>
+      </nav>
+      <div class="sg-movil-pie">
+        <p class="sg-etiqueta">Escríbenos</p>
+        <p><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></p>
+        <p><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></p>
+        <p class="sg-etiqueta sg-mt">Visítanos</p>
+        <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
+        <button class="sg-btn sg-mt" type="button" data-abrir-registro>Inscríbete gratis <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
     </div>
   </div>
 
@@ -145,23 +148,13 @@
         <div class="sg-hero-tint"></div>
       </div>
       <div class="sg-hero-sombra"></div>
-      <p class="sg-hero-pista" aria-hidden="true">Mueve el cursor</p>
 
-      <div class="sg-wrap sg-hero-contenido">
-        <p class="sg-etiqueta" data-anim="entra">Capacitación Empresarial Oportuna · Quito, desde 2016</p>
-        <h1 class="sg-hero-titulo" id="hero-titulo" data-anim="lineas">El éxito nace de la ambición<br> y florece en la <em>Sinergia</em></h1>
-        <div class="sg-hero-pie">
-          <div data-anim="entra">
-            <p class="sg-hero-lead">Formamos equipos más productivos y competitivos con capacitación práctica en gerencia, ventas, contabilidad, tributación y administración.</p>
-            <div class="sg-btns">
-              <button class="sg-btn" type="button" data-abrir-registro>Inscríbete <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
-              <a class="sg-btn sg-btn--linea" href="servicios.html">Nuestros servicios</a>
-            </div>
-          </div>
-          <div class="sg-hero-datos" data-anim="entra">
-            <p>Webinars · In company</p>
-            <p>Desliza ↓</p>
-          </div>
+      <div class="sg-wrap sg-hero-contenido" data-hero-contenido>
+        <p class="sg-hero-etiqueta" data-anim="entra">(01) Capacitación Empresarial Oportuna — Quito, desde 2016</p>
+        <h1 class="sg-hero-titulo" id="hero-titulo" data-anim="lineas">El éxito nace<br>de la ambición y<br>florece en la <em>Sinergia</em></h1>
+        <div class="sg-hero-pie" data-anim="entra">
+          <p class="sg-hero-lead">Formamos equipos más productivos y competitivos en gerencia, ventas, contabilidad, tributación y administración.</p>
+          <a class="sg-hero-desliza" href="#quienes-somos">Desliza ↓</a>
         </div>
       </div>
     </section>
@@ -185,8 +178,8 @@
           <p class="sg-etiqueta" data-anim="sube">Quiénes somos</p>
           <h2 class="sg-display" data-anim="lineas">Capacitación que <em>transforma</em> empresas</h2>
         </div>
-        <div data-anim="sube">
-          <p class="sg-lead">En Sinergia Capacitación Empresarial Oportuna estamos comprometidos en brindar capacitaciones empresariales de alta calidad en las áreas gerenciales, ventas, contabilidad, tributación y administración.</p>
+        <div>
+          <p class="sg-lead" data-anim="llenar">En Sinergia Capacitación Empresarial Oportuna estamos comprometidos en brindar capacitaciones empresariales de alta calidad en las áreas gerenciales, ventas, contabilidad, tributación y administración.</p>
           <p>Nuestro equipo de expertos cuenta con años de experiencia en el campo empresarial y está dedicado a ayudar a nuestros clientes a alcanzar el éxito en sus negocios. Nos enorgullecemos de ofrecer un servicio personalizado y adaptado a las necesidades de cada cliente.</p>
           <a class="sg-enlace" href="nosotros.html">Ver más <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
         </div>

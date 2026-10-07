@@ -81,14 +81,9 @@
     <div class="sg-wrap sg-header-inner">
       <a class="sg-logo" href="index.html" aria-label="Sinergia Capacitación Empresarial Oportuna, inicio">
         <img src="images/marca/simbolo-rojo.webp" alt="" width="507" height="465" class="sg-logo-mark">
-        <span class="sg-logo-text">
-          <span class="sg-logo-name">SINERGIA</span>
-          <span class="sg-logo-tag">Capacitación Empresarial Oportuna</span>
-        </span>
       </a>
 
       <nav class="sg-nav" aria-label="Principal">
-        <a class="sg-nav-link" href="index.html">Inicio</a>
         <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
         <a class="sg-nav-link" href="servicios.html" aria-current="page">Servicios</a>
         <a class="sg-nav-link" href="webinars.html">Webinars</a>
@@ -102,34 +97,42 @@
         </div>
         <a class="sg-nav-link" href="galeria.html">Galería</a>
         <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
-        <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
+        <a class="sg-nav-link" href="contacto.html">Contacto</a>
       </nav>
 
-      <button class="sg-btn sg-btn--chico" type="button" data-abrir-registro>Inscríbete</button>
+      <button class="sg-nav-cta" type="button" data-abrir-registro>Inscríbete <span class="sg-punto" aria-hidden="true"></span></button>
 
-      <button class="sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
-        <span></span><span></span>
+      <button class="sg-nav-cta sg-burger" type="button" aria-controls="sg-movil" aria-expanded="false" aria-label="Abrir menú" data-burger>
+        <span class="sg-burger-txt">Menú</span> <span class="sg-punto" aria-hidden="true"></span>
       </button>
     </div>
   </header>
 
+  <!-- Menú a pantalla completa (botón "Menú ●") -->
   <div class="sg-movil" id="sg-movil" data-movil hidden>
-    <nav class="sg-movil-nav" aria-label="Menú">
-      <a class="sg-nav-link" href="index.html">Inicio</a>
-      <a class="sg-nav-link" href="nosotros.html">Nosotros</a>
-      <a class="sg-nav-link" href="servicios.html" aria-current="page">Servicios</a>
-      <a class="sg-nav-link" href="webinars.html">Webinars</a>
-      <a class="sg-nav-link" href="biblioteca.html">Biblioteca</a>
-      <a class="sg-nav-link" href="boletines.html">Boletines</a>
-      <a class="sg-nav-link" href="clientes.html">Clientes</a>
-      <a class="sg-nav-link" href="galeria.html">Galería</a>
-      <a class="sg-nav-link" href="testimonios.html">Testimonios</a>
-      <a class="sg-nav-link" href="contacto.html">Contáctanos</a>
-    </nav>
-    <div class="sg-movil-pie">
-      <button class="sg-btn sg-btn--blanco" type="button" data-abrir-registro>Inscríbete gratis</button>
-      <p class="sg-mt">+593 96 909 4855 · info@sinergia.ec</p>
-      <p>Calle E8-A e Ismael Solís, Quito</p>
+    <div class="sg-wrap sg-movil-inner">
+      <nav class="sg-movil-nav" aria-label="Todas las páginas">
+        <ol>
+          <li><a class="sg-nav-link" href="index.html"><span>01</span>Inicio</a></li>
+          <li><a class="sg-nav-link" href="nosotros.html"><span>02</span>Nosotros</a></li>
+          <li><a class="sg-nav-link" href="servicios.html" aria-current="page"><span>03</span>Servicios</a></li>
+          <li><a class="sg-nav-link" href="webinars.html"><span>04</span>Webinars</a></li>
+          <li><a class="sg-nav-link" href="clientes.html"><span>05</span>Clientes</a></li>
+          <li><a class="sg-nav-link" href="testimonios.html"><span>06</span>Testimonios</a></li>
+          <li><a class="sg-nav-link" href="galeria.html"><span>07</span>Galería</a></li>
+          <li><a class="sg-nav-link" href="biblioteca.html"><span>08</span>Biblioteca</a></li>
+          <li><a class="sg-nav-link" href="boletines.html"><span>09</span>Boletines</a></li>
+          <li><a class="sg-nav-link" href="contacto.html"><span>10</span>Contacto</a></li>
+        </ol>
+      </nav>
+      <div class="sg-movil-pie">
+        <p class="sg-etiqueta">Escríbenos</p>
+        <p><a href="https://wa.me/593969094855" data-wa>+593 96 909 4855</a></p>
+        <p><a href="mailto:info@sinergia.ec">info@sinergia.ec</a></p>
+        <p class="sg-etiqueta sg-mt">Visítanos</p>
+        <p>Calle E8-A e Ismael Solís<br>Quito 170803, Ecuador</p>
+        <button class="sg-btn sg-mt" type="button" data-abrir-registro>Inscríbete gratis <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </div>
     </div>
   </div>
 
@@ -154,8 +157,8 @@
             <p class="sg-etiqueta" data-anim="sube">Servicio principal</p>
             <h2 class="sg-display" data-anim="lineas">Capacitación <em>In Company</em> – On Line</h2>
           </div>
-          <div data-anim="sube">
-            <p class="sg-lead">Contamos con un staff de instructores en el área contable, financiera, tributaria, laboral y administrativa.</p>
+          <div>
+            <p class="sg-lead" data-anim="llenar">Contamos con un staff de instructores en el área contable, financiera, tributaria, laboral y administrativa.</p>
             <p>Adaptamos cada programa a las necesidades específicas de su organización para garantizar resultados aplicables de inmediato en su entorno laboral.</p>
             <a class="sg-btn" href="contacto.html?servicio=Capacitaci%C3%B3n%20In%20Company%20%E2%80%93%20On%20Line">Solicitar propuesta <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </div>

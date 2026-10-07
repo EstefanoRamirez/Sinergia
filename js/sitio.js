@@ -15,7 +15,9 @@
   var MENSAJE_WA = "¡Hola, Sinergia! Me gustaría recibir información sobre sus capacitaciones.";
 
   var html = document.documentElement;
-  var calma = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Las animaciones son parte de la identidad del sitio: se muestran siempre, aunque el equipo
+  // tenga desactivados los "efectos de animación" (decisión del cliente).
+  var calma = false;
   var finoPuntero = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   var hayGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
   var gsap = window.gsap;
@@ -145,12 +147,14 @@
       abierto = si;
       btn.setAttribute("aria-expanded", String(si));
       btn.setAttribute("aria-label", si ? "Cerrar menú" : "Abrir menú");
+      var txt = $(".sg-burger-txt", btn);
+      if (txt) txt.textContent = si ? "Cerrar" : "Menú";
       document.body.classList.toggle("sg-menu-abierto", si);
       document.body.classList.toggle("sg-bloqueo", si);
       pararScroll(si);
       if (si) {
         panel.hidden = false;
-        $$(".sg-movil-nav a", panel).forEach(function (a, i) { a.style.transitionDelay = (0.15 + i * 0.04) + "s"; });
+        $$(".sg-movil-nav a", panel).forEach(function (a, i) { a.style.transitionDelay = (0.2 + i * 0.045) + "s"; });
         requestAnimationFrame(function () { requestAnimationFrame(function () { panel.classList.add("is-abierto"); }); });
       } else {
         panel.classList.remove("is-abierto");
@@ -160,7 +164,6 @@
     btn.addEventListener("click", function () { poner(!abierto); });
     panel.addEventListener("click", function (e) { if (e.target.closest("a, [data-abrir-registro]")) poner(false); });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && abierto) { poner(false); btn.focus(); } });
-    window.matchMedia("(min-width: 1181px)").addEventListener("change", function (e) { if (e.matches) poner(false); });
   };
 
   // ---------- Cintas en movimiento (texto y fotos) ----------
@@ -182,6 +185,12 @@
     if (!hayGsap || calma) return;
     gsap.registerPlugin(window.ScrollTrigger);
     var ST = window.ScrollTrigger;
+    // Los títulos grandes se animan letra por letra (más abajo); se marcan antes para no animarlos dos veces
+    if (typeof window.SplitText === "function") {
+      $$(".sg-display, .sg-titulo").forEach(function (el) {
+        if (!el.closest(".sg-hero, .sg-cabecera, .sg-modal, [data-boletines]")) el.setAttribute("data-anim", "letras");
+      });
+    }
     var partir = function (el) {
       if (typeof window.SplitText !== "function") return null;
       gsap.registerPlugin(window.SplitText);
@@ -236,6 +245,70 @@
     $$(".sg-testimonios").forEach(function (g) {
       gsap.from($$(".sg-tarjeta", g), { y: 80, rotate: 2, opacity: 0, duration: 1.2, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%" } });
     });
+
+    // ---- Efectos de scroll al estilo de las webs premium ----
+
+    // Títulos grandes: letra por letra
+    if (typeof window.SplitText === "function") {
+      $$("[data-anim='letras']").forEach(function (el) {
+        var st = new window.SplitText(el, { type: "lines,words,chars", linesClass: "sg-linea", mask: "lines" });
+        gsap.from(st.chars, { yPercent: 115, duration: 1, ease: "power4.out", stagger: 0.018, scrollTrigger: { trigger: el, start: "top 88%" } });
+      });
+
+      // Textos que se iluminan palabra por palabra mientras bajas
+      $$("[data-anim='llenar']").forEach(function (el) {
+        var st = new window.SplitText(el, { type: "words" });
+        gsap.fromTo(st.words, { opacity: 0.14 }, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true } });
+      });
+    }
+
+    // Portada: al bajar, el texto sube y se desvanece y la foto se queda atrás
+    var hero = $(".sg-hero");
+    if (hero) {
+      var cont = $("[data-hero-contenido]", hero);
+      if (cont) gsap.to(cont, { y: -140, opacity: 0, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom 20%", scrub: true } });
+      gsap.to($(".sg-hero-media", hero), { yPercent: 28, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+      gsap.to($(".sg-hero-sombra", hero), { backgroundColor: "rgba(10,8,9,0.6)", ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+    }
+
+    // Accesos: en computadora la sección se queda fija y las tarjetas pasan de lado
+    var mm = gsap.matchMedia();
+    mm.add("(min-width: 1024px)", function () {
+      var acc = $(".sg-accesos");
+      if (!acc) return;
+      var seccion = acc.closest("section");
+      acc.classList.add("is-horizontal");
+      var distancia = function () { return Math.max(0, acc.scrollWidth - acc.parentElement.clientWidth); };
+      var tw = gsap.to(acc, { x: function () { return -distancia(); }, ease: "none", scrollTrigger: { trigger: seccion, start: "top top", end: function () { return "+=" + distancia(); }, pin: true, scrub: 1, invalidateOnRefresh: true } });
+      return function () { acc.classList.remove("is-horizontal"); tw.kill(); gsap.set(acc, { clearProps: "transform" }); };
+    });
+
+    // Testimonios: la tarjeta del centro flota a otro ritmo
+    mm.add("(min-width: 901px)", function () {
+      $$(".sg-testimonios").forEach(function (g) {
+        $$(".sg-tarjeta", g).forEach(function (t, i) {
+          if (i % 3 !== 1) return;
+          gsap.fromTo(t, { y: 70 }, { y: -70, ease: "none", scrollTrigger: { trigger: g, start: "top bottom", end: "bottom top", scrub: true } });
+        });
+      });
+    });
+
+    // Tira de fotos: además de moverse sola, avanza con el scroll
+    $$(".sg-tira").forEach(function (t) {
+      gsap.fromTo(t, { x: 0 }, { x: -260, ease: "none", scrollTrigger: { trigger: t, start: "top bottom", end: "bottom top", scrub: true } });
+    });
+
+    // Bloque rojo final: se abre en círculo desde el centro
+    $$(".sg-llamado").forEach(function (el) {
+      gsap.fromTo(el, { clipPath: "circle(18% at 50% 60%)" }, { clipPath: "circle(110% at 50% 50%)", ease: "none", scrollTrigger: { trigger: el, start: "top 95%", end: "top 25%", scrub: true } });
+    });
+
+    // Fotos: se inclinan un poco según la velocidad del scroll
+    var inclinables = $$(".sg-acceso, .sg-tira img, .sg-galeria-item");
+    if (inclinables.length) {
+      var inclinar = gsap.quickTo(inclinables, "skewY", { duration: 0.6, ease: "power3" });
+      ST.create({ onUpdate: function (self) { inclinar(Math.max(-2.5, Math.min(2.5, self.getVelocity() / -700))); } });
+    }
 
     // Galería y logos: aparecen en tandas a medida que llegan a la pantalla
     var lotes = $$(".sg-galeria-item, .sg-logos li");
@@ -560,6 +633,29 @@
     });
   };
 
+  // ---------- Cursor propio (solo con mouse): punto rojo que sigue con suavidad ----------
+  var initCursor = function () {
+    if (!finoPuntero || !hayGsap) return;
+    var c = document.createElement("div");
+    c.className = "sg-cursor is-oculto";
+    c.setAttribute("aria-hidden", "true");
+    document.body.appendChild(c);
+    var x = gsap.quickTo(c, "x", { duration: 0.45, ease: "power3" });
+    var y = gsap.quickTo(c, "y", { duration: 0.45, ease: "power3" });
+    window.addEventListener("pointermove", function (e) {
+      if (e.pointerType !== "mouse") return;
+      c.classList.remove("is-oculto");
+      x(e.clientX); y(e.clientY);
+      var t = e.target.closest ? e.target : null;
+      var ver = t && t.closest(".sg-galeria-item, .sg-acceso, .sg-tarjeta, .sg-doc-portada, .sg-pago-img");
+      var enlace = !ver && t && t.closest("a, button, summary, label, select");
+      c.classList.toggle("is-grande", !!ver);
+      c.classList.toggle("is-enlace", !!enlace);
+      c.textContent = ver ? (ver.classList.contains("sg-tarjeta") ? "Leer" : "Ver") : "";
+    }, { passive: true });
+    document.addEventListener("mouseleave", function () { c.classList.add("is-oculto"); });
+  };
+
   var iniciar = function () {
     initLenis();
     initWhatsApp();
@@ -574,6 +670,7 @@
     initBoletines();
     initTransiciones();
     initAnimaciones();
+    initCursor();
     initCarga().then(animarPortada);
   };
 
