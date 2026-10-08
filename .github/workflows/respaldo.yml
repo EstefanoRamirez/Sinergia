@@ -1,0 +1,47 @@
+# Copia de seguridad automática de la base de suscriptores (KV de Cloudflare), cada lunes.
+# El archivo se cifra con tu CLAVE_RESPALDO antes de guardarse (el repositorio es público) y queda
+# 90 días en la pestaña Actions → "Respaldo de suscriptores" → Artifacts.
+# Se activa cuando creas los secretos y la variable que indica docs/DESPLIEGUE.md, paso 12.
+name: Respaldo de suscriptores
+
+on:
+  schedule:
+    - cron: "23 11 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  respaldo:
+    if: ${{ vars.KV_NAMESPACE_ID != '' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: .github/scripts
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Descargar suscriptores y cuentas
+        env:
+          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
+          KV_NAMESPACE_ID: ${{ vars.KV_NAMESPACE_ID }}
+        run: node .github/scripts/respaldo-kv.mjs
+      - name: Cifrar el respaldo
+        env:
+          CLAVE_RESPALDO: ${{ secrets.CLAVE_RESPALDO }}
+        run: |
+          set -e
+          if [ -z "$CLAVE_RESPALDO" ]; then echo "::error::Falta el secreto CLAVE_RESPALDO"; rm -f respaldo-kv.json; exit 1; fi
+          fecha=$(date -u +%Y-%m-%d)
+          openssl enc -aes-256-cbc -pbkdf2 -iter 200000 -salt -in respaldo-kv.json -out "respaldo-kv-$fecha.json.enc" -pass env:CLAVE_RESPALDO
+          shred -u respaldo-kv.json
+          echo "FECHA=$fecha" >> "$GITHUB_ENV"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: respaldo-suscriptores-${{ env.FECHA }}
+          path: respaldo-kv-*.json.enc
+          retention-days: 90

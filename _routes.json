@@ -13,7 +13,8 @@
     "/README.md",
     "/readme.md",
     "/.gitignore",
-    "/.git/*"
+    "/.git/*",
+    "/.github/*"
   ],
   "exclude": []
 }

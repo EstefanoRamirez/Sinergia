@@ -5,7 +5,8 @@
     1. Crea una hoja de cálculo de Google llamada "Inscripciones Sinergia".
     2. Extensiones → Apps Script → borra lo que haya y pega TODO este archivo.
     3. Cambia la CLAVE de abajo por una tuya (letras y números, sin espacios).
-    4. Ejecuta la función "configurar" una vez (prepara columnas, colores y la lista de estados).
+    4. Ejecuta la función "configurar" una vez (prepara columnas, colores, la lista de estados
+       y la pestaña "Clics WhatsApp").
     5. Implementar → Nueva implementación → Aplicación web
        (Ejecutar como: Yo · Quién tiene acceso: Cualquier usuario).
     6. Copia la URL de la aplicación web y ponla en Cloudflare como PLANILLA_URL,
@@ -30,8 +31,13 @@ const COLUMNAS = [
   ["Empresa", "empresa", 170],
   ["Novedades", "novedades", 95],
   ["Mensaje", "mensaje", 320],
-  ["Página", "pagina", 120]
+  ["Página", "pagina", 120],
+  ["Consentimiento", "consentimiento", 260]
 ];
+
+// Segunda pestaña: cada clic en un botón de WhatsApp de la web (para medir conversiones)
+const HOJA_CLICS = "Clics WhatsApp";
+const COLUMNAS_CLICS = [["Fecha", 130], ["Página", 160], ["Botón", 260]];
 
 const ESTADOS = [
   ["Nuevo", "#FFF4CC"],
@@ -48,12 +54,17 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     if (d.clave !== CLAVE) return responder({ ok: false, error: "clave" });
 
+    if (d.accion === "clic") {
+      const clics = obtenerHoja(HOJA_CLICS);
+      clics.appendRow([d.fecha, d.pagina, d.boton].map(limpiar));
+      return responder({ ok: true });
+    }
+
     const hoja = obtenerHoja();
     const fila = COLUMNAS.map(([titulo, campo]) => {
       if (titulo === "Estado") return "Nuevo";
       if (titulo === "Escribirle") return d.enlace ? '=HYPERLINK("' + String(d.enlace).replace(/"/g, "") + '","WhatsApp")' : "";
-      const v = campo ? String(d[campo] == null ? "" : d[campo]) : "";
-      return /^[=+\-@]/.test(v) ? "'" + v : v; // evita que un texto se interprete como fórmula
+      return limpiar(campo ? d[campo] : "");
     });
     hoja.insertRowAfter(1);
     hoja.getRange(2, 1, 1, fila.length).setValues([fila]);
@@ -67,6 +78,12 @@ function doPost(e) {
 }
 
 function configurar() {
+  const clics = obtenerHoja(HOJA_CLICS);
+  clics.getRange(1, 1, 1, COLUMNAS_CLICS.length).setValues([COLUMNAS_CLICS.map((c) => c[0])])
+    .setFontWeight("bold").setBackground("#141112").setFontColor("#FFFFFF");
+  clics.setFrozenRows(1);
+  COLUMNAS_CLICS.forEach(([, ancho], i) => clics.setColumnWidth(i + 1, ancho));
+
   const hoja = obtenerHoja();
   hoja.getRange(1, 1, 1, COLUMNAS.length).setValues([COLUMNAS.map((c) => c[0])])
     .setFontWeight("bold").setBackground("#BB0F17").setFontColor("#FFFFFF");
@@ -74,7 +91,7 @@ function configurar() {
   COLUMNAS.forEach(([, , ancho], i) => hoja.setColumnWidth(i + 1, ancho));
   const regla = SpreadsheetApp.newDataValidation().requireValueInList(ESTADOS.map((e) => e[0]), true).build();
   hoja.getRange(2, columna("Estado"), hoja.getMaxRows() - 1).setDataValidation(regla);
-  SpreadsheetApp.getUi().alert("Listo. Ahora publica: Implementar → Nueva implementación → Aplicación web.");
+  Logger.log("Listo. Ahora publica: Implementar → Nueva implementación → Aplicación web.");
 }
 
 function onEdit(e) {
@@ -88,9 +105,16 @@ function pintarEstado(celda) {
   celda.getSheet().getRange(celda.getRow(), 1, 1, COLUMNAS.length).setBackground(color);
 }
 
-function obtenerHoja() {
+function obtenerHoja(nombre) {
   const libro = SpreadsheetApp.getActiveSpreadsheet();
-  return libro.getSheetByName(HOJA) || libro.insertSheet(HOJA);
+  const n = nombre || HOJA;
+  return libro.getSheetByName(n) || libro.insertSheet(n);
+}
+
+// Texto seguro para una celda: evita que algo escrito en la web se interprete como fórmula
+function limpiar(valor) {
+  const v = String(valor == null ? "" : valor);
+  return /^[=+\-@]/.test(v) ? "'" + v : v;
 }
 
 function columna(titulo) {

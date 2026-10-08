@@ -29,6 +29,11 @@ for f in plantillas/paginas/*.html; do
     use utf8;
     my ($page, $file) = @ARGV;
     sub leer { local $/; open my $h, "<:encoding(UTF-8)", $_[0] or die "No se pudo leer $_[0]"; my $t = <$h>; close $h; $t }
+    use Digest::MD5 qw(md5_hex);
+    sub version { open my $h, "<:raw", $_[0] or die "No se pudo leer $_[0]"; local $/; my $c = <$h>; close $h; substr(md5_hex($c), 0, 10) }
+    my $datosNegocio = leer("plantillas/partes/datos-negocio.json");
+    $datosNegocio =~ s/\s*\n\s*/ /g;
+    $datosNegocio = qq(<script type="application/ld+json">$datosNegocio</script>);
     my $head   = leer("plantillas/partes/cabeza.html");
     my $header = leer("plantillas/partes/encabezado.html");
     my $footer = leer("plantillas/partes/pie.html");
@@ -49,7 +54,7 @@ for f in plantillas/paginas/*.html; do
 
     $head =~ s/__TITLE__/$t/g; $head =~ s/__DESC__/$d/g; $head =~ s/__PAGE__/$pg/g; $head =~ s/__RUTA__/$ruta/g;
     $head =~ s/__CSS_EXTRA__\n/$precarga/;
-    my $claseBody = $pg eq "404" ? q{ class="sg-sin-portada"} : "";
+    my $claseBody = ($pg eq "404" || $pg eq "gracias") ? q{ class="sg-sin-portada"} : "";
     $head =~ s/__BODY_CLASS__/$claseBody/;
     $footer =~ s/__JS_EXTRA__\n/$jsExtra/;
     $head =~ s/<!DOCTYPE html>\n/<!DOCTYPE html>\n<!--\n  PÁGINA: $nota\n  Archivo generado: $file (no editar aquí; editar plantillas\/paginas\/$file y ejecutar: bash plantillas\/armar-paginas.sh)\n  Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".\n-->\n/;
@@ -60,18 +65,49 @@ for f in plantillas/paginas/*.html; do
       "\n    <!-- ================= FIN DEL CONTENIDO: $nombre ================= -->\n\n" .
       $footer;
 
+    # Enlaces internos con direcciones limpias: "nosotros.html" → "/nosotros", "index.html" → "/"
+    $html =~ s{href="(?![a-z]+:|/|#)([a-z0-9-]+)\.html((?:[?#][^"]*)?)"}{"href=\"" . ($1 eq "index" ? "/" : "/$1") . $2 . "\""}ge;
+
     # Marca la página actual en el menú
-    $html =~ s{(<a class="sg-nav-link" href="\Q$file\E")}{$1 aria-current="page"}g;
-    $html =~ s{(<a href="\Q$file\E")(>[^<]+</a>\n\s*(?:<a|</div>))}{$1 aria-current="page"$2}g;
+    $html =~ s{(<a class="sg-nav-link" href="\Q$ruta\E")}{$1 aria-current="page"}g;
+    $html =~ s{(<a href="\Q$ruta\E")(>[^<]+</a>\n\s*(?:<a|</div>|</nav>))}{$1 aria-current="page"$2}g;
+
+    # Versión de CSS y JS (cambia sola cuando cambia el archivo): permite guardarlos un año en caché
+    $html =~ s{((?:href|src)="/?)((?:css|js)/[\w./-]+\.(?:css|js))"}{$1 . $2 . "?v=" . version($2) . "\""}ge;
+
+    # Datos estructurados para Google: la empresa (todas las páginas) y las migas de pan
+    my $ld = $datosNegocio;
+    if ($pg ne "inicio" && $pg ne "404" && $pg ne "gracias") {
+      my @migas = ([ "Inicio", "/" ]);
+      if ($body =~ m{<ol class="sg-migas"[^>]*>(.*?)</ol>}s) {
+        my $ol = $1;
+        while ($ol =~ m{<li>(?:<a href="([^"]+)">)?([^<]+)(?:</a>)?</li>}g) {
+          my ($h, $n) = ($1, $2);
+          next if $n eq "Inicio";
+          $h = $h ? ($h =~ s/\.html$//r) : $ruta;
+          $h = "/$h" unless $h =~ m{^/};
+          push @migas, [ $n, $h ];
+        }
+      }
+      my $i = 0;
+      my $items = join ",", map { $i++; qq({"\@type":"ListItem","position":$i,"name":") . $_->[0] . qq(","item":"https://www.sinergia.ec) . $_->[1] . qq("}) } @migas;
+      $ld .= qq(\n  <script type="application/ld+json">{"\@context":"https://schema.org","\@type":"BreadcrumbList","itemListElement":[$items]}</script>);
+    }
+    $html =~ s{(\n</head>)}{\n  $ld$1};
+
+    # Páginas que no deben aparecer en Google
+    if ($pg eq "gracias") {
+      $html =~ s{(<head>\n)}{$1  <meta name="robots" content="noindex">\n};
+    }
 
     # La página 404 se muestra en cualquier dirección que no exista (incluso /a/b/c).
-    # Sus enlaces quedan relativos (así también se ve bien abriéndola en la computadora),
-    # y js/tema.js, cargado desde la raíz, fija la base "/" cuando la web está publicada.
+    # Sus enlaces a otras páginas empiezan con "/", y js/tema.js, cargado desde la raíz,
+    # fija la base "/" para que también carguen sus estilos y fotos.
     if ($pg eq "404") {
       $html =~ s{<html lang="es">}{<html lang="es" data-pagina="404">};
       $html =~ s{(<head>\n)}{$1  <meta name="robots" content="noindex">\n};
       $html =~ s{  <link rel="canonical"[^\n]*\n}{};
-      $html =~ s{(  <script src="js/tema\.js"></script>\n)}{  <script src="/js/tema.js"></script>\n$1};
+      $html =~ s{(  <script src="js/tema\.js((?:\?v=[^"]*)?)"></script>\n)}{  <script src="/js/tema.js$2"></script>\n$1};
     }
 
     print $html;

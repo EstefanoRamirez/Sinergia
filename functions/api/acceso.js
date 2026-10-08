@@ -11,7 +11,7 @@
 */
 import {
   json, leerJson, texto, correoValido, telefonoInternacional, fechaEcuador, sha256, aleatorioHex, permitir,
-  anotarPlanilla, avisarDueno, leerCookie
+  anotarPlanilla, avisarDueno, leerCookie, textoConsentimiento, VERSION_POLITICA
 } from "../../lib/servidor.js";
 
 const DIAS_SESION = 30;
@@ -91,7 +91,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
     await kv.put("sub:" + email, JSON.stringify({
       nombre: p.nombre, apellido: p.apellido, whatsapp: p.whatsapp,
       novedades: p.novedades || (previo && previo.novedades) || false,
-      alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha
+      alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha,
+      consentimiento: { fecha: p.fecha, version: VERSION_POLITICA }
     }));
 
     // Aviso a Sinergia (hoja de cálculo y WhatsApp del dueño) sin hacer esperar a la persona
@@ -101,7 +102,8 @@ export async function onRequestPost({ request, env, waitUntil }) {
       anotarPlanilla(env, {
         fecha: p.fecha, tipo: "Cuenta de boletines", nombre: p.nombre, apellido: p.apellido, correo: email,
         whatsapp: "+" + p.whatsapp, enlace: waCliente, empresa: "", interes: "Boletines",
-        novedades: p.novedades ? "Sí" : "No", mensaje: "", pagina: "/boletines"
+        novedades: p.novedades ? "Sí" : "No", mensaje: "", pagina: "/boletines",
+        consentimiento: textoConsentimiento(p.fecha)
       }),
       avisarDueno(env, `Sinergia web · Nueva cuenta de boletines\n${nombreCompleto} · +${p.whatsapp}\n${email}\n\nResponder: ${waCliente}`)
     ]).catch(() => {});

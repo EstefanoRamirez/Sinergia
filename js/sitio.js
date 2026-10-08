@@ -151,6 +151,8 @@
       if (txt) txt.textContent = si ? "Cerrar" : "Menú";
       document.body.classList.toggle("sg-menu-abierto", si);
       document.body.classList.toggle("sg-bloqueo", si);
+      // Con el menú abierto, el resto de la página no recibe el foco del teclado
+      $$("main, footer, .sg-nav, .sg-header-inner > .sg-nav-cta:not(.sg-burger)").forEach(function (el) { el.inert = si; });
       pararScroll(si);
       if (si) {
         panel.hidden = false;
@@ -257,7 +259,7 @@
 
       // Textos que se iluminan palabra por palabra mientras bajas
       $$("[data-anim='llenar']").forEach(function (el) {
-        var st = new window.SplitText(el, { type: "words" });
+        var st = new window.SplitText(el, { type: "words", aria: "none" });
         gsap.fromTo(st.words, { opacity: 0.14 }, { opacity: 1, ease: "none", stagger: 0.1, scrollTrigger: { trigger: el, start: "top 80%", end: "bottom 45%", scrub: true } });
       });
     }
@@ -329,12 +331,14 @@
   // ---------- Testimonios: voltear con toque o teclado ----------
   var initTarjetas = function () {
     $$(".sg-tarjeta").forEach(function (t) {
-      var voltear = function () {
+      var boton = $(".sg-tarjeta-boton", t);
+      if (!boton) return;
+      // Con el mouse la tarjeta se voltea al pasar por encima; con toque o teclado (Enter/Espacio), con el botón
+      boton.addEventListener("click", function (e) {
+        if (finoPuntero && e.detail > 0) return;
         var v = t.classList.toggle("is-volteada");
-        t.setAttribute("aria-pressed", String(v));
-      };
-      t.addEventListener("click", function () { if (!finoPuntero) voltear(); });
-      t.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); voltear(); } });
+        boton.setAttribute("aria-pressed", String(v));
+      });
     });
   };
 
@@ -422,26 +426,45 @@
     if (w) w.opener = null; else location.href = enlaceWa(texto);
   };
 
-  var mostrarOk = function (form, d, respuesta) {
-    var caja = document.createElement("div");
-    caja.className = "sg-ok";
-    caja.setAttribute("tabindex", "-1");
-    var nombre = (d.nombre || "").split(" ")[0];
-    var esRegistro = d.tipo === "registro" || d.tipo === "inscripcion";
-    caja.innerHTML = "<h3></h3><p></p>";
-    $("h3", caja).textContent = "¡Gracias" + (nombre ? ", " + nombre : "") + "!";
-    $("p", caja).textContent = esRegistro
-      ? "Tu registro quedó guardado. Te escribiremos por WhatsApp para confirmar tu inscripción. Ya puedes entrar a Boletines con tu correo."
-      : "Recibimos tu mensaje. Te responderemos por WhatsApp a la brevedad.";
-    var btn = document.createElement("a");
-    btn.className = "sg-btn";
-    btn.href = (respuesta && respuesta.whatsapp) || enlaceWa(textoWa(d));
-    btn.target = "_blank";
-    btn.rel = "noopener";
-    btn.innerHTML = 'Escribirnos ahora por WhatsApp <svg aria-hidden="true"><use href="#i-wa"/></svg>';
-    caja.appendChild(btn);
-    form.replaceWith(caja);
-    caja.focus();
+  // Después de enviar un formulario: guarda lo necesario para personalizar la página de gracias y va a ella
+  var irAGracias = function (d, respuesta) {
+    try {
+      sessionStorage.setItem("sg-gracias", JSON.stringify({
+        tipo: d.tipo,
+        nombre: (d.nombre || "").split(" ")[0],
+        wa: (respuesta && respuesta.whatsapp) || enlaceWa(textoWa(d)),
+        volver: location.pathname + location.search
+      }));
+    } catch (e) {}
+    location.href = "/gracias";
+  };
+
+  var initGracias = function () {
+    var zona = $("[data-gracias]");
+    if (!zona) return;
+    var g = null;
+    try { g = JSON.parse(sessionStorage.getItem("sg-gracias")); sessionStorage.removeItem("sg-gracias"); } catch (e) {}
+    if (!g) return;
+    var textos = {
+      registro: "Ya estás en nuestra lista. Te escribiremos por WhatsApp con los próximos webinars, talleres y novedades.",
+      inscripcion: "Recibimos tu inscripción. Te escribiremos por WhatsApp con las fechas, el horario, el valor y los datos para el pago.",
+      contacto: "Recibimos tu mensaje. Te responderemos por WhatsApp a la brevedad."
+    };
+    if (g.nombre) $("[data-gracias-titulo]", zona).textContent = "¡Gracias, " + g.nombre + "!";
+    if (textos[g.tipo]) $("[data-gracias-texto]", zona).textContent = textos[g.tipo];
+    if (typeof g.wa === "string" && g.wa.indexOf("https://wa.me/") === 0) $("[data-gracias-wa]", zona).href = g.wa;
+    if (typeof g.volver === "string" && /^\/(?!\/)/.test(g.volver) && g.volver.indexOf("/gracias") !== 0) $("[data-gracias-volver]", zona).href = g.volver;
+  };
+
+  // Cuenta los clics en WhatsApp (sin cookies ni datos personales) para medir conversiones
+  var initMedicion = function () {
+    if (!/^https?:$/.test(location.protocol) || !navigator.sendBeacon) return;
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest('a[href^="https://wa.me/"]');
+      if (!a) return;
+      var boton = (a.getAttribute("aria-label") || a.textContent || "").replace(/\s+/g, " ").trim().slice(0, 60);
+      try { navigator.sendBeacon("/api/evento", JSON.stringify({ evento: "whatsapp", pagina: location.pathname, boton: boton })); } catch (err) {}
+    }, true);
   };
 
   var initFormularios = function () {
@@ -467,7 +490,7 @@
           boton.disabled = false;
           if (ok) {
             if (d.tipo === "registro") guardar("sg-registrado", "1");
-            mostrarOk(form, d, r);
+            irAGracias(d, r);
           } else {
             estado.textContent = "No pudimos enviarlo desde aquí; te abrimos WhatsApp con tus datos para que no se pierdan.";
             abrirWa(textoWa(d));
@@ -676,6 +699,8 @@
     initRegistro();
     initCookies();
     initBoletines();
+    initGracias();
+    initMedicion();
     initTransiciones();
     initAnimaciones();
     initCursor();

@@ -62,6 +62,7 @@ body {
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden;
   overflow-x: clip;
 }
 
@@ -1393,7 +1394,24 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   transform: rotateY(180deg);
 }
 
-.sg-tarjeta:focus-visible {
+.sg-tarjeta {
+  position: relative;
+}
+
+/* Botón invisible que cubre la tarjeta: la voltea con toque o con el teclado */
+.sg-tarjeta-boton {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.sg-tarjeta-boton:focus-visible {
+  outline: 2px solid var(--rojo);
   outline-offset: 6px;
 }
 
@@ -2601,6 +2619,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 .sg-404 {
   display: grid;
   place-items: center;
+  min-height: 100vh;
   min-height: 100svh;
   padding-top: var(--alto-enc);
   text-align: center;
@@ -2644,7 +2663,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   font-size: 12px !important;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.72);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .sg-pie p {
@@ -3484,6 +3503,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 }
 
 .sg-movil-nav a {
+  font-size: clamp(32px, min(5.4vw, calc((100vh - 160px) / 10.6)), 74px);
   font-size: clamp(32px, min(5.4vw, calc((100svh - 160px) / 10.6)), 74px);
 }
 
@@ -3506,6 +3526,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   margin: 0 0 30px;
   overflow: hidden;
   aspect-ratio: 4 / 3;
+  max-height: 40vh;
   max-height: 40svh;
 }
 
@@ -3752,7 +3773,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 /* Contorno limpio (sin líneas cruzadas dentro de las letras) y en gris suave */
 .sg-cinta-palabra:nth-of-type(even) {
   color: var(--papel);
-  -webkit-text-stroke: 1.6px #a59c9e;
+  -webkit-text-stroke: 1.6px #8a8183;
   paint-order: stroke fill;
 }
 
@@ -4067,4 +4088,52 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   .sg-taller .sg-enlace {
     justify-self: start;
   }
+}
+
+/* Página de gracias (después de enviar un formulario) */
+.sg-gracias {
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100svh;
+  padding: calc(var(--alto-enc) + 40px) 0 80px;
+  text-align: center;
+}
+
+.sg-gracias .sg-wrap {
+  max-width: 760px;
+}
+
+.sg-gracias-simbolo {
+  width: 84px;
+  margin: 0 auto 28px;
+  animation: sg-gira 1.6s var(--curva) both;
+}
+
+@keyframes sg-gira {
+  from {
+    opacity: 0;
+    transform: rotate(-120deg) scale(0.6);
+  }
+}
+
+.sg-gracias .sg-btns {
+  justify-content: center;
+}
+
+.sg-gracias-mas {
+  margin: 40px 0 0;
+  color: var(--gris);
+}
+
+.sg-gracias-mas a {
+  color: var(--tinta);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Texto destacado legible sobre fondo negro */
+.sg-seccion--negra .sg-lead,
+.sg-seccion--negra p {
+  color: rgba(246, 241, 236, 0.82);
 }

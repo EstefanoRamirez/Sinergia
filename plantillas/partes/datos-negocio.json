@@ -1,0 +1,32 @@
+{
+  "@context": "https://schema.org",
+  "@type": ["LocalBusiness", "EducationalOrganization"],
+  "@id": "https://www.sinergia.ec/#empresa",
+  "name": "Sinergia Capacitación Empresarial Oportuna",
+  "alternateName": "Sinergia",
+  "url": "https://www.sinergia.ec/",
+  "logo": "https://www.sinergia.ec/images/marca/icono-512.png",
+  "image": "https://www.sinergia.ec/images/marca/compartir.jpg",
+  "description": "Capacitación empresarial in company, webinars y talleres por Zoom, auditorías y asesorías contables, tributarias y laborales en Ecuador.",
+  "foundingDate": "2016",
+  "telephone": "+593-2-219-1187",
+  "email": "info@sinergia.ec",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle E8-A e Ismael Solís",
+    "addressLocality": "Quito",
+    "addressRegion": "Pichincha",
+    "postalCode": "170803",
+    "addressCountry": "EC"
+  },
+  "areaServed": { "@type": "Country", "name": "Ecuador" },
+  "contactPoint": [
+    { "@type": "ContactPoint", "contactType": "customer service", "telephone": "+593-96-909-4855", "availableLanguage": "es" }
+  ],
+  "sameAs": [
+    "https://www.instagram.com/sinergia._ec/",
+    "https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/",
+    "https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw",
+    "https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador"
+  ]
+}

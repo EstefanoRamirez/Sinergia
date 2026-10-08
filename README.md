@@ -19,35 +19,40 @@ Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DE
 > Los `.html` de la raíz se **generan** con `bash plantillas/armar-paginas.sh`: no se editan a mano.
 
 ## Páginas
-`index` · `nosotros` · `servicios` · `webinars` · `biblioteca` · `boletines` (solo suscriptores) · `clientes` · `galeria` · `testimonios` · `contacto` · `privacidad` · `terminos` · `cookies` · `404`
+`index` · `nosotros` · `servicios` · `webinars` · `biblioteca` · `boletines` (solo suscriptores) · `clientes` · `galeria` · `testimonios` · `contacto` · `privacidad` · `terminos` · `cookies` · `gracias` (tras enviar un formulario, fuera de Google) · `404`
+
+Direcciones limpias (`/nosotros`, sin `.html`). Las direcciones de las webs viejas de Wix redirigen con 301 (`_redirects`).
 
 ## Lo que hace el sitio
 - **Pantalla de carga** roja con el logo subiendo (primera visita) y **cortina roja** al cambiar de página.
 - **Portada con máscara líquida** (`js/portada.js`): la foto se ve en blanco y negro y el cursor revela el color.
-- **Animaciones** con GSAP + ScrollTrigger + SplitText y **scroll suave** con Lenis (`js/sitio.js`). Se desactivan si el visitante pidió "reducir movimiento". El contenido siempre se ve aunque falle una animación.
+- **Animaciones** con GSAP + ScrollTrigger + SplitText y **scroll suave** con Lenis (`js/sitio.js`). Funcionan siempre, sin depender de la configuración del equipo. El contenido se ve aunque falle una animación.
 - **Testimonios** en tarjetas rojas que se voltean al pasar el cursor (en celular se ve todo de una vez).
 - **Ventana "Inscríbete"** al abrir el sitio (una vez por semana, nunca si ya se registró) y **aviso de cookies** pequeño.
-- **Formularios** (inscripción, registro y contacto) → `/api/formulario`: correo a Sinergia, fila en la hoja de Google y aviso por WhatsApp al dueño con el botón para escribirle al cliente. Si el servidor no responde, se abre WhatsApp con los datos.
+- **Formularios** (inscripción, registro y contacto) → `/api/formulario`: fila en la hoja de Google, aviso por WhatsApp al dueño con el botón para escribirle al cliente (y correo, si se activa Resend) y luego la página **/gracias**. Si el servidor no responde, se abre WhatsApp con los datos.
+- **Medición sin cookies**: Cloudflare Web Analytics (visitas) y `/api/evento` (cada clic en WhatsApp queda en la hoja).
+- **Datos estructurados** para Google (empresa y migas de pan) desde `plantillas/partes/datos-negocio.json`.
+- **Monitoreo y respaldos** con GitHub Actions (`.github/workflows/`): revisión cada 30 minutos de la web y de `/api/estado`, y copia semanal cifrada de la base de suscriptores.
 - **Boletines** para suscriptores: registro gratuito e ingreso con correo y contraseña (sin servicio de correos) → `/api/acceso` y `/api/boletines`.
 
 ## Carpetas
 - `plantillas/` — piezas con las que se arman las páginas.
 - `images/` — fotos en WebP (cada foto grande tiene una copia más liviana para celular).
-- `fonts/` y `css/fuentes.css` — tipografías alojadas en el sitio: Cormorant Garamond (portada), Bricolage Grotesque (textos) y DM Mono (etiquetas).
+- `fonts/` y `css/fuentes.css` — tipografías alojadas en el sitio: Bricolage Grotesque (títulos y textos), DM Mono (etiquetas) y Cormorant Garamond (detalles).
 - `css/sinergia.css` — todo el diseño.
 - `js/` — `tema.js` (pantalla de carga sin parpadeo), `sitio.js`, `portada.js`, `vendor/` (GSAP y Lenis).
-- `functions/` — servidor en Cloudflare: `api/formulario.js`, `api/acceso.js`, `api/boletines.js`, `sitemap.xml.js`, `robots.txt.js`, `_middleware.js`.
+- `functions/` — servidor en Cloudflare: `api/formulario.js`, `api/acceso.js`, `api/boletines.js`, `api/evento.js`, `api/estado.js`, `sitemap.xml.js`, `robots.txt.js`, `_middleware.js`.
 - `lib/servidor.js` — funciones compartidas del servidor (correo, hoja, WhatsApp, sesiones).
 - `boletines-privados/` — PDF de boletines (no públicos).
 - `descargas/` — PDF públicos.
 - `docs/` — guía de publicación y script de la hoja de cálculo.
 
 ## Seguridad y privacidad
-- `_headers`: política de seguridad del contenido estricta (todo se sirve desde el propio sitio; sin código ni estilos dentro del HTML), HTTPS obligatorio y caché.
+- `_headers`: política de seguridad del contenido estricta (todo se sirve desde el propio sitio, salvo el contador de Cloudflare Web Analytics; sin código ni estilos dentro del HTML), HTTPS obligatorio, caché de un año para CSS/JS versionados y `noindex` en la copia `*.pages.dev`.
 - `functions/_middleware.js` oculta carpetas internas (`docs/`, `plantillas/`, `functions/`, `lib/`, `boletines-privados/`).
-- Formularios con campo trampa contra robots, límite de envíos por IP y aceptación obligatoria de la política de privacidad.
+- Formularios con campo trampa contra robots, límite de envíos por IP y aceptación obligatoria de la política de privacidad (se guarda la fecha y la versión aceptada).
 - Zona de boletines con contraseña: en la base solo se guarda su huella (PBKDF2-SHA256, 100 000 iteraciones, sal aleatoria), con límite de intentos por correo y por IP. Sesión en cookie segura (HttpOnly, Secure) de la que solo se guarda la huella SHA-256.
 - Política de privacidad conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`), términos y política de cookies.
 
 ## Créditos
-Diseño y desarrollo: Estéfano Ramírez. Librerías: GSAP (licencia estándar gratuita de GreenSock), Lenis y normalize.css (MIT). Fuentes con licencia SIL Open Font License.
+Diseño y desarrollo: Estéfano Ramírez. Fotos de stock: Pexels y Vecteezy (créditos en `terminos.html`). Librerías: GSAP (licencia estándar gratuita de GreenSock), Lenis y normalize.css (MIT). Fuentes con licencia SIL Open Font License.

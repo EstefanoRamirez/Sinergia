@@ -13,7 +13,8 @@
 */
 import {
   json, leerJson, texto, correoValido, telefonoInternacional, esc, fechaEcuador, lista, permitir,
-  enviarCorreo, anotarPlanilla, avisarDueno, escribirCliente, marcoCorreo, botonCorreo, WHATSAPP_SINERGIA
+  enviarCorreo, anotarPlanilla, avisarDueno, escribirCliente, marcoCorreo, botonCorreo, WHATSAPP_SINERGIA,
+  textoConsentimiento, VERSION_POLITICA
 } from "../../lib/servidor.js";
 
 const TIPOS = { registro: "Registro / suscripción", inscripcion: "Inscripción a webinar", contacto: "Mensaje de contacto" };
@@ -58,7 +59,8 @@ export async function onRequestPost({ request, env }) {
     await env.SUSCRIPTORES.put("sub:" + p.email, JSON.stringify({
       nombre: p.nombre, apellido: p.apellido, whatsapp: p.whatsapp,
       novedades: p.novedades || (previo && previo.novedades) || false,
-      alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha
+      alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha,
+      consentimiento: { fecha: p.fecha, version: VERSION_POLITICA }
     }));
     suscrito = true;
   }
@@ -78,6 +80,7 @@ export async function onRequestPost({ request, env }) {
     p.empresa && ["Empresa", p.empresa],
     p.interes && ["Le interesa", p.interes],
     ["Novedades", p.novedades ? "Sí acepta recibir novedades" : "No"],
+    ["Consentimiento", textoConsentimiento(p.fecha)],
     p.mensaje && ["Mensaje", p.mensaje],
     ["Fecha", p.fecha]
   ].filter(Boolean);
@@ -95,7 +98,8 @@ export async function onRequestPost({ request, env }) {
     anotarPlanilla(env, {
       fecha: p.fecha, tipo: TIPOS[tipo], nombre: p.nombre, apellido: p.apellido, correo: p.email,
       whatsapp: "+" + p.whatsapp, enlace: waCliente, empresa: p.empresa, interes: p.interes,
-      novedades: p.novedades ? "Sí" : "No", mensaje: p.mensaje, pagina: p.pagina
+      novedades: p.novedades ? "Sí" : "No", mensaje: p.mensaje, pagina: p.pagina,
+      consentimiento: textoConsentimiento(p.fecha)
     }),
     avisarDueno(env, aviso),
     escribirCliente(env, p.whatsapp, primer)

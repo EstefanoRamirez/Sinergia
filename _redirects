@@ -1,0 +1,27 @@
+# Redirecciones permanentes (301) de las direcciones de las webs anteriores en Wix
+# hacia las páginas nuevas, para no perder visitas ni posicionamiento.
+# Cloudflare Pages ya redirige solo /pagina.html → /pagina.
+
+# Web "my-site-3"
+/services-2                     /servicios    301
+/copia-de-testimonios           /biblioteca   301
+/copia-de-testimonios-1         /clientes     301
+/copia-de-biblioteca            /boletines    301
+/galería                        /galeria      301
+/galer%C3%ADa                   /galeria      301
+/contáctanos                    /contacto     301
+/cont%C3%A1ctanos               /contacto     301
+
+# Web "sinergia"
+/informacion                    /nosotros     301
+/quienes-somos                  /nosotros     301
+/eventos                        /webinars     301
+/capacitaciones                 /webinars     301
+/contactos                      /contacto     301
+/contactanos                    /contacto     301
+/términos-y-condiciones         /terminos     301
+/t%C3%A9rminos-y-condiciones    /terminos     301
+/terminos-y-condiciones         /terminos     301
+/politica-de-privacidad         /privacidad   301
+/home                           /             301
+/inicio                         /             301
