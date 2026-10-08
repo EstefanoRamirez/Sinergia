@@ -19,6 +19,11 @@
   // tenga desactivados los "efectos de animación" (decisión del cliente).
   var calma = false;
   var finoPuntero = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  // Equipos modestos (poca memoria, pocos núcleos o "ahorro de datos"): mismas animaciones, en versión liviana
+  var nav = window.navigator;
+  var ligero = (nav.deviceMemory && nav.deviceMemory <= 4) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) ||
+    !!(nav.connection && nav.connection.saveData);
+  if (ligero) document.documentElement.classList.add("sg-ligero");
   var hayGsap = typeof window.gsap !== "undefined" && typeof window.ScrollTrigger !== "undefined";
   var gsap = window.gsap;
   var lenis = null;
@@ -190,7 +195,7 @@
     // Los títulos grandes se animan letra por letra (más abajo); se marcan antes para no animarlos dos veces
     if (typeof window.SplitText === "function") {
       $$(".sg-display, .sg-titulo").forEach(function (el) {
-        if (!el.closest(".sg-hero, .sg-cabecera, .sg-modal, [data-boletines]")) el.setAttribute("data-anim", "letras");
+        if (!el.closest(".sg-hero, .sg-cabecera, .sg-modal, [data-boletines], [data-admin]")) el.setAttribute("data-anim", ligero ? "lineas" : "letras");
       });
     }
     var partir = function (el) {
@@ -234,6 +239,10 @@
     // Foto que se abre de marco a pantalla completa al bajar (quiénes somos)
     $$("[data-anim='abre']").forEach(function (el) {
       var img = $("img", el);
+      if (ligero) { // sin recorte animado (repinta toda la foto en cada cuadro): solo el acercamiento
+        if (img) gsap.fromTo(img, { scale: 1.2 }, { scale: 1, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
+        return;
+      }
       gsap.fromTo(el, { clipPath: "inset(8% 7% 8% 7%)" }, { clipPath: "inset(0% 0% 0% 0%)", ease: "none", scrollTrigger: { trigger: el, start: "top 90%", end: "top 15%", scrub: true } });
       if (img) gsap.fromTo(img, { scale: 1.25 }, { scale: 1, ease: "none", scrollTrigger: { trigger: el, start: "top bottom", end: "bottom top", scrub: true } });
     });
@@ -270,7 +279,14 @@
       var cont = $("[data-hero-contenido]", hero);
       if (cont) gsap.to(cont, { y: -140, opacity: 0, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom 20%", scrub: true } });
       gsap.to($(".sg-hero-media", hero), { yPercent: 28, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
-      gsap.to($(".sg-hero-sombra", hero), { backgroundColor: "rgba(10,8,9,0.6)", ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+      // Oscurece la foto al bajar con una capa que solo cambia su opacidad (no obliga a repintar)
+      var sombra = $(".sg-hero-sombra", hero);
+      if (sombra) {
+        var velo = document.createElement("div");
+        velo.className = "sg-hero-velo";
+        sombra.appendChild(velo);
+        gsap.to(velo, { opacity: 1, ease: "none", scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: true } });
+      }
     }
 
     // Tira de fotos: además de moverse sola, avanza con el scroll
@@ -280,11 +296,12 @@
 
     // Bloque rojo final: se abre en círculo desde el centro
     $$(".sg-llamado").forEach(function (el) {
+      if (ligero) { gsap.from(el, { y: 60, opacity: 0, duration: 1.1, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 90%" } }); return; }
       gsap.fromTo(el, { clipPath: "circle(18% at 50% 60%)" }, { clipPath: "circle(110% at 50% 50%)", ease: "none", scrollTrigger: { trigger: el, start: "top 95%", end: "top 25%", scrub: true } });
     });
 
     // Fotos: se inclinan un poco según la velocidad del scroll
-    var inclinables = $$(".sg-tira img");
+    var inclinables = ligero ? [] : $$(".sg-tira img");
     if (inclinables.length) {
       var inclinar = gsap.quickTo(inclinables, "skewY", { duration: 0.6, ease: "power3" });
       ST.create({ onUpdate: function (self) { inclinar(Math.max(-2.5, Math.min(2.5, self.getVelocity() / -700))); } });
@@ -298,7 +315,7 @@
     }
 
     // La cinta acelera según la velocidad del scroll
-    var cintas = $$(".sg-cinta .sg-cinta-pista");
+    var cintas = ligero ? [] : $$(".sg-cinta .sg-cinta-pista");
     if (cintas.length) {
       ST.create({
         onUpdate: function (self) {
@@ -343,45 +360,61 @@
   };
 
   // ---------- Galería con visor ----------
+  // Funciona también con fotos agregadas después (boletines con imágenes): cada bloque [data-galeria]
+  // es un grupo propio; las fotos sueltas de la página forman otro grupo.
   var initGaleria = function () {
-    var items = $$("[data-full]");
-    if (!items.length || typeof HTMLDialogElement !== "function") return;
-    var dlg = document.createElement("dialog");
-    dlg.className = "sg-visor";
-    dlg.setAttribute("aria-label", "Visor de fotos");
-    dlg.innerHTML =
-      '<img alt="">' +
-      '<button type="button" class="sg-visor-btn sg-visor-cerrar" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button>' +
-      '<button type="button" class="sg-visor-btn sg-visor-ant" aria-label="Foto anterior"><svg aria-hidden="true"><use href="#i-chev-left"/></svg></button>' +
-      '<button type="button" class="sg-visor-btn sg-visor-sig" aria-label="Foto siguiente"><svg aria-hidden="true"><use href="#i-chev-right"/></svg></button>' +
-      '<p class="sg-visor-cuenta" aria-live="polite"></p>';
-    document.body.appendChild(dlg);
-    var img = $("img", dlg), cuenta = $(".sg-visor-cuenta", dlg), actual = 0;
+    if (typeof HTMLDialogElement !== "function") return;
+    var dlg = null, img, cuenta, items = [], actual = 0;
+    var crear = function () {
+      dlg = document.createElement("dialog");
+      dlg.className = "sg-visor";
+      dlg.setAttribute("aria-label", "Visor de fotos");
+      dlg.innerHTML =
+        '<img alt="">' +
+        '<button type="button" class="sg-visor-btn sg-visor-cerrar" aria-label="Cerrar"><svg aria-hidden="true"><use href="#i-close"/></svg></button>' +
+        '<button type="button" class="sg-visor-btn sg-visor-ant" aria-label="Foto anterior"><svg aria-hidden="true"><use href="#i-chev-left"/></svg></button>' +
+        '<button type="button" class="sg-visor-btn sg-visor-sig" aria-label="Foto siguiente"><svg aria-hidden="true"><use href="#i-chev-right"/></svg></button>' +
+        '<p class="sg-visor-cuenta" aria-live="polite"></p>';
+      document.body.appendChild(dlg);
+      img = $("img", dlg);
+      cuenta = $(".sg-visor-cuenta", dlg);
+      dlg.addEventListener("close", function () { pararScroll(false); if (items[actual]) items[actual].focus(); });
+      $(".sg-visor-cerrar", dlg).addEventListener("click", function () { dlg.close(); });
+      $(".sg-visor-ant", dlg).addEventListener("click", function () { mostrar(actual - 1); });
+      $(".sg-visor-sig", dlg).addEventListener("click", function () { mostrar(actual + 1); });
+      dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
+      dlg.addEventListener("keydown", function (e) {
+        if (e.key === "ArrowLeft") mostrar(actual - 1);
+        if (e.key === "ArrowRight") mostrar(actual + 1);
+      });
+      var x0 = null;
+      dlg.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      dlg.addEventListener("touchend", function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 50) mostrar(actual + (dx < 0 ? 1 : -1));
+        x0 = null;
+      });
+    };
     var mostrar = function (i) {
       actual = (i + items.length) % items.length;
       img.src = items[actual].getAttribute("data-full");
       img.alt = ($("img", items[actual]) || {}).alt || "";
       cuenta.textContent = (actual + 1) + " / " + items.length;
+      var multiple = items.length > 1;
+      $(".sg-visor-ant", dlg).hidden = !multiple;
+      $(".sg-visor-sig", dlg).hidden = !multiple;
     };
-    items.forEach(function (it, i) {
-      it.addEventListener("click", function () { mostrar(i); dlg.showModal(); pararScroll(true); });
-    });
-    dlg.addEventListener("close", function () { pararScroll(false); items[actual].focus(); });
-    $(".sg-visor-cerrar", dlg).addEventListener("click", function () { dlg.close(); });
-    $(".sg-visor-ant", dlg).addEventListener("click", function () { mostrar(actual - 1); });
-    $(".sg-visor-sig", dlg).addEventListener("click", function () { mostrar(actual + 1); });
-    dlg.addEventListener("click", function (e) { if (e.target === dlg) dlg.close(); });
-    dlg.addEventListener("keydown", function (e) {
-      if (e.key === "ArrowLeft") mostrar(actual - 1);
-      if (e.key === "ArrowRight") mostrar(actual + 1);
-    });
-    var x0 = null;
-    dlg.addEventListener("touchstart", function (e) { x0 = e.touches[0].clientX; }, { passive: true });
-    dlg.addEventListener("touchend", function (e) {
-      if (x0 === null) return;
-      var dx = e.changedTouches[0].clientX - x0;
-      if (Math.abs(dx) > 50) mostrar(actual + (dx < 0 ? 1 : -1));
-      x0 = null;
+    document.addEventListener("click", function (e) {
+      var it = e.target.closest && e.target.closest("[data-full]");
+      if (!it) return;
+      e.preventDefault();
+      var grupo = it.closest("[data-galeria]");
+      items = grupo ? $$("[data-full]", grupo) : $$("[data-full]").filter(function (x) { return !x.closest("[data-galeria]"); });
+      if (!dlg) crear();
+      mostrar(items.indexOf(it));
+      dlg.showModal();
+      pararScroll(true);
     });
   };
 
@@ -454,6 +487,111 @@
     if (textos[g.tipo]) $("[data-gracias-texto]", zona).textContent = textos[g.tipo];
     if (typeof g.wa === "string" && g.wa.indexOf("https://wa.me/") === 0) $("[data-gracias-wa]", zona).href = g.wa;
     if (typeof g.volver === "string" && /^\/(?!\/)/.test(g.volver) && g.volver.indexOf("/gracias") !== 0) $("[data-gracias-volver]", zona).href = g.volver;
+  };
+
+  // ---------- Fecha de hoy en Ecuador (UTC−5, sin horario de verano) ----------
+  var hoyEcuador = function () {
+    var d = new Date(Date.now() - 5 * 3600 * 1000);
+    return { a: d.getUTCFullYear(), m: d.getUTCMonth(), d: d.getUTCDate(), iso: d.toISOString().slice(0, 10) };
+  };
+  var msHastaMedianoche = function () {
+    var ahora = Date.now() - 5 * 3600 * 1000;
+    return 86400000 - (ahora % 86400000) + 1000;
+  };
+
+  // Bloques que aparecen o desaparecen solos según la fecha: data-hasta="AAAA-MM-DD" / data-desde="AAAA-MM-DD"
+  var aplicarFechas = function () {
+    var hoy = hoyEcuador().iso;
+    $$("[data-hasta]").forEach(function (el) { if (hoy > el.getAttribute("data-hasta")) el.hidden = true; });
+    $$("[data-desde]").forEach(function (el) { el.hidden = hoy < el.getAttribute("data-desde"); });
+  };
+  var initFechas = function () {
+    aplicarFechas();
+    // Botones que eligen una opción del formulario de inscripción
+    $$("[data-elegir]").forEach(function (b) {
+      b.addEventListener("click", function () {
+        var sel = $("form[data-form] select[name=interes]");
+        if (sel) sel.value = b.getAttribute("data-elegir");
+      });
+    });
+  };
+
+  // ---------- Calendario: solo el mes actual, con hoy resaltado; cambia solo de día y de mes ----------
+  var initCalendario = function () {
+    var cal = $("[data-calendario]");
+    if (!cal) return;
+    var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    var grilla = $("[data-calendario-grilla]", cal);
+    var lista = $("[data-calendario-lista]");
+    var sesiones = [];
+    var reloj = null;
+    var dos = function (n) { return (n < 10 ? "0" : "") + n; };
+
+    var dibujar = function () {
+      var h = hoyEcuador();
+      var prefijo = h.a + "-" + dos(h.m + 1) + "-";
+      var mes = MESES[h.m];
+      $("[data-calendario-mes]", cal).textContent = mes.charAt(0).toUpperCase() + mes.slice(1) + " " + h.a;
+      $("[data-calendario-hoy]", cal).textContent = DIAS[new Date(Date.UTC(h.a, h.m, h.d)).getUTCDay()] + " " + h.d;
+      var delMes = sesiones.filter(function (s) { return s.fecha.indexOf(prefijo) === 0; });
+      var conClase = {};
+      delMes.forEach(function (s) { conClase[+s.fecha.slice(8, 10)] = true; });
+
+      grilla.innerHTML = "";
+      var primero = (new Date(Date.UTC(h.a, h.m, 1)).getUTCDay() + 6) % 7; // lunes = 0
+      var total = new Date(Date.UTC(h.a, h.m + 1, 0)).getUTCDate();
+      for (var i = 0; i < primero; i++) {
+        var vacio = document.createElement("li");
+        vacio.className = "sg-dia sg-dia--vacio";
+        vacio.setAttribute("aria-hidden", "true");
+        grilla.appendChild(vacio);
+      }
+      for (var d = 1; d <= total; d++) {
+        var li = document.createElement("li");
+        li.className = "sg-dia" + (d === h.d ? " sg-dia--hoy" : "") + (d < h.d ? " sg-dia--pasado" : "") + (conClase[d] ? " sg-dia--clase" : "");
+        li.textContent = d;
+        var etiqueta = d + " de " + mes + (d === h.d ? ", hoy" : "") + (conClase[d] ? ", hay clase" : "");
+        li.setAttribute("aria-label", etiqueta);
+        if (d === h.d) li.setAttribute("aria-current", "date");
+        grilla.appendChild(li);
+      }
+
+      if (lista) {
+        lista.innerHTML = "";
+        var proximas = delMes.filter(function (s) { return s.fecha >= h.iso; });
+        if (!proximas.length) {
+          var nada = document.createElement("li");
+          nada.className = "sg-agenda-vacio";
+          nada.textContent = "No hay más clases este mes. Escríbenos por WhatsApp para conocer las próximas fechas.";
+          lista.appendChild(nada);
+        }
+        proximas.forEach(function (s) {
+          var dia = +s.fecha.slice(8, 10);
+          var item = document.createElement("li");
+          if (s.fecha === h.iso) item.className = "is-hoy";
+          item.innerHTML = '<span class="sg-agenda-fecha"><strong></strong><small></small></span><span class="sg-agenda-texto"><strong></strong><small></small></span>';
+          $(".sg-agenda-fecha strong", item).textContent = dia;
+          $(".sg-agenda-fecha small", item).textContent = DIAS[new Date(Date.UTC(h.a, h.m, dia)).getUTCDay()].slice(0, 3);
+          $(".sg-agenda-texto strong", item).textContent = s.taller;
+          $(".sg-agenda-texto small", item).textContent = (s.detalle ? s.detalle + " · " : "") + s.inicio + " a " + s.fin + (s.fecha === h.iso ? " · hoy" : "");
+          lista.appendChild(item);
+        });
+      }
+      // Al llegar la medianoche de Ecuador, avanza al día (y al mes) siguiente
+      clearTimeout(reloj);
+      reloj = setTimeout(function () { dibujar(); aplicarFechas(); }, msHastaMedianoche());
+    };
+
+    dibujar();
+    if (!/^https?:$/.test(location.protocol)) return;
+    fetch("/datos/calendario.json", { cache: "no-cache" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        sesiones = (j && Array.isArray(j.sesiones) ? j.sesiones : []).filter(function (s) { return s && /^\d{4}-\d{2}-\d{2}$/.test(s.fecha); });
+        dibujar();
+      })
+      .catch(function () { dibujar(); });
   };
 
   // Cuenta los clics en WhatsApp (sin cookies ni datos personales) para medir conversiones
@@ -533,7 +671,7 @@
 
     // Se abre sola en la primera visita (luego, cada 7 días si no se registró)
     var pagina = document.body.getAttribute("data-page");
-    var excluidas = ["privacidad", "terminos", "cookies", "boletines", "404", "contacto"];
+    var excluidas = ["privacidad", "terminos", "cookies", "boletines", "404", "contacto", "gracias", "admin"];
     var visto = parseInt(leer("sg-registro-visto"), 10) || 0;
     var reciente = Date.now() - visto < 7 * 24 * 3600 * 1000;
     if (!leer("sg-registrado") && !reciente && excluidas.indexOf(pagina) === -1) {
@@ -560,17 +698,57 @@
   var initBoletines = function () {
     var zona = $("[data-boletines]");
     if (!zona) return;
-    var pasoEntrar = $("[data-paso='entrar']", zona);
-    var pasoCrear = $("[data-paso='crear']", zona);
-    var pasoLista = $("[data-paso='lista']", zona);
+    var pasos = {};
+    ["entrar", "crear", "recuperar", "nueva", "lista"].forEach(function (k) { pasos[k] = $("[data-paso='" + k + "']", zona); });
     var lista = $("[data-lista-boletines]", zona);
+    var tokenClave = "";
 
-    var ver = function (paso) {
-      [pasoEntrar, pasoCrear, pasoLista].forEach(function (p) { if (p) p.hidden = p !== paso; });
+    var ver = function (nombre) {
+      Object.keys(pasos).forEach(function (k) { if (pasos[k]) pasos[k].hidden = k !== nombre; });
     };
     var api = function (cuerpo) {
       return fetch("/api/acceso", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify(cuerpo) })
         .then(function (r) { return r.json(); });
+    };
+    var libro = function (b) {
+      var art = document.createElement("article");
+      art.className = "sg-doc";
+      art.innerHTML =
+        '<div class="sg-doc-portada sg-doc-portada--roja"><span class="sg-doc-contra" aria-hidden="true"></span><span class="sg-doc-paginas" aria-hidden="true"></span><span class="sg-doc-brillo" aria-hidden="true"></span><span class="sg-doc-tipo"></span><img class="sg-doc-sello" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"><h3></h3></div>' +
+        '<div class="sg-doc-info"><p></p><div class="sg-doc-acciones"><a target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-eye"/></svg>Ver</a><a download><svg aria-hidden="true"><use href="#i-download"/></svg>Descargar</a></div></div>';
+      $(".sg-doc-tipo", art).textContent = "Boletín · " + (b.fecha || "");
+      $("h3", art).textContent = b.titulo || "Boletín";
+      $(".sg-doc-info p", art).textContent = b.resumen || "";
+      var links = $$(".sg-doc-acciones a", art);
+      links[0].href = b.url;
+      links[1].href = b.url + "&descargar=1";
+      return art;
+    };
+    var galeria = function (b) {
+      var sec = document.createElement("section");
+      sec.className = "sg-boletin-fotos";
+      sec.setAttribute("data-galeria", "");
+      sec.innerHTML = '<div class="sg-boletin-fotos-cabeza"><p class="sg-etiqueta"></p><h3></h3><p></p></div><div class="sg-galeria"></div>';
+      $(".sg-etiqueta", sec).textContent = "Boletín · " + (b.fecha || "");
+      $("h3", sec).textContent = b.titulo || "Boletín";
+      $(".sg-boletin-fotos-cabeza p:last-child", sec).textContent = b.resumen || "";
+      var grilla = $(".sg-galeria", sec);
+      (b.imagenes || []).forEach(function (im, i) {
+        var bt = document.createElement("button");
+        bt.type = "button";
+        bt.className = "sg-galeria-item";
+        bt.setAttribute("data-full", im.url);
+        bt.setAttribute("aria-label", "Ampliar imagen " + (i + 1) + " de " + (b.titulo || "boletín"));
+        var foto = document.createElement("img");
+        foto.src = im.url;
+        foto.alt = (b.titulo || "Boletín") + ", imagen " + (i + 1);
+        foto.loading = "lazy";
+        foto.decoding = "async";
+        if (im.ancho && im.alto) { foto.width = im.ancho; foto.height = im.alto; }
+        bt.appendChild(foto);
+        grilla.appendChild(bt);
+      });
+      return sec;
     };
     var pintarLista = function (items) {
       lista.innerHTML = "";
@@ -578,27 +756,21 @@
         lista.innerHTML = '<p class="sg-lead">Pronto publicaremos el primer boletín. Te avisaremos por WhatsApp.</p>';
         return;
       }
+      // En orden de fecha: los PDF seguidos se agrupan en una fila de libros; cada galería va aparte
+      var libros = null;
       items.forEach(function (b) {
-        var art = document.createElement("article");
-        art.className = "sg-doc";
-        art.innerHTML =
-          '<div class="sg-doc-portada sg-doc-portada--roja"><span class="sg-doc-contra" aria-hidden="true"></span><span class="sg-doc-paginas" aria-hidden="true"></span><span class="sg-doc-brillo" aria-hidden="true"></span><span class="sg-doc-tipo"></span><img class="sg-doc-sello" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549"><h3></h3></div>' +
-          '<div class="sg-doc-info"><p></p><div class="sg-doc-acciones"><a target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-eye"/></svg>Ver</a><a download><svg aria-hidden="true"><use href="#i-download"/></svg>Descargar</a></div></div>';
-        $(".sg-doc-tipo", art).textContent = "Boletín · " + (b.fecha || "");
-        $("h3", art).textContent = b.titulo;
-        $(".sg-doc-info p", art).textContent = b.resumen || "";
-        var url = "/api/boletines?archivo=" + encodeURIComponent(b.archivo);
-        var links = $$(".sg-doc-acciones a", art);
-        links[0].href = url;
-        links[1].href = url + "&descargar=1";
-        lista.appendChild(art);
+        if (b.tipo === "imagenes") { lista.appendChild(galeria(b)); libros = null; return; }
+        if (!libros) { libros = document.createElement("div"); libros.className = "sg-docs"; lista.appendChild(libros); }
+        libros.appendChild(libro(b));
       });
     };
     var cargarLista = function () {
       return fetch("/api/boletines", { credentials: "same-origin" })
         .then(function (r) { if (!r.ok) throw new Error("sin sesión"); return r.json(); })
-        .then(function (j) { $("[data-correo-sesion]", zona).textContent = j.email || ""; pintarLista(j.boletines || []); ver(pasoLista); });
+        .then(function (j) { $("[data-correo-sesion]", zona).textContent = j.email || ""; pintarLista(j.boletines || []); ver("lista"); });
     };
+
+    var abrirLista = function () { cargarLista().catch(function () { ver("entrar"); }); };
 
     // Mostrar u ocultar la contraseña
     $$("[data-ver-clave]", zona).forEach(function (b) {
@@ -612,42 +784,47 @@
     });
     $$("[data-ir]", zona).forEach(function (b) {
       b.addEventListener("click", function () {
-        var destino = b.getAttribute("data-ir") === "crear" ? pasoCrear : pasoEntrar;
+        var destino = b.getAttribute("data-ir");
         ver(destino);
-        $("input", destino).focus();
+        var campo = pasos[destino] && $("input", pasos[destino]);
+        if (campo) campo.focus();
       });
     });
 
-    var enviar = function (f, cuerpo, espera) {
+    var enviar = function (f, cuerpo, espera, alTerminar) {
       var est = $(".sg-estado", f), boton = $("button[type=submit]", f);
       if (!/^https?:$/.test(location.protocol)) { est.textContent = "La zona de boletines funciona con la web publicada."; return; }
       boton.disabled = true;
       est.textContent = espera;
       api(cuerpo).then(function (j) {
         boton.disabled = false;
-        if (j.ok) { est.textContent = ""; f.reset(); cargarLista(); }
+        if (j.ok) { est.textContent = ""; f.reset(); (alTerminar || abrirLista)(j, est); }
         else est.textContent = j.error || "No pudimos completar el ingreso. Intenta otra vez.";
       }).catch(function () { boton.disabled = false; est.textContent = "No pudimos conectarnos. Intenta otra vez."; });
     };
+    var claveRepetida = function (f, est) {
+      var faltan = validar(f);
+      if (faltan.length) { est.textContent = f.elements.clave.value && f.elements.clave.value.length < 8 ? "La contraseña debe tener al menos 8 caracteres." : "Revisa los campos marcados para continuar."; faltan[0].focus(); return false; }
+      if (f.elements.clave.value !== f.elements.clave2.value) {
+        f.elements.clave2.setAttribute("aria-invalid", "true");
+        est.textContent = "Las contraseñas no coinciden.";
+        f.elements.clave2.focus();
+        return false;
+      }
+      return true;
+    };
 
-    $("form", pasoEntrar).addEventListener("submit", function (e) {
+    $("form", pasos.entrar).addEventListener("submit", function (e) {
       e.preventDefault();
       var f = e.target;
       if (validar(f).length) { $(".sg-estado", f).textContent = "Escribe tu correo y tu contraseña."; return; }
       enviar(f, { accion: "entrar", email: f.elements.email.value.trim().toLowerCase(), clave: f.elements.clave.value }, "Ingresando…");
     });
 
-    $("form", pasoCrear).addEventListener("submit", function (e) {
+    $("form", pasos.crear).addEventListener("submit", function (e) {
       e.preventDefault();
-      var f = e.target, est = $(".sg-estado", f);
-      var faltan = validar(f);
-      if (faltan.length) { est.textContent = f.elements.clave.value && f.elements.clave.value.length < 8 ? "La contraseña debe tener al menos 8 caracteres." : "Revisa los campos marcados para continuar."; faltan[0].focus(); return; }
-      if (f.elements.clave.value !== f.elements.clave2.value) {
-        f.elements.clave2.setAttribute("aria-invalid", "true");
-        est.textContent = "Las contraseñas no coinciden.";
-        f.elements.clave2.focus();
-        return;
-      }
+      var f = e.target;
+      if (!claveRepetida(f, $(".sg-estado", f))) return;
       enviar(f, {
         accion: "crear",
         nombre: f.elements.nombre.value.trim(), apellido: f.elements.apellido.value.trim(),
@@ -656,12 +833,39 @@
       }, "Creando tu cuenta…");
     });
 
-    $$("[data-salir]", zona).forEach(function (b) {
-      b.addEventListener("click", function () { api({ accion: "salir" }).finally(function () { ver(pasoEntrar); }); });
+    $("form", pasos.recuperar).addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = e.target;
+      if (validar(f).length) { $(".sg-estado", f).textContent = "Escribe un correo válido."; return; }
+      enviar(f, { accion: "recuperar", email: f.elements.email.value.trim().toLowerCase() }, "Enviando…", function (j, est) {
+        est.textContent = "Listo. Si el correo está registrado, te llegará un enlace en unos minutos. Revisa también la carpeta de correo no deseado.";
+      });
     });
 
-    if (!/^https?:$/.test(location.protocol)) { ver(pasoEntrar); return; }
-    cargarLista().catch(function () { ver(pasoEntrar); });
+    $("form", pasos.nueva).addEventListener("submit", function (e) {
+      e.preventDefault();
+      var f = e.target;
+      if (!claveRepetida(f, $(".sg-estado", f))) return;
+      enviar(f, { accion: "restablecer", token: tokenClave, clave: f.elements.clave.value }, "Guardando…", function () {
+        tokenClave = "";
+        abrirLista();
+      });
+    });
+
+    $$("[data-salir]", zona).forEach(function (b) {
+      b.addEventListener("click", function () { api({ accion: "salir" }).finally(function () { ver("entrar"); }); });
+    });
+
+    // ¿Llegó desde el enlace del correo? (#clave=…) → pedir la contraseña nueva y borrar el enlace de la barra
+    var m = location.hash.match(/^#clave=([a-f0-9]{64})$/);
+    if (m) {
+      tokenClave = m[1];
+      try { history.replaceState(null, "", location.pathname + location.search); } catch (err) {}
+      ver("nueva");
+      return;
+    }
+    if (!/^https?:$/.test(location.protocol)) { ver("entrar"); return; }
+    cargarLista().catch(function () { ver("entrar"); });
   };
 
   // ---------- Cursor propio (solo con mouse): punto rojo que sigue con suavidad ----------
@@ -701,6 +905,8 @@
     initBoletines();
     initGracias();
     initMedicion();
+    initFechas();
+    initCalendario();
     initTransiciones();
     initAnimaciones();
     initCursor();

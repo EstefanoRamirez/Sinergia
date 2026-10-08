@@ -1,0 +1,13 @@
+{
+  "_ayuda": "Fechas que muestra el calendario de la página Webinars. Cada sesión: fecha (AAAA-MM-DD), hora de inicio y fin, y el nombre que se ve. Para agregar un taller, copia una sesión y cambia los datos.",
+  "sesiones": [
+    { "fecha": "2026-10-15", "inicio": "19:15", "fin": "21:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 1 · Estados financieros y activos corrientes" },
+    { "fecha": "2026-10-17", "inicio": "08:00", "fin": "13:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 1 · Estados financieros y activos corrientes" },
+    { "fecha": "2026-10-29", "inicio": "19:15", "fin": "21:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 2 · Activos no corrientes" },
+    { "fecha": "2026-10-31", "inicio": "08:00", "fin": "13:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 2 · Activos no corrientes" },
+    { "fecha": "2026-11-12", "inicio": "19:15", "fin": "21:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 3 · Ingresos y pasivos" },
+    { "fecha": "2026-11-14", "inicio": "08:00", "fin": "13:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 3 · Ingresos y pasivos" },
+    { "fecha": "2026-11-26", "inicio": "19:15", "fin": "21:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 4 · Impuestos diferidos y conciliación tributaria" },
+    { "fecha": "2026-11-28", "inicio": "08:00", "fin": "13:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 4 · Impuestos diferidos y conciliación tributaria" }
+  ]
+}

@@ -11,11 +11,19 @@
        (Ejecutar como: Yo · Quién tiene acceso: Cualquier usuario).
     6. Copia la URL de la aplicación web y ponla en Cloudflare como PLANILLA_URL,
        y la CLAVE como PLANILLA_CLAVE.
+
+  Este script también envía los correos de la web (recuperar contraseña y activar el acceso de administración)
+  desde la cuenta de Google dueña de la hoja, gratis (Gmail permite unos 100 correos al día).
+  Si cambias este código, publica una versión nueva: Implementar → Gestionar implementaciones → editar (lápiz)
+  → Versión: Nueva versión → Implementar. La URL se mantiene.
 */
 
 const CLAVE = "cambia-esta-clave-123";
 
 const HOJA = "Inscripciones";
+
+// Nombre que verán las personas como remitente de los correos de la web
+const NOMBRE_REMITENTE = "Sinergia Capacitación Empresarial";
 
 // [Título, dato que llega de la web, ancho]
 const COLUMNAS = [
@@ -54,6 +62,22 @@ function doPost(e) {
     const d = JSON.parse(e.postData.contents);
     if (d.clave !== CLAVE) return responder({ ok: false, error: "clave" });
 
+    // Correos de la web (por ejemplo, "recuperar contraseña"): salen gratis desde esta cuenta de Google
+    if (d.accion === "correo") {
+      const para = String(d.para || "");
+      if (!/^[^\s@,;]+@[^\s@,;]+\.[^\s@,;]{2,}$/.test(para)) return responder({ ok: false, error: "correo" });
+      const opciones = {
+        to: para,
+        subject: String(d.asunto || "").slice(0, 200),
+        htmlBody: String(d.html || ""),
+        body: String(d.texto || ""),
+        name: NOMBRE_REMITENTE
+      };
+      if (d.responder) opciones.replyTo = String(d.responder);
+      MailApp.sendEmail(opciones);
+      return responder({ ok: true });
+    }
+
     if (d.accion === "clic") {
       const clics = obtenerHoja(HOJA_CLICS);
       clics.appendRow([d.fecha, d.pagina, d.boton].map(limpiar));
@@ -78,6 +102,9 @@ function doPost(e) {
 }
 
 function configurar() {
+  // Pide el permiso para enviar correos (aparece la primera vez que ejecutas "configurar")
+  MailApp.getRemainingDailyQuota();
+
   const clics = obtenerHoja(HOJA_CLICS);
   clics.getRange(1, 1, 1, COLUMNAS_CLICS.length).setValues([COLUMNAS_CLICS.map((c) => c[0])])
     .setFontWeight("bold").setBackground("#141112").setFontColor("#FFFFFF");

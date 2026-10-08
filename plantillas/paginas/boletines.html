@@ -24,7 +24,7 @@ Boletines · Sinergia Capacitación Empresarial|Zona de boletines para suscripto
               <p class="sg-estado" role="status" aria-live="polite"></p>
             </form>
             <p class="sg-mt">¿Aún no tienes cuenta? <button class="sg-enlace" type="button" data-ir="crear">Regístrate gratis</button></p>
-            <p class="sg-acceso-olvido">¿Olvidaste tu contraseña? <a href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Olvidé mi contraseña de la zona de boletines. Mi correo es: ">Escríbenos por WhatsApp</a></p>
+            <p class="sg-acceso-olvido"><button class="sg-enlace" type="button" data-ir="recuperar">¿Olvidaste tu contraseña?</button></p>
           </div>
           <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy"><p>Contenido exclusivo para suscriptores.<br>El registro es gratis.</p></div>
         </div>
@@ -52,12 +52,41 @@ Boletines · Sinergia Capacitación Empresarial|Zona de boletines para suscripto
           <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy"><p>Guarda tu contraseña:<br>la usarás cada vez que ingreses.</p></div>
         </div>
 
+        <div class="sg-acceso-caja" data-paso="recuperar" hidden>
+          <div class="sg-acceso-caja-form">
+            <p class="sg-etiqueta">Recuperar acceso</p>
+            <h2 class="sg-titulo">¿Olvidaste tu contraseña?</h2>
+            <p>Escribe el correo de tu cuenta. Te enviaremos un enlace para crear una contraseña nueva; vence en una hora.</p>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo"><label for="r-email">Correo electrónico</label><input id="r-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+              <button class="sg-btn" type="submit">Enviarme el enlace <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sg-mt"><button class="sg-enlace" type="button" data-ir="entrar">Volver a ingresar</button></p>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy"><p>Revisa también la carpeta<br>de correo no deseado.</p></div>
+        </div>
+
+        <div class="sg-acceso-caja" data-paso="nueva" hidden>
+          <div class="sg-acceso-caja-form">
+            <p class="sg-etiqueta">Nueva contraseña</p>
+            <h2 class="sg-titulo">Crea tu contraseña</h2>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo sg-campo--clave"><label for="n-clave">Contraseña nueva</label><input id="n-clave" name="clave" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8" maxlength="100"><button class="sg-ver-clave" type="button" data-ver-clave aria-label="Mostrar contraseña" aria-pressed="false"><svg aria-hidden="true"><use href="#i-eye"/></svg></button></div>
+              <div class="sg-campo"><label for="n-clave2">Repite la contraseña</label><input id="n-clave2" name="clave2" type="password" autocomplete="new-password" placeholder="Contraseña" required minlength="8" maxlength="100"></div>
+              <button class="sg-btn" type="submit">Guardar y entrar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402" loading="lazy"><p>Por seguridad, se cerrarán<br>las sesiones abiertas en otros equipos.</p></div>
+        </div>
+
         <div data-paso="lista" hidden>
           <div class="sg-dos sg-mb">
             <h2 class="sg-titulo">Tus boletines</h2>
             <p class="sg-centro">Sesión: <strong data-correo-sesion></strong> · <button class="sg-enlace" type="button" data-salir>Salir</button></p>
           </div>
-          <div class="sg-docs" data-lista-boletines></div>
+          <div class="sg-boletines-lista" data-lista-boletines></div>
         </div>
       </div>
     </section>

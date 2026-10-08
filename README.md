@@ -9,7 +9,8 @@ Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DE
 |---|---|
 | Cambiar el texto de una página | Editar `plantillas/paginas/<página>.html` y ejecutar `bash plantillas/armar-paginas.sh` |
 | Cambiar el menú, el pie, la ventana "Inscríbete" o el aviso de cookies | Editar `plantillas/partes/` y ejecutar `bash plantillas/armar-paginas.sh` |
-| Publicar un boletín (solo suscriptores) | Ver `boletines-privados/LEEME.md` |
+| Publicar, editar o borrar un boletín (PDF o imágenes) | Desde la web: **/admin** (guía en `docs/GUIA-PANEL.md`) |
+| Agregar fechas al calendario de Webinars | Editar `datos/calendario.json` (no hace falta armar las páginas) |
 | Publicar un PDF en Webinars o Biblioteca | Guardarlo en `descargas/` y seguir el comentario de la tarjeta en `plantillas/paginas/webinars.html` o `biblioteca.html` |
 | Agregar una foto a la galería | Ver el comentario al inicio de `plantillas/paginas/galeria.html` |
 | Agregar un cliente | Logo en `images/clientes/` (WebP, ~360 px) y una línea en `plantillas/paginas/clientes.html` |
@@ -19,7 +20,7 @@ Guía para publicar y configurar correos, hoja de cálculo y boletines: [docs/DE
 > Los `.html` de la raíz se **generan** con `bash plantillas/armar-paginas.sh`: no se editan a mano.
 
 ## Páginas
-`index` · `nosotros` · `servicios` · `webinars` · `biblioteca` · `boletines` (solo suscriptores) · `clientes` · `galeria` · `testimonios` · `contacto` · `privacidad` · `terminos` · `cookies` · `gracias` (tras enviar un formulario, fuera de Google) · `404`
+`index` · `nosotros` · `servicios` · `webinars` · `biblioteca` · `boletines` (solo suscriptores) · `clientes` · `galeria` · `testimonios` · `contacto` · `privacidad` · `terminos` · `cookies` · `gracias` (tras enviar un formulario, fuera de Google) · `admin` (panel interno, fuera de Google) · `404`
 
 Direcciones limpias (`/nosotros`, sin `.html`). Las direcciones de las webs viejas de Wix redirigen con 301 (`_redirects`).
 
@@ -33,7 +34,10 @@ Direcciones limpias (`/nosotros`, sin `.html`). Las direcciones de las webs viej
 - **Medición sin cookies**: Cloudflare Web Analytics (visitas) y `/api/evento` (cada clic en WhatsApp queda en la hoja).
 - **Datos estructurados** para Google (empresa y migas de pan) desde `plantillas/partes/datos-negocio.json`.
 - **Monitoreo y respaldos** con GitHub Actions (`.github/workflows/`): revisión cada 30 minutos de la web y de `/api/estado`, y copia semanal cifrada de la base de suscriptores.
-- **Boletines** para suscriptores: registro gratuito e ingreso con correo y contraseña (sin servicio de correos) → `/api/acceso` y `/api/boletines`.
+- **Boletines** para suscriptores: registro gratuito e ingreso con correo y contraseña; «¿Olvidaste tu contraseña?» envía un enlace por correo (gratis, desde Gmail con la hoja de Google) → `/api/acceso` y `/api/boletines`.
+- **Panel `/admin`** para que el equipo publique, edite y borre boletines en PDF (se ven como libro) o imágenes (se ven como galería) → `/api/admin/boletines`. Solo para correos de `ADMIN_EMAILS` que activaron su acceso por correo.
+- **Calendario** en Webinars: solo el mes actual, con el día de hoy resaltado; avanza solo (hora de Ecuador). Fechas en `datos/calendario.json`. Los precios con fecha límite se ocultan solos (`data-hasta` / `data-desde`).
+- **Modo liviano** automático en equipos modestos (poca memoria o pocos núcleos): mismas animaciones con menos carga para que el scroll vaya fluido.
 
 ## Carpetas
 - `plantillas/` — piezas con las que se arman las páginas.
@@ -50,7 +54,10 @@ Direcciones limpias (`/nosotros`, sin `.html`). Las direcciones de las webs viej
 ## Seguridad y privacidad
 - `_headers`: política de seguridad del contenido estricta (todo se sirve desde el propio sitio, salvo el contador de Cloudflare Web Analytics; sin código ni estilos dentro del HTML), HTTPS obligatorio, caché de un año para CSS/JS versionados y `noindex` en la copia `*.pages.dev`.
 - `functions/_middleware.js` oculta carpetas internas (`docs/`, `plantillas/`, `functions/`, `lib/`, `boletines-privados/`).
-- Formularios con campo trampa contra robots, límite de envíos por IP y aceptación obligatoria de la política de privacidad (se guarda la fecha y la versión aceptada).
+- Formularios con campo trampa contra robots, límite de envíos por IP, revisión de origen (contra envíos desde otros sitios) y aceptación obligatoria de la política de privacidad (se guarda la fecha y la versión aceptada).
+- Cookie de sesión `__Host-sg_ses` (HttpOnly, Secure, SameSite=Lax). Al cambiar la contraseña se cierran todas las sesiones anteriores. Enlaces de recuperación de un solo uso que vencen en 1 hora, sin revelar si un correo está registrado.
+- Subidas del panel revisadas por su contenido real (PDF, JPG, PNG o WebP), con límite de tamaño; las imágenes se sirven con una política que impide ejecutar código.
+- `/.well-known/security.txt` para reportar problemas de seguridad.
 - Zona de boletines con contraseña: en la base solo se guarda su huella (PBKDF2-SHA256, 100 000 iteraciones, sal aleatoria), con límite de intentos por correo y por IP. Sesión en cookie segura (HttpOnly, Secure) de la que solo se guarda la huella SHA-256.
 - Política de privacidad conforme a la Ley Orgánica de Protección de Datos Personales del Ecuador (`privacidad.html`), términos y política de cookies.
 

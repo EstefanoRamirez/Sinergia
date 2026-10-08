@@ -9,6 +9,8 @@ export function onRequestGet({ request }) {
     "Allow: /",
     "Disallow: /docs/",
     "Disallow: /api/",
+    "Disallow: /admin",
+    "Disallow: /gracias",
     "",
     `Sitemap: ${origen}/sitemap.xml`,
     ""

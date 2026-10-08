@@ -29,6 +29,80 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
       </div>
     </section>
 
+    <!-- Calendario: muestra solo el mes actual (hora de Ecuador), con el día de hoy resaltado.
+         Las fechas salen de datos/calendario.json. Los bloques con data-hasta / data-desde se muestran
+         u ocultan solos según la fecha (por ejemplo, el precio de pronto pago). -->
+    <section class="sg-seccion" id="calendario">
+      <div class="sg-wrap">
+        <div class="sg-dos sg-mb">
+          <div>
+            <p class="sg-etiqueta" data-anim="sube">Calendario</p>
+            <h2 class="sg-display" data-anim="lineas">Próximas <em>clases</em></h2>
+          </div>
+          <p class="sg-lead" data-anim="sube">Todas las sesiones son en vivo por Zoom, en hora de Ecuador continental, y quedan grabadas.</p>
+        </div>
+
+        <div class="sg-agenda">
+          <div class="sg-calendario" data-calendario data-anim="sube">
+            <div class="sg-calendario-cabeza">
+              <h3 data-calendario-mes>Este mes</h3>
+              <p class="sg-calendario-hoy">Hoy <span data-calendario-hoy></span></p>
+            </div>
+            <div class="sg-calendario-dias" aria-hidden="true"><span>Lun</span><span>Mar</span><span>Mié</span><span>Jue</span><span>Vie</span><span>Sáb</span><span>Dom</span></div>
+            <ol class="sg-calendario-grilla" data-calendario-grilla></ol>
+            <p class="sg-calendario-nota"><span class="sg-calendario-clave sg-calendario-clave--hoy"></span>Hoy <span class="sg-calendario-clave sg-calendario-clave--clase"></span>Día con clase</p>
+          </div>
+          <div class="sg-agenda-lista" data-anim="sube">
+            <h3>Clases de este mes</h3>
+            <ol data-calendario-lista><li class="sg-agenda-vacio">Cargando fechas…</li></ol>
+          </div>
+        </div>
+
+        <!-- Programa vigente. Se oculta solo después de su última clase (data-hasta). -->
+        <article class="sg-programa sg-mt-lg" data-hasta="2026-11-28" data-anim="sube">
+          <div class="sg-programa-cabeza">
+            <p class="sg-etiqueta">Inscripciones abiertas</p>
+            <h3>Programa de Especialización en <em>NIIF</em></h3>
+            <p class="sg-programa-lema">¿Conoces las NIIF? ¿Sabes aplicarlas?</p>
+            <p>Aplicación contable e impacto tributario en Ecuador. Aprende a resolver casos con NIIF para PYMES y NIIF completas, en cuatro módulos prácticos con casos, cálculos y asientos contables.</p>
+          </div>
+          <dl class="sg-programa-datos">
+            <div><dt>Inicio</dt><dd>Jueves 15 de octubre de 2026</dd></div>
+            <div><dt>Duración</dt><dd>40 horas académicas · 4 módulos</dd></div>
+            <div><dt>Modalidad</dt><dd>En vivo por Zoom, con grabaciones</dd></div>
+            <div><dt>Horario</dt><dd>Jueves 19:15 a 21:30 · Sábados 08:00 a 13:30</dd></div>
+            <div><dt>Instructor</dt><dd>MSc. Carlos Ramírez Lafuente</dd></div>
+            <div><dt>Certificado</dt><dd>Digital, por 40 horas académicas</dd></div>
+          </dl>
+          <ol class="sg-programa-modulos">
+            <li><strong>Módulo 1</strong> Estados financieros y activos corrientes <span>Jue 15 y sáb 17 de octubre</span></li>
+            <li><strong>Módulo 2</strong> Activos no corrientes <span>Jue 29 y sáb 31 de octubre</span></li>
+            <li><strong>Módulo 3</strong> Ingresos y pasivos <span>Jue 12 y sáb 14 de noviembre</span></li>
+            <li><strong>Módulo 4</strong> Impuestos diferidos y conciliación tributaria <span>Jue 26 y sáb 28 de noviembre</span></li>
+          </ol>
+          <div class="sg-programa-precio">
+            <div data-hasta="2026-10-14">
+              <p class="sg-programa-monto">$280 <small>programa completo · pronto pago</small></p>
+              <p>Precio normal $560. Pronto pago solo hasta el miércoles 14 de octubre. IVA incluido.</p>
+              <p>Por módulos: $80 cada uno con pronto pago (precio normal $125, IVA incluido).</p>
+            </div>
+            <div data-desde="2026-10-15" hidden>
+              <p class="sg-programa-monto">$560 <small>programa completo</small></p>
+              <p>Por módulos: $125 cada uno. IVA incluido.</p>
+            </div>
+            <p class="sg-programa-bono"><strong>Bono con el programa completo:</strong> Taller «Manual de Políticas Contables con IA», sin costo adicional.</p>
+            <p class="sg-programa-dirigido">Dirigido a contadores, auditores, auxiliares y asistentes contables, y estudiantes con bases contables.</p>
+          </div>
+          <div class="sg-btns">
+            <a class="sg-btn" href="#inscripcion" data-elegir="Programa de Especialización en NIIF">Inscribirme <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <a class="sg-btn sg-btn--linea" href="descargas/programa-especializacion-niif.pdf" target="_blank" rel="noopener">Ver programa (PDF) <svg aria-hidden="true"><use href="#i-download"/></svg></a>
+            <a class="sg-enlace" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera inscribirme en el Programa de Especialización en NIIF.">Reservar por WhatsApp <svg aria-hidden="true"><use href="#i-wa"/></svg></a>
+          </div>
+        </article>
+        <p class="sg-programa-fin sg-mt-lg" data-desde="2026-11-29" hidden>Pronto publicaremos nuevas fechas. Escríbenos por WhatsApp y te avisamos apenas abramos inscripciones.</p>
+      </div>
+    </section>
+
     <!-- Talleres: tomados de las publicaciones de Instagram (@sinergia._ec). Sin fechas ni precios porque cambian. -->
     <section class="sg-seccion sg-seccion--crema">
       <div class="sg-wrap">
@@ -40,7 +114,7 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
           <p class="sg-lead" data-anim="sube">Escríbenos y te enviamos las próximas fechas, el horario y el valor de cada taller.</p>
         </div>
         <ul class="sg-taller-datos" data-anim="grupo">
-          <li>Vía Zoom</li><li>Sesiones nocturnas de 2 h 30 min</li><li>Certificado digital</li><li>Grabación de la clase</li><li>Inscripción por WhatsApp</li>
+          <li>Vía Zoom</li><li>Horarios nocturnos y de fin de semana</li><li>Certificado digital</li><li>Grabación de la clase</li><li>Inscripción por WhatsApp</li>
         </ul>
         <ol class="sg-talleres" data-anim="grupo">
           <li class="sg-taller">
@@ -59,9 +133,9 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
             <a class="sg-enlace" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera información del Taller - Impuestos Diferidos.">Pedir Información <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
           <li class="sg-taller">
-            <h3>Escuela de NIIF</h3>
-            <p>¿Conoces las NIIF? ¿Sabes aplicarlas? Normas Internacionales de Información Financiera llevadas a la práctica.</p>
-            <a class="sg-enlace" href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera información del Webinar - Escuela de NIIF.">Pedir Información <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            <h3>Programa de Especialización en NIIF</h3>
+            <p>¿Conoces las NIIF? ¿Sabes aplicarlas? Cuatro módulos prácticos, 40 horas académicas, con NIIF para PYMES y NIIF completas.</p>
+            <a class="sg-enlace" href="#calendario">Ver fechas y precio <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
           <li class="sg-taller">
             <h3>Ventas a crédito</h3>
@@ -84,13 +158,13 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
           <article class="sg-doc">
             <div class="sg-doc-portada sg-doc-portada--roja">
               <span class="sg-doc-contra" aria-hidden="true"></span><span class="sg-doc-paginas" aria-hidden="true"></span><span class="sg-doc-brillo" aria-hidden="true"></span>
-              <span class="sg-doc-tipo">Webinar · PDF</span>
+              <span class="sg-doc-tipo">Programa · PDF</span>
               <img class="sg-doc-sello" src="images/marca/simbolo-blanco.webp" alt="" width="600" height="549" loading="lazy">
-              <h3>Escuela de <em>NIIF</em></h3>
+              <h3>Especialización en <em>NIIF</em></h3>
             </div>
             <div class="sg-doc-info">
-              <p>Normas Internacionales de Información Financiera aplicadas a la realidad ecuatoriana.</p>
-              <div class="sg-doc-acciones"><a href="https://wa.me/593969094855" data-wa="¡Hola, Sinergia! Quisiera información del Webinar - Escuela de NIIF."><svg aria-hidden="true"><use href="#i-wa"/></svg>Pedir Información</a></div>
+              <p>Contenido, fechas, horarios e inversión del Programa de Especialización en NIIF.</p>
+              <div class="sg-doc-acciones"><a href="descargas/programa-especializacion-niif.pdf" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-eye"/></svg>Ver</a><a href="descargas/programa-especializacion-niif.pdf" download><svg aria-hidden="true"><use href="#i-download"/></svg>Descargar</a></div>
             </div>
           </article>
           <article class="sg-doc">
@@ -152,10 +226,10 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
             <div class="sg-campo sg-campo--todo">
               <label for="w-interes">Taller o webinar de interés</label>
               <select id="w-interes" name="interes">
+                <option>Programa de Especialización en NIIF</option>
                 <option>Taller - Flujo de Efectivo</option>
                 <option>Taller - Flujo de Efectivo y Estado de Cambios en el Patrimonio</option>
                 <option>Taller - Impuestos Diferidos</option>
-                <option>Webinar - Escuela de NIIF</option>
                 <option>Webinar - Ventas a Crédito</option>
                 <option>Próximos webinars (enviar calendario)</option>
                 <option>Webinar exclusivo para mi empresa</option>

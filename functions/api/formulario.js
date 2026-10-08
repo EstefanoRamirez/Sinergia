@@ -14,12 +14,13 @@
 import {
   json, leerJson, texto, correoValido, telefonoInternacional, esc, fechaEcuador, lista, permitir,
   enviarCorreo, anotarPlanilla, avisarDueno, escribirCliente, marcoCorreo, botonCorreo, WHATSAPP_SINERGIA,
-  textoConsentimiento, VERSION_POLITICA
+  textoConsentimiento, VERSION_POLITICA, mismoOrigen
 } from "../../lib/servidor.js";
 
 const TIPOS = { registro: "Registro / suscripción", inscripcion: "Inscripción a webinar", contacto: "Mensaje de contacto" };
 
 export async function onRequestPost({ request, env }) {
+  if (!mismoOrigen(request)) return json({ ok: false, error: "Origen no permitido" }, 403);
   const d = await leerJson(request);
   if (!d) return json({ ok: false, error: "Datos inválidos" }, 400);
 

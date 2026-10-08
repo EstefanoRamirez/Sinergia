@@ -2,7 +2,9 @@
 
 Esta carpeta no es pública: solo se puede leer a través de `/api/boletines` con una sesión de suscriptor.
 
-Para publicar un boletín:
+**Lo normal es publicar desde el panel `/admin`** (ver `docs/GUIA-PANEL.md`). Esta carpeta queda para boletines antiguos publicados con GitHub.
+
+Para publicar un boletín por GitHub:
 1. Guarda el PDF aquí con un nombre sin espacios ni tildes, por ejemplo `boletin-2026-10.pdf`.
 2. Agrégalo a `lista.json` (el más nuevo primero):
 

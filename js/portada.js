@@ -8,8 +8,11 @@
 
   Cómo funciona: en un <canvas> se dibuja la foto a color y se recorta con una
   "máscara" que se pinta a baja resolución (así los bordes quedan suaves, como líquido).
-  Se pausa cuando la portada no se ve o la pestaña está oculta, y no se ejecuta si
-  quien visita pidió reducir el movimiento.
+  Se pausa cuando la portada no se ve o la pestaña está oculta.
+
+  Rendimiento: la foto a color (con su filtro de color) se prepara UNA sola vez en un lienzo aparte;
+  en cada cuadro solo se copia y se recorta. En equipos modestos (poca memoria o pocos núcleos, o con
+  "ahorro de datos") el efecto usa menos resolución, una estela más corta y 30 cuadros por segundo.
 */
 (function () {
   "use strict";
@@ -28,6 +31,14 @@
   hero.querySelector(".sg-hero-media").appendChild(canvas);
 
   var tactil = window.matchMedia("(hover: none), (pointer: coarse)").matches;
+  var nav = window.navigator;
+  var ligero = (nav.deviceMemory && nav.deviceMemory <= 4) || (nav.hardwareConcurrency && nav.hardwareConcurrency <= 4) ||
+    !!(nav.connection && nav.connection.saveData);
+  var color = document.createElement("canvas"); // foto a color ya preparada
+  var cctx = color.getContext("2d");
+  var PASOS = ligero ? 22 : 36;
+  var MAX_ESTELA = ligero ? 20 : 46;
+  var cuadroMin = ligero ? 1000 / 30 : 0;
   var ESCALA_MASCARA = 0.22; // la máscara se dibuja pequeña y se agranda: bordes suaves
   var W = 0, H = 0, dpr = 1, R = 0;
   var img = null;
@@ -41,7 +52,7 @@
 
   var medir = function () {
     var rect = hero.getBoundingClientRect();
-    dpr = Math.min(window.devicePixelRatio || 1, tactil ? 1.25 : 1.5);
+    dpr = ligero ? 0.75 : Math.min(window.devicePixelRatio || 1, tactil ? 1.25 : 1.5);
     W = Math.max(1, Math.round(rect.width));
     H = Math.max(1, Math.round(rect.height));
     canvas.width = Math.round(W * dpr);
@@ -49,23 +60,26 @@
     mascara.width = Math.max(1, Math.round(W * ESCALA_MASCARA));
     mascara.height = Math.max(1, Math.round(H * ESCALA_MASCARA));
     R = Math.min(W, H) * (tactil ? 0.28 : 0.22);
+    if (img) prepararColor();
   };
 
-  // Igual que object-fit: cover; object-position: 50% 40% del CSS
-  var dibujarFoto = function () {
+  // Prepara una vez la foto a color, recortada igual que object-fit: cover; object-position: 50% 40%
+  var prepararColor = function () {
     var iw = img.naturalWidth, ih = img.naturalHeight;
     var cw = canvas.width, ch = canvas.height;
+    color.width = cw;
+    color.height = ch;
     var s = Math.max(cw / iw, ch / ih);
     var dw = iw * s, dh = ih * s;
-    ctx.filter = "saturate(1.3) brightness(1.12)"; // color más vivo (si el navegador lo admite)
-    ctx.drawImage(img, (cw - dw) * 0.5, (ch - dh) * 0.4, dw, dh);
-    ctx.filter = "none";
+    cctx.filter = "saturate(1.3) brightness(1.12)"; // color más vivo (si el navegador lo admite)
+    cctx.drawImage(img, (cw - dw) * 0.5, (ch - dh) * 0.4, dw, dh);
+    cctx.filter = "none";
   };
 
   // Mancha con borde ondulado que cambia con el tiempo
   var mancha = function (x, y, r, t, semilla) {
     if (r < 1) return;
-    var pasos = 36;
+    var pasos = PASOS;
     mctx.beginPath();
     for (var i = 0; i <= pasos; i++) {
       var a = (i / pasos) * Math.PI * 2;
@@ -82,6 +96,7 @@
 
   var cuadro = function (ahora) {
     raf = null;
+    if (cuadroMin && ahora - ultimoT < cuadroMin - 2) { raf = requestAnimationFrame(cuadro); return; }
     var dt = Math.min(0.05, (ahora - ultimoT) / 1000);
     ultimoT = ahora;
     var t = (ahora - t0) / 1000;
@@ -110,7 +125,7 @@
     var vel = Math.hypot(cabeza.x - antesX, cabeza.y - antesY);
     if (cabeza.r > 4 && vel > 1.5) {
       estela.push({ x: cabeza.x, y: cabeza.y, r: Math.min(R * 0.75, 18 + vel * 2.2), vida: 1, semilla: Math.random() * 6 });
-      if (estela.length > 46) estela.shift();
+      if (estela.length > MAX_ESTELA) estela.shift();
     }
     for (var i = estela.length - 1; i >= 0; i--) {
       estela[i].vida -= dt * 0.85;
@@ -134,7 +149,7 @@
     ctx.globalCompositeOperation = "source-over";
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     if (cabeza.r > 0.5 || estela.length) {
-      dibujarFoto();
+      ctx.drawImage(color, 0, 0);
       ctx.globalCompositeOperation = "destination-in";
       ctx.imageSmoothingEnabled = true;
       ctx.drawImage(mascara, 0, 0, canvas.width, canvas.height);

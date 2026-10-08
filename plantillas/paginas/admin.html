@@ -1,0 +1,102 @@
+Administración · Sinergia|Panel interno para publicar boletines.|admin|ADMIN — Panel para que el equipo de Sinergia publique, edite y elimine boletines (PDF o imágenes). No aparece en Google.
+    <section class="sg-admin" data-admin>
+      <div class="sg-wrap">
+        <p class="sg-etiqueta"><svg aria-hidden="true"><use href="#i-lock"/></svg> Uso interno</p>
+        <h1 class="sg-admin-titulo">Panel de <em>boletines</em></h1>
+
+        <!-- Ingreso -->
+        <div class="sg-acceso-caja" data-vista="entrar" hidden>
+          <div class="sg-acceso-caja-form">
+            <h2 class="sg-titulo">Ingresar</h2>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo"><label for="a-email">Correo electrónico</label><input id="a-email" name="email" type="email" autocomplete="username" placeholder="Email" required maxlength="120"></div>
+              <div class="sg-campo sg-campo--clave"><label for="a-clave">Contraseña</label><input id="a-clave" name="clave" type="password" autocomplete="current-password" placeholder="Contraseña" required maxlength="100"><button class="sg-ver-clave" type="button" data-ver-clave aria-label="Mostrar contraseña" aria-pressed="false"><svg aria-hidden="true"><use href="#i-eye"/></svg></button></div>
+              <button class="sg-btn" type="submit">Ingresar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sg-acceso-olvido"><button class="sg-enlace" type="button" data-ir="recuperar">Activar mi acceso u olvidé mi contraseña</button></p>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="Sinergia Capacitación Empresarial Oportuna" width="600" height="402"><p>Acceso solo para<br>el equipo de Sinergia.</p></div>
+        </div>
+
+        <!-- Activar o recuperar -->
+        <div class="sg-acceso-caja" data-vista="recuperar" hidden>
+          <div class="sg-acceso-caja-form">
+            <h2 class="sg-titulo">Activar o recuperar</h2>
+            <p>Escribe tu correo de trabajo. Si está autorizado, te llegará un enlace para crear tu contraseña (vence en una hora).</p>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo"><label for="ar-email">Correo electrónico</label><input id="ar-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
+              <button class="sg-btn" type="submit">Enviarme el enlace <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+            <p class="sg-mt"><button class="sg-enlace" type="button" data-ir="entrar">Volver</button></p>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="" width="600" height="402"><p>Revisa también la carpeta<br>de correo no deseado.</p></div>
+        </div>
+
+        <!-- Contraseña nueva (desde el enlace del correo) -->
+        <div class="sg-acceso-caja" data-vista="nueva" hidden>
+          <div class="sg-acceso-caja-form">
+            <h2 class="sg-titulo">Crea tu contraseña</h2>
+            <form class="sg-form" novalidate>
+              <div class="sg-campo sg-campo--clave"><label for="an-clave">Contraseña nueva</label><input id="an-clave" name="clave" type="password" autocomplete="new-password" placeholder="Mínimo 8 caracteres" required minlength="8" maxlength="100"><button class="sg-ver-clave" type="button" data-ver-clave aria-label="Mostrar contraseña" aria-pressed="false"><svg aria-hidden="true"><use href="#i-eye"/></svg></button></div>
+              <div class="sg-campo"><label for="an-clave2">Repite la contraseña</label><input id="an-clave2" name="clave2" type="password" autocomplete="new-password" placeholder="Contraseña" required minlength="8" maxlength="100"></div>
+              <button class="sg-btn" type="submit">Guardar y entrar <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+            </form>
+          </div>
+          <div class="sg-acceso-caja-lado"><img src="images/marca/logo-blanco-vertical.webp" alt="" width="600" height="402"><p>Usa una contraseña que<br>no uses en otros sitios.</p></div>
+        </div>
+
+        <!-- Sin permiso -->
+        <div class="sg-admin-aviso" data-vista="sinpermiso" hidden>
+          <h2 class="sg-titulo">Sin permisos</h2>
+          <p>La cuenta <strong data-admin-correo></strong> no tiene permisos de administración. Si debería tenerlos, pide que agreguen tu correo en la configuración del sitio y luego usa «Activar mi acceso».</p>
+          <button class="sg-btn sg-btn--linea" type="button" data-salir>Salir</button>
+        </div>
+
+        <!-- Panel -->
+        <div data-vista="panel" hidden>
+          <div class="sg-admin-barra">
+            <p>Sesión: <strong data-admin-correo></strong></p>
+            <p><a class="sg-enlace" href="boletines.html" target="_blank" rel="noopener">Ver como suscriptor</a> · <button class="sg-enlace" type="button" data-salir>Salir</button></p>
+          </div>
+
+          <form class="sg-form sg-admin-form" data-form-boletin novalidate>
+            <h2 class="sg-titulo" data-form-titulo>Nuevo boletín</h2>
+            <fieldset class="sg-admin-tipo" data-tipo-campo>
+              <legend>Formato</legend>
+              <label><input type="radio" name="tipo" value="pdf" checked> <span>PDF <small>se ve como libro</small></span></label>
+              <label><input type="radio" name="tipo" value="imagenes"> <span>Imágenes JPG o PNG <small>se ven como galería</small></span></label>
+            </fieldset>
+            <div class="sg-campos">
+              <div class="sg-campo sg-campo--todo"><label for="b-titulo">Título *</label><input id="b-titulo" name="titulo" required maxlength="120" placeholder="Ej.: Novedades tributarias de octubre"></div>
+              <div class="sg-campo"><label for="b-fecha">Fecha *</label><input id="b-fecha" name="fecha" type="date" required></div>
+              <div class="sg-campo sg-campo--todo"><label for="b-resumen">Resumen (opcional)</label><textarea id="b-resumen" name="resumen" maxlength="400" placeholder="Una o dos líneas sobre el contenido"></textarea></div>
+            </div>
+            <div class="sg-admin-archivos" data-archivos-actuales hidden>
+              <p class="sg-admin-etiqueta">Archivos actuales</p>
+              <ul data-lista-actuales></ul>
+            </div>
+            <div class="sg-admin-subir">
+              <label class="sg-admin-zona" for="b-archivos">
+                <svg aria-hidden="true"><use href="#i-download"/></svg>
+                <span data-zona-texto>Elige el PDF o arrástralo aquí</span>
+                <small data-zona-ayuda>Máximo 20 MB.</small>
+              </label>
+              <input class="sg-oculto" id="b-archivos" name="archivos" type="file" accept="application/pdf">
+              <ul class="sg-admin-previas" data-previas></ul>
+            </div>
+            <div class="sg-admin-progreso" data-progreso hidden><span></span></div>
+            <div class="sg-btns">
+              <button class="sg-btn" type="submit" data-boton-guardar>Publicar boletín <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              <button class="sg-btn sg-btn--linea" type="button" data-cancelar hidden>Cancelar edición</button>
+            </div>
+            <p class="sg-estado" role="status" aria-live="polite"></p>
+          </form>
+
+          <h2 class="sg-titulo sg-mt-lg">Publicados</h2>
+          <ul class="sg-admin-lista" data-lista-admin><li class="sg-admin-vacio">Cargando…</li></ul>
+        </div>
+      </div>
+    </section>

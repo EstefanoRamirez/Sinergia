@@ -47,14 +47,15 @@ for f in plantillas/paginas/*.html; do
     # Portada: precarga la foto principal y carga el efecto de la máscara
     my $precarga = $pg eq "inicio"
       ? qq{  <link rel="preload" as="image" href="images/portada/ejecutivo-1200.webp" imagesrcset="images/portada/ejecutivo-1200.webp 1200w, images/portada/ejecutivo.webp 2400w" imagesizes="100vw" fetchpriority="high">\n} : "";
-    my $jsExtra = $pg eq "inicio" ? qq{  <script src="js/portada.js" defer></script>\n} : "";
+    my $jsExtra = $pg eq "inicio" ? qq{  <script src="js/portada.js" defer></script>\n}
+      : $pg eq "admin" ? qq{  <script src="js/admin.js" defer></script>\n} : "";
 
     # Dirección canónica (sin .html); el inicio es "/"
     my $ruta = $pg eq "inicio" ? "/" : "/" . ($file =~ s/\.html$//r);
 
     $head =~ s/__TITLE__/$t/g; $head =~ s/__DESC__/$d/g; $head =~ s/__PAGE__/$pg/g; $head =~ s/__RUTA__/$ruta/g;
     $head =~ s/__CSS_EXTRA__\n/$precarga/;
-    my $claseBody = ($pg eq "404" || $pg eq "gracias") ? q{ class="sg-sin-portada"} : "";
+    my $claseBody = ($pg eq "404" || $pg eq "gracias" || $pg eq "admin") ? q{ class="sg-sin-portada"} : "";
     $head =~ s/__BODY_CLASS__/$claseBody/;
     $footer =~ s/__JS_EXTRA__\n/$jsExtra/;
     $head =~ s/<!DOCTYPE html>\n/<!DOCTYPE html>\n<!--\n  PÁGINA: $nota\n  Archivo generado: $file (no editar aquí; editar plantillas\/paginas\/$file y ejecutar: bash plantillas\/armar-paginas.sh)\n  Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".\n-->\n/;
@@ -77,7 +78,7 @@ for f in plantillas/paginas/*.html; do
 
     # Datos estructurados para Google: la empresa (todas las páginas) y las migas de pan
     my $ld = $datosNegocio;
-    if ($pg ne "inicio" && $pg ne "404" && $pg ne "gracias") {
+    if ($pg ne "inicio" && $pg ne "404" && $pg ne "gracias" && $pg ne "admin") {
       my @migas = ([ "Inicio", "/" ]);
       if ($body =~ m{<ol class="sg-migas"[^>]*>(.*?)</ol>}s) {
         my $ol = $1;
@@ -96,7 +97,7 @@ for f in plantillas/paginas/*.html; do
     $html =~ s{(\n</head>)}{\n  $ld$1};
 
     # Páginas que no deben aparecer en Google
-    if ($pg eq "gracias") {
+    if ($pg eq "gracias" || $pg eq "admin") {
       $html =~ s{(<head>\n)}{$1  <meta name="robots" content="noindex">\n};
     }
 

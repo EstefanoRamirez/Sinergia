@@ -4137,3 +4137,710 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-seccion--negra p {
   color: rgba(246, 241, 236, 0.82);
 }
+
+.sg-pie-horario {
+  margin-top: 14px !important;
+  font-size: 15px !important;
+  opacity: 0.9;
+}
+
+.sg-dato p {
+  margin: 0;
+}
+
+/* Invitación a dejar una reseña en Google */
+.sg-resena {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 40px;
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 32px;
+  border-top: 1px solid rgba(20, 17, 18, 0.15);
+}
+
+.sg-resena p {
+  max-width: 52ch;
+  margin: 0;
+  color: var(--gris);
+}
+
+/* ---------- Calendario del mes (Webinars) ---------- */
+.sg-agenda {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+
+.sg-calendario {
+  padding: clamp(20px, 3vw, 36px);
+  background: #fff;
+  border: 1px solid rgba(20, 17, 18, 0.12);
+  box-shadow: 0 30px 60px -40px rgba(20, 17, 18, 0.35);
+}
+
+.sg-calendario-cabeza {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 20px;
+  margin-bottom: 22px;
+}
+
+.sg-calendario-cabeza h3 {
+  margin: 0;
+  font-size: clamp(32px, 4vw, 54px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.sg-calendario-hoy {
+  margin: 0;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--rojo);
+}
+
+.sg-calendario-dias,
+.sg-calendario-grilla {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.sg-calendario-dias {
+  margin-bottom: 8px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+.sg-calendario-grilla {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sg-dia {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  background: #fff;
+  border: 1px solid rgba(20, 17, 18, 0.1);
+  font-size: clamp(14px, 1.4vw, 18px);
+  font-weight: 600;
+  color: var(--tinta);
+}
+
+.sg-dia--vacio {
+  border-color: transparent;
+}
+
+.sg-dia--pasado {
+  color: #a39a9c;
+}
+
+.sg-dia--clase::after {
+  content: "";
+  position: absolute;
+  bottom: 14%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin-left: -3px;
+  border-radius: 50%;
+  background: var(--rojo);
+}
+
+.sg-dia--hoy {
+  background: var(--rojo);
+  border-color: var(--rojo);
+  color: #fff;
+  font-weight: 800;
+  box-shadow: 0 10px 24px -10px rgba(187, 15, 23, 0.7);
+}
+
+.sg-dia--hoy.sg-dia--clase::after {
+  background: #fff;
+}
+
+.sg-calendario-nota {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin: 18px 0 0;
+  font-size: 13px;
+  color: var(--gris);
+}
+
+.sg-calendario-clave {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+}
+
+.sg-calendario-clave--hoy {
+  background: var(--rojo);
+}
+
+.sg-calendario-clave--clase {
+  width: 6px;
+  height: 6px;
+  margin-left: 12px;
+  border-radius: 50%;
+  background: var(--rojo);
+}
+
+.sg-agenda-lista h3 {
+  margin: 0 0 16px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--rojo);
+}
+
+.sg-agenda-lista ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(20, 17, 18, 0.15);
+}
+
+.sg-agenda-lista li {
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(20, 17, 18, 0.15);
+}
+
+.sg-agenda-lista li.is-hoy .sg-agenda-fecha {
+  background: var(--rojo);
+  color: #fff;
+}
+
+.sg-agenda-fecha {
+  display: grid;
+  flex: 0 0 64px;
+  place-items: center;
+  height: 64px;
+  background: var(--tinta);
+  color: #fff;
+  line-height: 1;
+}
+
+.sg-agenda-fecha strong {
+  font-size: 26px;
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+}
+
+.sg-agenda-fecha small {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.sg-agenda-texto {
+  display: grid;
+  gap: 2px;
+}
+
+.sg-agenda-texto strong {
+  font-size: 16px;
+  line-height: 1.3;
+}
+
+.sg-agenda-texto small {
+  font-size: 14px;
+  color: var(--gris);
+}
+
+.sg-agenda-lista li.sg-agenda-vacio {
+  display: block;
+  color: var(--gris);
+}
+
+/* Ficha del programa vigente */
+.sg-programa {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 4vw, 56px);
+  padding: clamp(28px, 4.5vw, 64px);
+  background: var(--tinta);
+  color: rgba(246, 241, 236, 0.86);
+}
+
+.sg-programa h3 {
+  margin: 0 0 10px;
+  font-size: clamp(36px, 4.6vw, 64px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 0.92;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+.sg-programa h3 em {
+  font-style: normal;
+  color: #ff4049;
+}
+
+.sg-programa-lema {
+  margin: 0 0 14px;
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sg-programa-datos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 24px;
+  margin: 0;
+}
+
+.sg-programa-datos dt {
+  margin-bottom: 4px;
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff6a71;
+}
+
+.sg-programa-datos dd {
+  margin: 0;
+  color: #fff;
+  line-height: 1.45;
+}
+
+.sg-programa-modulos {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.sg-programa-modulos li {
+  display: grid;
+  gap: 6px;
+  align-content: start;
+  padding: 20px;
+  background: var(--tinta);
+  line-height: 1.4;
+}
+
+.sg-programa-modulos strong {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff6a71;
+}
+
+.sg-programa-modulos span {
+  font-size: 14px;
+  color: rgba(246, 241, 236, 0.7);
+}
+
+.sg-programa-precio p {
+  margin: 0 0 8px;
+}
+
+.sg-programa-monto {
+  font-size: clamp(48px, 6vw, 84px) !important;
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 1 !important;
+  color: #fff;
+}
+
+.sg-programa-monto small {
+  display: block;
+  margin-top: 6px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #ff6a71;
+}
+
+.sg-programa-bono {
+  margin-top: 16px !important;
+  padding: 14px 16px;
+  border-left: 3px solid #ff4049;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.sg-programa-dirigido {
+  font-size: 15px;
+  color: rgba(246, 241, 236, 0.7);
+}
+
+.sg-programa .sg-btns {
+  align-self: end;
+  align-items: center;
+}
+
+.sg-programa .sg-btn--linea {
+  --b-texto: #fff;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.sg-programa .sg-enlace {
+  color: #fff;
+}
+
+.sg-programa-fin {
+  padding: 24px;
+  border-left: 3px solid var(--rojo);
+  background: var(--crema);
+}
+
+@media (max-width: 1000px) {
+  .sg-agenda,
+  .sg-programa {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-programa-modulos {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .sg-calendario-dias,
+  .sg-calendario-grilla {
+    gap: 3px;
+  }
+
+  .sg-calendario-dias {
+    font-size: 9px;
+    letter-spacing: 0;
+  }
+
+  .sg-programa-datos,
+  .sg-programa-modulos {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Boletines: lista con libros (PDF) y galerías (imágenes) */
+.sg-boletines-lista {
+  display: grid;
+  gap: clamp(48px, 6vw, 80px);
+}
+
+.sg-boletin-fotos-cabeza {
+  margin-bottom: 22px;
+}
+
+.sg-boletin-fotos-cabeza h3 {
+  margin: 0 0 8px;
+  font-size: clamp(28px, 3.2vw, 44px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sg-boletin-fotos-cabeza p:last-child {
+  max-width: 60ch;
+  margin: 0;
+  color: var(--gris);
+}
+
+.sg-visor-btn[hidden] {
+  display: none !important;
+}
+
+/* ---------- Panel de administración (/admin) ---------- */
+.sg-admin {
+  padding: calc(var(--alto-enc) + 48px) 0 96px;
+  min-height: 100vh;
+}
+
+.sg-admin-titulo {
+  margin: 0 0 clamp(28px, 4vw, 48px);
+  font-size: clamp(44px, 6vw, 88px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.sg-admin-titulo em {
+  font-style: normal;
+  color: var(--rojo);
+}
+
+.sg-admin-aviso {
+  max-width: 640px;
+}
+
+.sg-admin-barra {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  margin-bottom: 28px;
+  padding: 14px 18px;
+  background: var(--crema);
+  font-size: 15px;
+}
+
+.sg-admin-barra p {
+  margin: 0;
+}
+
+.sg-admin-form {
+  padding: clamp(22px, 3.5vw, 44px);
+  background: #fff;
+  border: 1px solid rgba(20, 17, 18, 0.12);
+}
+
+.sg-admin-tipo {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+}
+
+.sg-admin-tipo legend {
+  margin-bottom: 10px;
+  font-size: 15px;
+}
+
+.sg-admin-tipo label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border: 1px solid rgba(20, 17, 18, 0.25);
+  cursor: pointer;
+}
+
+.sg-admin-tipo label:has(input:checked) {
+  border-color: var(--rojo);
+  box-shadow: inset 0 0 0 1px var(--rojo);
+}
+
+.sg-admin-tipo small {
+  display: block;
+  color: var(--gris);
+  font-size: 13px;
+}
+
+.sg-admin-tipo:disabled label {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.sg-admin-zona {
+  display: grid;
+  justify-items: center;
+  gap: 6px;
+  margin-top: 20px;
+  padding: 30px 20px;
+  border: 1.5px dashed rgba(20, 17, 18, 0.35);
+  background: var(--papel);
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+
+.sg-admin-zona svg {
+  width: 28px;
+  height: 28px;
+  color: var(--rojo);
+}
+
+.sg-admin-zona small {
+  color: var(--gris);
+}
+
+.sg-admin-zona:hover,
+.sg-admin-zona.is-encima,
+#b-archivos:focus-visible + .sg-admin-previas {
+  border-color: var(--rojo);
+  background: var(--crema);
+}
+
+.sg-admin-previas,
+.sg-admin-archivos ul {
+  display: grid;
+  gap: 8px;
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sg-admin-previas li,
+.sg-admin-archivos li {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 8px;
+  border: 1px solid rgba(20, 17, 18, 0.12);
+  font-size: 14px;
+}
+
+.sg-admin-archivos li.is-quitado {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+
+.sg-admin-previas img,
+.sg-admin-archivos img {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.sg-admin-pdf,
+.sg-admin-mini {
+  display: grid;
+  flex: 0 0 56px;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  background: var(--rojo);
+  color: #fff;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  overflow: hidden;
+}
+
+.sg-admin-mini img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.sg-admin-nombre {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.sg-admin-etiqueta {
+  margin: 20px 0 0;
+  font-size: 15px;
+}
+
+.sg-admin-progreso {
+  height: 6px;
+  margin-top: 18px;
+  background: rgba(20, 17, 18, 0.1);
+}
+
+.sg-admin-progreso span {
+  display: block;
+  width: 0;
+  height: 100%;
+  background: var(--rojo);
+  transition: width 0.2s ease;
+}
+
+.sg-admin-form .sg-btns {
+  margin-top: 24px;
+}
+
+.sg-admin-lista {
+  margin: 20px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(20, 17, 18, 0.15);
+}
+
+.sg-admin-lista li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(20, 17, 18, 0.15);
+}
+
+.sg-admin-info {
+  display: grid;
+  flex: 1;
+  min-width: 200px;
+  gap: 2px;
+}
+
+.sg-admin-info small {
+  color: var(--gris);
+}
+
+.sg-admin-acciones {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.sg-admin-borrar {
+  color: var(--rojo);
+}
+
+.sg-admin-vacio {
+  color: var(--gris);
+}
+
+.sg-hero-velo {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 8, 9, 0.6);
+  opacity: 0;
+}
+
+/* Equipos modestos: sin desenfoques ni mezclas de color, que son costosos de dibujar */
+.sg-ligero .sg-header,
+.sg-ligero .sg-cookies {
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.sg-ligero .sg-acceso::before {
+  mix-blend-mode: normal;
+  opacity: 0.85;
+}
+
+/* Etiquetas legibles sobre fondo negro */
+.sg-programa .sg-etiqueta,
+.sg-seccion--negra .sg-etiqueta {
+  color: #ff6a71;
+}
+
+.sg-seccion--negra .sg-display em,
+.sg-seccion--negra .sg-titulo em {
+  color: var(--rojo-vivo);
+}

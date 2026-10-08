@@ -46,8 +46,11 @@ Si lo activas, agrega Resend en la lista de proveedores de la Política de priva
 1. Crea una hoja de Google llamada **Inscripciones Sinergia**.
 2. **Extensiones → Apps Script** → borra todo y pega el contenido de `docs/planilla-inscripciones.gs`.
 3. Cambia `CLAVE` por una tuya (letras y números) y guarda.
-4. Elige la función **configurar** y presiona **Ejecutar** (acepta los permisos).
+4. Elige la función **configurar** y presiona **Ejecutar** y acepta los permisos (incluye **enviar correos como tú**: así salen gratis los correos de "recuperar contraseña" y de activación del panel, desde esta cuenta de Google).
 5. **Implementar → Nueva implementación → Aplicación web** · Ejecutar como: **Yo** · Acceso: **Cualquier usuario** → **Implementar** y copia la URL.
+
+> Si más adelante cambias el código del script: **Implementar → Gestionar implementaciones → lápiz → Versión: Nueva versión → Implementar** (la URL no cambia).
+> Usa para la hoja la cuenta de Google de la empresa (por ejemplo la de info@): los correos saldrán desde ella. Gmail permite unos 100 correos al día.
 
 ✅ La hoja tiene la fila de títulos en rojo y la columna **Estado** con una lista (Nuevo, Contactado, Inscrito, Pagado, No interesado).
 
@@ -63,14 +66,16 @@ Proyecto de Pages → **Settings** → **Variables and Secrets** → agrega (mar
 | `PLANILLA_URL` | la URL del paso 5 | No |
 | `PLANILLA_CLAVE` | la CLAVE del paso 5 | Sí |
 | `WHATSAPP_AVISOS` | el dato del paso 6 | Sí |
+| `ADMIN_EMAILS` | correos que pueden entrar al panel `/admin`, separados por coma (por ejemplo, el de la secretaria y el tuyo) | No |
 | `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` | solo si hiciste el paso 4 opcional | Sí / No / No |
 
 Luego **Retry deployment**.
 
 ✅ Prueba final: llena la ventana **Inscríbete** con tus datos. Debe aparecer una fila en la hoja y llegar un WhatsApp al dueño con el botón para escribirte. Luego entra a **/boletines**, crea una cuenta con correo y contraseña, y verás la zona de suscriptores.
 
-### Si alguien olvida su contraseña
-No hace falta servicio de correos: la persona te escribe por WhatsApp (hay un enlace bajo el formulario). En Cloudflare → **Workers & Pages** → **KV** → `SUSCRIPTORES` → busca la clave `cuenta:` seguida de su correo (por ejemplo `cuenta:ana@empresa.com`) y bórrala. Luego dile que vuelva a registrarse con una contraseña nueva; sus datos de suscriptora se conservan.
+### Contraseñas olvidadas y acceso al panel
+- **Suscriptores:** en `/boletines` → «¿Olvidaste tu contraseña?» → les llega un correo con un enlace (vale 1 hora y una sola vez) para crear otra. Las sesiones abiertas en otros equipos se cierran solas.
+- **Panel de boletines (`/admin`):** quien esté en `ADMIN_EMAILS` entra a `/admin` → «Activar mi acceso u olvidé mi contraseña» → recibe el enlace en su correo → crea su contraseña y ya puede publicar. Guía para la secretaria: `docs/GUIA-PANEL.md`.
 
 ## 8. (Opcional) WhatsApp automático al cliente
 Para que el cliente reciba un WhatsApp automático apenas se inscribe hace falta la **WhatsApp Cloud API de Meta** (cuenta de Meta Business verificada, número dedicado y una plantilla aprobada; los mensajes iniciados por la empresa tienen costo por conversación).
@@ -135,10 +140,22 @@ y súbelo con `npx wrangler kv bulk put respaldo.json --namespace-id=<ID del KV>
 2. Elige **Importar desde Google Search Console** (trae el sitio y el sitemap ya verificados). Si no, agrega el sitio y verifica con el registro que te indique.
 3. **Sitemaps** → confirma `https://www.sinergia.ec/sitemap.xml`.
 
-## 15. (Recomendado) Perfil de Empresa en Google
-Crea o actualiza el perfil en [Google Business Profile](https://business.google.com) con la misma dirección, teléfono y horario, y pon `https://www.sinergia.ec` como sitio web. Es lo que aparece en Google Maps.
+## 15. Perfil de Empresa en Google (ya existe)
+La ficha **«Sinergia Capacitación Empresarial Oportuna»** ya está en Google Maps (Calle E8-A y Ismael Solís, +593 96 909 4855, sinergia.ec), pero **todavía no tiene reseñas**.
+1. Entra a [business.google.com](https://business.google.com) con la cuenta de la empresa y **reclama o verifica** la ficha si aún no es tuya.
+2. Revisa la **categoría** (hoy dice «Consultora de administración empresarial»; puedes agregar «Centro de formación»), el **horario** (L–V 08:00–18:00, sáb 09:00–14:00) y sube **fotos** de los cursos.
+3. Pide reseñas a tus participantes con este enlace directo (también está en la web, en Testimonios y en la página de gracias):
+   `https://search.google.com/local/writereview?placeid=ChIJRbo_xVeX1ZER_KQJn7INdJ0`
 
-## 16. Al terminar
+## 16. Protección contra abusos (Cloudflare, gratis)
+1. Tu dominio en Cloudflare → **Security** → **WAF** → **Rate limiting rules** → **Create rule**:
+   - Nombre: `Limite API` · Si: *URI Path* **starts with** `/api/` · Mismo IP · **20 solicitudes cada 10 segundos** → Acción **Block** por 10 segundos.
+2. **Security** → **Bots** → activa **Bot Fight Mode**.
+3. **Security** → **Settings** → nivel de seguridad **Medium**.
+
+Así, un ataque que intente adivinar contraseñas o llenar los formularios se corta antes de llegar al sitio, y la base gratuita no se agota.
+
+## 17. Al terminar
 - Despublica los sitios viejos de Wix (`my-site-3` y `sinergia`) para que Google no muestre páginas duplicadas.
 - **Haz privado el repositorio de GitHub antes de subir boletines** (Settings → General → Danger Zone → **Change visibility** → Private). Hoy es público: cualquier PDF que pongas en `boletines-privados/` se podría descargar desde GitHub. Cloudflare Pages sigue funcionando igual con un repositorio privado.
 - Borra la rama vieja `sinergia-capacitacion` (GitHub → **Branches** → icono de basurero); su contenido ya está en `main`.
