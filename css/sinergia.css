@@ -2395,6 +2395,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   width: min(1040px, calc(100vw - 24px));
   max-width: none;
   max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px); /* iPhone: descuenta la barra del navegador */
   margin: auto;
   padding: 0;
   border: 0;
@@ -2417,7 +2418,9 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   display: grid;
   grid-template-columns: 1fr 1fr;
   max-height: calc(100vh - 24px);
+  max-height: calc(100dvh - 24px);
   overflow: auto;
+  overscroll-behavior: contain;
   background: var(--crema);
   color: var(--tinta);
 }
@@ -3153,7 +3156,7 @@ button.sg-enlace {
 .sg-modal .sg-campo input,
 .sg-modal .sg-campo select {
   padding: 5px 0 7px;
-  font-size: 15.5px;
+  font-size: 16px; /* 16 px o más: así el iPhone no hace zoom al tocar el campo */
 }
 
 .sg-modal .sg-check {
@@ -5578,4 +5581,12 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   fill: none;
   stroke: currentColor;
   stroke-width: 1.8;
+}
+
+/* iPhone: los campos de menos de 16 px hacen que Safari acerque la pantalla al tocarlos */
+@media (max-width: 900px) {
+  .sg-admin-tabla input,
+  .sg-admin-tabla {
+    font-size: 16px;
+  }
 }
