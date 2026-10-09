@@ -57,7 +57,7 @@ body {
   background: var(--papel);
   color: var(--tinta);
   font-family: var(--f-sans);
-  font-size: 17px;
+  font-size: 18px;
   line-height: 1.7;
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
@@ -303,7 +303,7 @@ body.sg-sin-portada .sg-header .sg-logo-mark {
 }
 
 .sg-logo-tag {
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   opacity: 0.85;
 }
@@ -321,7 +321,7 @@ body.sg-sin-portada .sg-header .sg-logo-mark {
   align-items: center;
   gap: 6px;
   padding: 8px 0;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -350,7 +350,7 @@ body.sg-sin-portada .sg-header .sg-logo-mark {
 }
 
 .sg-nav-link svg {
-  font-size: 12px;
+  font-size: 13px;
   transition: transform 0.3s ease;
 }
 
@@ -408,7 +408,7 @@ body.sg-sin-portada .sg-header .sg-logo-mark {
   border: 0;
   background: none;
   color: inherit;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -492,7 +492,7 @@ body.sg-sin-portada .sg-header .sg-logo-mark {
   min-width: 2.4em;
   padding-top: 0.9em;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.12em;
   line-height: 1;
@@ -672,7 +672,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   gap: 12px;
   margin: 0 0 22px;
   font-family: var(--f-mono);
-  font-size: 12.5px;
+  font-size: 13.5px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rojo);
@@ -686,22 +686,25 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 /* Título como en la web anterior: mayúsculas espaciadas con una línea debajo */
+/* Títulos de sección: el mismo estilo condensado de la portada, a menor tamaño */
 .sg-titulo {
-  margin: 0 0 0.9em;
-  font-size: clamp(26px, 3vw, 40px);
+  margin: 0 0 0.6em;
+  font-size: clamp(36px, 4.6vw, 66px);
   font-weight: 800;
-  letter-spacing: 0.22em;
-  line-height: 1.2;
+  font-stretch: 75%;
+  font-variation-settings: "wdth" 75;
+  letter-spacing: -0.01em;
+  line-height: 0.95;
   text-transform: uppercase;
 }
 
+.sg-titulo em {
+  font-style: normal;
+  color: var(--rojo);
+}
+
 .sg-titulo::after {
-  content: "";
-  display: block;
-  width: 46px;
-  height: 2px;
-  margin-top: 0.55em;
-  background: currentColor;
+  display: none;
 }
 
 .sg-titulo--centro {
@@ -742,8 +745,10 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 .sg-justo {
-  text-align: justify;
-  hyphens: auto;
+  font-size: clamp(17px, 1.25vw, 19px);
+  line-height: 1.75;
+  text-align: left;
+  hyphens: manual;
 }
 
 /* ---------- Portada del inicio (foto + máscara líquida) ---------- */
@@ -819,7 +824,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 .sg-hero-etiqueta {
   margin: 0 0 clamp(18px, 2.4vw, 30px);
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
@@ -836,7 +841,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 
 .sg-hero-desliza {
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.75);
@@ -875,7 +880,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   display: flex;
   gap: 32px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
@@ -895,7 +900,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   gap: 10px;
   margin: 0;
   font-family: var(--f-mono);
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.7);
@@ -980,7 +985,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   gap: 10px;
   margin-bottom: 24px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.72);
@@ -1077,7 +1082,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   background: var(--rojo);
   color: #fff;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -1236,7 +1241,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   display: block;
   margin-bottom: 8px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   opacity: 0.8;
 }
@@ -1378,7 +1383,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   position: absolute;
   bottom: 18px;
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.7;
@@ -1543,7 +1548,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   top: 22px;
   right: 24px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   opacity: 0.55;
 }
@@ -1556,8 +1561,9 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 .sg-estructura-diagrama {
-  max-width: 560px;
-  margin-inline: auto;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .sg-divisiones {
@@ -1578,7 +1584,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 
 .sg-divisiones span {
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.1em;
   color: var(--rojo);
@@ -1659,7 +1665,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   display: block;
   margin-bottom: 18px;
   font-family: var(--f-mono);
-  font-size: 12.5px;
+  font-size: 13.5px;
   letter-spacing: 0.12em;
   color: var(--rojo);
 }
@@ -1945,7 +1951,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 
 .sg-doc-tipo {
   font-family: var(--f-mono);
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.8;
@@ -1986,7 +1992,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   align-items: center;
   gap: 8px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-transform: uppercase;
   color: var(--gris);
@@ -2210,7 +2216,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
   display: block;
   margin-bottom: 6px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rojo);
@@ -2601,7 +2607,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 
 .sg-legal th {
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 500;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -2660,7 +2666,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 .sg-pie-label {
   margin: 0 0 22px !important;
   font-family: var(--f-mono);
-  font-size: 12px !important;
+  font-size: 13px !important;
   letter-spacing: 0.16em;
   text-transform: uppercase;
   color: rgba(255, 255, 255, 0.9);
@@ -2699,7 +2705,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 .sg-pie-nav a {
-  font-size: 12.5px;
+  font-size: 13.5px;
   font-weight: 500;
   letter-spacing: 0.2em;
   text-transform: uppercase;
@@ -2758,7 +2764,7 @@ body.sg-sin-portada .sg-header .sg-btn:hover {
 }
 
 .sg-pie-bajo p {
-  font-size: 12.5px;
+  font-size: 13.5px;
 }
 
 .sg-pie-legal {
@@ -3105,7 +3111,7 @@ button.sg-enlace {
 
 .sg-comentarios span {
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   color: var(--rojo);
@@ -3260,7 +3266,7 @@ button.sg-enlace {
 
 .sg-metodo-num {
   font-family: var(--f-mono);
-  font-size: 12.5px;
+  font-size: 13.5px;
   letter-spacing: 0.12em;
   color: var(--rojo);
 }
@@ -3598,7 +3604,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   width: 84px;
   height: 84px;
   margin: -42px 0 0 -42px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .sg-cursor.is-enlace {
@@ -3639,7 +3645,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-acceso-caja-lado p {
   margin: 0;
   font-family: var(--f-mono);
-  font-size: 12.5px;
+  font-size: 13.5px;
   letter-spacing: 0.12em;
   line-height: 1.8;
   text-transform: uppercase;
@@ -3880,7 +3886,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 
 /* Indicación de las tarjetas de testimonios */
 .sg-tarjeta-pista {
-  font-size: 10.5px;
+  font-size: 12.5px;
   letter-spacing: 0.12em;
 }
 
@@ -3917,7 +3923,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 
 .sg-pago-panel-tag {
   font-family: var(--f-mono);
-  font-size: 11.5px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   opacity: 0.8;
@@ -4019,7 +4025,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   padding: 0;
   list-style: none;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--gris);
@@ -4202,7 +4208,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-calendario-hoy {
   margin: 0;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--rojo);
@@ -4218,7 +4224,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-calendario-dias {
   margin-bottom: 8px;
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   text-align: center;
   text-transform: uppercase;
@@ -4306,7 +4312,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-agenda-lista h3 {
   margin: 0 0 16px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -4351,7 +4357,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 
 .sg-agenda-fecha small {
   font-family: var(--f-mono);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -4418,7 +4424,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-programa-datos dt {
   margin-bottom: 4px;
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 13px;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #ff6a71;
@@ -4452,7 +4458,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 
 .sg-programa-modulos strong {
   font-family: var(--f-mono);
-  font-size: 11px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4480,7 +4486,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   display: block;
   margin-top: 6px;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -4538,7 +4544,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   }
 
   .sg-calendario-dias {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 0;
   }
 
@@ -4732,7 +4738,7 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   background: var(--rojo);
   color: #fff;
   font-family: var(--f-mono);
-  font-size: 12px;
+  font-size: 13px;
   letter-spacing: 0.1em;
   overflow: hidden;
 }
@@ -4843,4 +4849,324 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-seccion--negra .sg-display em,
 .sg-seccion--negra .sg-titulo em {
   color: var(--rojo-vivo);
+}
+
+/* ==========================================================================
+   Libro de tapa dura (modelo B): tapa negra con lomo rojo y canto de hojas.
+   Variantes: --roja (tapa roja, lomo negro) y --crema (tapa crema, lomo rojo).
+   ========================================================================== */
+.sg-doc {
+  --grosor: 42px;
+  perspective: 1400px;
+}
+
+.sg-doc-portada {
+  padding: 24px 22px;
+  background: linear-gradient(135deg, #2c2627 0%, #141112 58%, #1d191a 100%);
+  color: #fff;
+  border-radius: 1px 3px 3px 1px;
+  transform: rotateY(30deg) rotateX(-3deg);
+  transform-origin: 50% 50%;
+  box-shadow: inset 7px 0 10px -7px rgba(255, 255, 255, 0.28), inset -1px 0 0 rgba(255, 255, 255, 0.06);
+}
+
+.sg-doc:hover .sg-doc-portada,
+.sg-doc:focus-within .sg-doc-portada {
+  transform: rotateY(12deg) rotateX(-1deg) translateY(-8px);
+}
+
+.sg-doc-portada::before {
+  display: none;
+}
+
+/* Lomo: sale hacia atrás desde el borde izquierdo de la tapa */
+.sg-doc-contra {
+  inset: 0 auto 0 0;
+  width: var(--grosor);
+  background: linear-gradient(90deg, #8f0b11, var(--rojo) 45%, #a00d14);
+  filter: none;
+  transform-origin: left center;
+  transform: rotateY(90deg);
+}
+
+/* Canto de las hojas: sale hacia atrás desde el borde derecho */
+.sg-doc-paginas {
+  top: 3px;
+  bottom: 3px;
+  right: 0;
+  width: var(--grosor);
+  background: repeating-linear-gradient(90deg, #fbf8f4 0 1px, #e3dbd2 1px 2px);
+  transform-origin: right center;
+  transform: rotateY(-90deg);
+  box-shadow: none;
+}
+
+.sg-doc-portada .sg-doc-brillo {
+  background: linear-gradient(110deg, rgba(255, 255, 255, 0.1), transparent 35%, transparent 75%, rgba(0, 0, 0, 0.2));
+}
+
+.sg-doc-tipo {
+  color: #ff6a71;
+  opacity: 1;
+  font-size: 13px;
+}
+
+.sg-doc-sello {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 30px;
+  opacity: 0.9;
+}
+
+.sg-doc-portada h3 {
+  margin-top: auto;
+}
+
+.sg-doc-portada h3 em {
+  display: block;
+  font-family: var(--f-sans);
+  font-size: inherit;
+  font-style: normal;
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  text-transform: uppercase;
+  color: #ff4049;
+}
+
+.sg-doc-portada--roja {
+  background: linear-gradient(135deg, #d01822 0%, var(--rojo) 55%, #9f0c13 100%);
+}
+
+.sg-doc-portada--roja .sg-doc-contra {
+  background: linear-gradient(90deg, #0b0a0a, #2a2526 45%, #141112);
+}
+
+.sg-doc-portada--roja .sg-doc-tipo,
+.sg-doc-portada--roja h3 em {
+  color: #fff;
+}
+
+.sg-doc-portada--roja h3 em {
+  opacity: 0.85;
+}
+
+.sg-doc-portada--crema {
+  background: linear-gradient(135deg, #f8f3ee 0%, #efe7de 100%);
+  color: var(--tinta);
+}
+
+.sg-doc-portada--crema .sg-doc-tipo,
+.sg-doc-portada--crema h3 em {
+  color: var(--rojo);
+}
+
+.sg-ligero .sg-doc-portada {
+  transform: rotateY(18deg);
+}
+
+@media (max-width: 600px) {
+  .sg-doc-portada,
+  .sg-doc-info {
+    width: 100%;
+    max-width: 270px;
+    margin-inline: auto;
+  }
+
+  .sg-doc {
+    --grosor: 34px;
+  }
+}
+
+/* ---------- Organigrama circular (dibujado con SVG: se ve nítido y se anima) ---------- */
+.sg-org {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.sg-org-linea {
+  fill: none;
+  stroke: #e3141d;
+  stroke-width: 10;
+}
+
+.sg-org-eje {
+  stroke-width: 11;
+}
+
+.sg-org-centro {
+  fill: #e3141d;
+}
+
+.sg-org text {
+  font-family: var(--f-sans);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  text-transform: uppercase;
+  fill: var(--tinta);
+  stroke: none;
+  paint-order: normal;
+}
+
+.sg-org-cliente {
+  font-size: 46px;
+  fill: #fff !important;
+}
+
+.sg-org-t1 {
+  font-size: 78px;
+  letter-spacing: 0.02em;
+}
+
+.sg-org-t2 {
+  font-size: 33px;
+  letter-spacing: 0.02em;
+}
+
+.sg-org-t3 {
+  font-size: 25px;
+  letter-spacing: 0.03em;
+}
+
+/* ---------- Nosotros: misión y visión lado a lado, valores y fundador ---------- */
+.sg-mv {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(36px, 6vw, 96px);
+}
+
+.sg-mv-item {
+  max-width: none;
+  margin: 0;
+  padding-top: 28px;
+  border-top: 2px solid var(--tinta);
+}
+
+.sg-mv-item p:not(.sg-etiqueta) {
+  font-size: clamp(17px, 1.3vw, 19px);
+  line-height: 1.75;
+  color: #2b2627;
+}
+
+.sg-mv-valores {
+  margin-top: clamp(64px, 8vw, 110px);
+}
+
+.sg-valores {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin: 24px 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid rgba(20, 17, 18, 0.18);
+}
+
+.sg-valores li {
+  display: grid;
+  gap: 8px;
+  padding: 22px 16px 22px 0;
+  border-bottom: 1px solid rgba(20, 17, 18, 0.18);
+  font-size: clamp(22px, 2vw, 30px);
+  font-weight: 800;
+  font-variation-settings: "wdth" 75;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.sg-valores li::after {
+  content: none !important;
+}
+
+.sg-valores li span {
+  font-family: var(--f-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: var(--rojo);
+}
+
+.sg-fundador {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 96px);
+  align-items: center;
+}
+
+.sg-fundador-foto {
+  margin: 0;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: #e9e3de;
+}
+
+.sg-fundador-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 18%;
+  filter: grayscale(1);
+  transition: filter 0.8s ease;
+}
+
+.sg-fundador:hover .sg-fundador-foto img {
+  filter: none;
+}
+
+.sg-fundador .sg-display {
+  font-size: clamp(44px, 5.6vw, 88px);
+}
+
+.sg-fundador-rol {
+  margin: 0 0 18px;
+  font-family: var(--f-mono);
+  font-size: 14px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+}
+
+@media (max-width: 900px) {
+  .sg-mv,
+  .sg-fundador {
+    grid-template-columns: 1fr;
+  }
+
+  .sg-valores {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Títulos de cabecera: que las palabras largas quepan en celulares angostos */
+@media (max-width: 600px) {
+  .sg-cabecera h1 {
+    font-size: clamp(38px, 11.2vw, 60px);
+  }
+}
+
+.sg-credo li {
+  padding: 40px 26px 30px;
+}
+
+/* WhatsApp flotante: más discreto en celular y se oculta al llegar al pie (que ya tiene los contactos) */
+.sg-wa {
+  transition: transform 0.45s var(--curva), opacity 0.35s ease;
+}
+
+.sg-wa.is-oculto {
+  opacity: 0;
+  transform: translateY(20px) scale(0.8);
+  pointer-events: none;
+}
+
+@media (max-width: 600px) {
+  .sg-wa {
+    right: 14px;
+    bottom: 14px;
+    width: 52px;
+    height: 52px;
+    font-size: 26px;
+  }
 }

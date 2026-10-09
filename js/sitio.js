@@ -252,6 +252,19 @@
       gsap.fromTo(img, { yPercent: 0 }, { yPercent: 12, ease: "none", scrollTrigger: { trigger: img.closest(".sg-cabecera"), start: "top top", end: "bottom top", scrub: true } });
     });
 
+    // Organigrama: las líneas se dibujan y luego aparecen los textos
+    $$("[data-organigrama]").forEach(function (fig) {
+      var lineas = $$(".sg-org-linea", fig);
+      lineas.forEach(function (l) {
+        var largo = l.getTotalLength ? l.getTotalLength() : 0;
+        if (largo) gsap.set(l, { strokeDasharray: largo, strokeDashoffset: largo });
+      });
+      var tl = gsap.timeline({ scrollTrigger: { trigger: fig, start: "top 80%" } });
+      tl.from($(".sg-org-centro", fig), { scale: 0, transformOrigin: "50% 50%", duration: 0.7, ease: "back.out(1.6)" })
+        .to(lineas, { strokeDashoffset: 0, duration: 1.4, ease: "power2.inOut", stagger: 0.06 }, 0.1)
+        .from($$("text", fig), { opacity: 0, duration: 0.6, stagger: 0.04 }, 0.7);
+    });
+
     // Testimonios: las tarjetas entran girando un poco
     $$(".sg-testimonios").forEach(function (g) {
       gsap.from($$(".sg-tarjeta", g), { y: 80, rotate: 2, opacity: 0, duration: 1.2, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%" } });
@@ -594,6 +607,15 @@
       .catch(function () { dibujar(); });
   };
 
+  // El botón flotante de WhatsApp se oculta cuando el pie (que ya muestra los contactos) ocupa la pantalla
+  var initBotonWa = function () {
+    var boton = $(".sg-wa"), pie = $(".sg-pie");
+    if (!boton || !pie || !("IntersectionObserver" in window)) return;
+    new IntersectionObserver(function (e) {
+      boton.classList.toggle("is-oculto", e[0].isIntersecting);
+    }, { rootMargin: "0px 0px -35% 0px" }).observe(pie);
+  };
+
   // Cuenta los clics en WhatsApp (sin cookies ni datos personales) para medir conversiones
   var initMedicion = function () {
     if (!/^https?:$/.test(location.protocol) || !navigator.sendBeacon) return;
@@ -905,6 +927,7 @@
     initBoletines();
     initGracias();
     initMedicion();
+    initBotonWa();
     initFechas();
     initCalendario();
     initTransiciones();
