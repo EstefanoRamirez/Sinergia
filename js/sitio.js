@@ -463,7 +463,7 @@
   var datosDe = function (form) {
     var d = { tipo: form.getAttribute("data-form"), pagina: location.pathname };
     $$("input, select, textarea", form).forEach(function (el) {
-      if (!el.name) return;
+      if (!el.name || el.name.indexOf("cf-") === 0) return;
       d[el.name] = el.type === "checkbox" ? el.checked : el.value.trim();
     });
     return d;
@@ -700,6 +700,59 @@
     }, true);
   };
 
+  // ---------- Antispam (Cloudflare Turnstile): solo se carga si está configurado en el servidor ----------
+  var antispam = (function () {
+    var clave = null, script = null;
+    var pedirClave = function () {
+      if (!clave) {
+        clave = /^https?:$/.test(location.protocol)
+          ? fetch("/api/config").then(function (r) { return r.json(); }).then(function (j) { return (j && j.turnstile) || ""; }).catch(function () { return ""; })
+          : Promise.resolve("");
+      }
+      return clave;
+    };
+    var cargarScript = function () {
+      if (!script) {
+        script = new Promise(function (listo, falla) {
+          var s = document.createElement("script");
+          s.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+          s.async = true;
+          s.onload = function () { listo(window.turnstile); };
+          s.onerror = falla;
+          document.head.appendChild(s);
+        });
+      }
+      return script;
+    };
+    var preparar = function (form) {
+      if (form.getAttribute("data-antispam")) return;
+      form.setAttribute("data-antispam", "1");
+      pedirClave().then(function (k) {
+        if (!k) return;
+        return cargarScript().then(function (ts) {
+          var caja = document.createElement("div");
+          caja.className = "sg-antispam";
+          var boton = $("button[type=submit]", form);
+          if (boton) boton.parentNode.insertBefore(caja, boton);
+          else form.appendChild(caja);
+          form._antispam = ts.render(caja, { sitekey: k, language: "es", appearance: "interaction-only", size: "flexible" });
+        });
+      }).catch(function () {});
+    };
+    return {
+      vigilar: function (form) {
+        form.addEventListener("focusin", function () { preparar(form); });
+      },
+      token: function (form) {
+        var i = $("input[name='cf-turnstile-response']", form);
+        return i ? i.value : "";
+      },
+      reiniciar: function (form) {
+        try { if (form._antispam !== undefined && window.turnstile) window.turnstile.reset(form._antispam); } catch (e) {}
+      }
+    };
+  })();
+
   var initFormularios = function () {
     var servicio = new URLSearchParams(location.search).get("servicio");
     $$("form[data-form]").forEach(function (form) {
@@ -707,6 +760,7 @@
       if (servicio && form.elements.interes) {
         Array.prototype.forEach.call(form.elements.interes.options, function (o) { if (o.value === servicio) form.elements.interes.value = servicio; });
       }
+      antispam.vigilar(form);
       form.addEventListener("submit", function (e) {
         e.preventDefault();
         var faltan = validar(form);
@@ -716,6 +770,7 @@
           return;
         }
         var d = datosDe(form);
+        d.turnstile = antispam.token(form);
         var boton = $("button[type=submit]", form);
         boton.disabled = true;
         estado.textContent = "Enviando…";
@@ -736,6 +791,7 @@
             // Datos por corregir o demasiados envíos: se muestra el aviso sin abrir WhatsApp
             if (res.estado === 400 || res.estado === 429) {
               boton.disabled = false;
+              antispam.reiniciar(form);
               estado.textContent = res.j.error || "Revisa los datos e intenta otra vez.";
               return;
             }
@@ -915,8 +971,10 @@
       if (!/^https?:$/.test(location.protocol)) { est.textContent = "La zona de boletines funciona con la web publicada."; return; }
       boton.disabled = true;
       est.textContent = espera;
+      cuerpo.turnstile = antispam.token(f);
       api(cuerpo).then(function (j) {
         boton.disabled = false;
+        antispam.reiniciar(f);
         if (j.ok) { est.textContent = ""; f.reset(); (alTerminar || abrirLista)(j, est); }
         else est.textContent = j.error || "No pudimos completar el ingreso. Intenta otra vez.";
       }).catch(function () { boton.disabled = false; est.textContent = "No pudimos conectarnos. Intenta otra vez."; });
@@ -940,6 +998,8 @@
       enviar(f, { accion: "entrar", email: f.elements.email.value.trim().toLowerCase(), clave: f.elements.clave.value }, "Ingresando…");
     });
 
+    antispam.vigilar($("form", pasos.crear));
+    antispam.vigilar($("form", pasos.recuperar));
     $("form", pasos.crear).addEventListener("submit", function (e) {
       e.preventDefault();
       var f = e.target;

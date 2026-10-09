@@ -5535,3 +5535,8 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   max-width: 420px;
   margin-top: 18px;
 }
+
+/* Antispam (solo aparece si Cloudflare pide confirmar) */
+.sg-antispam:not(:empty) {
+  margin: 4px 0 14px;
+}

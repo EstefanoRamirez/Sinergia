@@ -14,7 +14,7 @@
 import {
   json, leerJson, texto, correoValido, telefonoInternacional, esc, fechaEcuador, lista, permitir,
   enviarCorreo, anotarPlanilla, avisarDueno, escribirCliente, marcoCorreo, botonCorreo, WHATSAPP_SINERGIA,
-  textoConsentimiento, VERSION_POLITICA, mismoOrigen
+  textoConsentimiento, VERSION_POLITICA, mismoOrigen, verificarHumano, MENSAJE_ROBOT
 } from "../../lib/servidor.js";
 import { guardarSuscriptor } from "../../lib/suscriptores.js";
 
@@ -48,6 +48,8 @@ export async function onRequestPost({ request, env }) {
   if (!p.whatsapp) return json({ ok: false, error: "Revisa tu número de WhatsApp." }, 400);
   if (d.acepto !== true) return json({ ok: false, error: "Debes aceptar la política de privacidad." }, 400);
   if (tipo === "contacto" && !p.mensaje) return json({ ok: false, error: "Escribe tu mensaje." }, 400);
+
+  if (!(await verificarHumano(env, request, d.turnstile))) return json({ ok: false, error: MENSAJE_ROBOT }, 400);
 
   const ip = request.headers.get("CF-Connecting-IP") || "0";
   if (!(await permitir(env, "form:" + ip, 6, 600))) {

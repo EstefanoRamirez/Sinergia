@@ -30,7 +30,7 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
     </section>
 
     <!-- Calendario: muestra solo el mes actual (hora de Ecuador), con el día de hoy resaltado.
-         Las fechas salen de datos/calendario.json. Los bloques con data-hasta / data-desde se muestran
+         Las fechas se editan en /admin → Calendario (respaldo: datos/calendario.json). Los bloques con data-hasta / data-desde se muestran
          u ocultan solos según la fecha (por ejemplo, el precio de pronto pago). -->
     <section class="sg-seccion" id="calendario">
       <div class="sg-wrap">
@@ -267,7 +267,7 @@ Webinars · Sinergia Capacitación Empresarial|Webinars de 3, 4 y 5 horas por Zo
             <div class="sg-campo"><label for="w-nombre">Nombre *</label><input id="w-nombre" name="nombre" autocomplete="given-name" placeholder="Nombre" required maxlength="60"></div>
             <div class="sg-campo"><label for="w-apellido">Apellido *</label><input id="w-apellido" name="apellido" autocomplete="family-name" placeholder="Apellido" required maxlength="60"></div>
             <div class="sg-campo"><label for="w-email">Correo electrónico *</label><input id="w-email" name="email" type="email" autocomplete="email" placeholder="Email" required maxlength="120"></div>
-            <div class="sg-campo"><label for="w-whatsapp">WhatsApp *</label><input id="w-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="09XXXXXXXX" required maxlength="20" pattern="[+0-9 ()-]{7,20}"></div>
+            <div class="sg-campo"><label for="w-whatsapp">WhatsApp *</label><input id="w-whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="09XXXXXXXX" required maxlength="20" pattern="[0-9 +\(\)\-]{7,20}"></div>
             <div class="sg-campo sg-campo--todo">
               <label for="w-interes">Taller o webinar de interés</label>
               <select id="w-interes" name="interes">

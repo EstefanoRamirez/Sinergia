@@ -15,7 +15,8 @@
 import {
   json, leerJson, texto, correoValido, telefonoInternacional, fechaEcuador, sha256, aleatorioHex, permitir,
   anotarPlanilla, avisarDueno, leerCookie, textoConsentimiento, VERSION_POLITICA, enviarCorreo, puedeEnviarCorreo,
-  marcoCorreo, botonCorreo, abrirSesion, emailDeSesion, esAdmin, mismoOrigen, lista, COOKIE_SESION
+  marcoCorreo, botonCorreo, abrirSesion, emailDeSesion, esAdmin, mismoOrigen, lista, COOKIE_SESION,
+  verificarHumano, MENSAJE_ROBOT
 } from "../../lib/servidor.js";
 import { guardarSuscriptor } from "../../lib/suscriptores.js";
 
@@ -95,6 +96,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
 
   if (d.accion === "recuperar") {
     if (!puedeEnviarCorreo(env)) return json({ ok: false, error: "El envío de correos aún no está activado. Escríbenos por WhatsApp." }, 503);
+    if (!(await verificarHumano(env, request, d.turnstile))) return json({ ok: false, error: MENSAJE_ROBOT }, 400);
     if (!(await permitir(env, "rec-ip:" + ip, 6, 3600))) return json({ ok: false, error: "Demasiados intentos. Prueba en una hora." }, 429);
     const respuesta = json({ ok: true }); // misma respuesta exista o no la cuenta (no revela qué correos están registrados)
     if (!(await permitir(env, "rec:" + email, 3, 3600))) return respuesta;
@@ -141,6 +143,7 @@ ${botonCorreo(enlace, "Crear mi contraseña")}
     if (!p.whatsapp) return json({ ok: false, error: "Revisa tu número de WhatsApp." }, 400);
     if (!claveValida(clave)) return json({ ok: false, error: "La contraseña debe tener al menos 8 caracteres." }, 400);
     if (d.acepto !== true) return json({ ok: false, error: "Debes aceptar la política de privacidad." }, 400);
+    if (!(await verificarHumano(env, request, d.turnstile))) return json({ ok: false, error: MENSAJE_ROBOT }, 400);
     if (!(await permitir(env, "crear-ip:" + ip, 5, 3600))) return json({ ok: false, error: "Demasiados registros seguidos. Intenta en una hora." }, 429);
     if (await kv.get("cuenta:" + email)) return json({ ok: false, error: "Ya existe una cuenta con ese correo. Ingresa con tu contraseña o usa «¿Olvidaste tu contraseña?»." }, 409);
 

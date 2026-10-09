@@ -68,6 +68,7 @@ Proyecto de Pages → **Settings** → **Variables and Secrets** → agrega (mar
 | `WHATSAPP_AVISOS` | el dato del paso 6 | Sí |
 | `ADMIN_EMAILS` | correos que pueden entrar al panel `/admin`, separados por coma (por ejemplo, el de la secretaria y el tuyo) | No |
 | `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` | solo si hiciste el paso 4 opcional | Sí / No / No |
+| `TURNSTILE_SITEKEY`, `TURNSTILE_SECRET` | solo si activas el antispam opcional del paso 16 | No / Sí |
 
 Luego **Retry deployment**.
 
@@ -107,7 +108,7 @@ La versión oficial es **https://www.sinergia.ec**. Las demás (`sinergia.ec`, `
 ## 11. Aviso si la web se cae
 Usa una de las dos (o ambas):
 - **UptimeRobot** (recomendado, gratis): crea una cuenta en [uptimerobot.com](https://uptimerobot.com) → **New monitor** → tipo **HTTP(s)** → URL `https://www.sinergia.ec/api/estado` → cada 5 minutos → alerta a tu correo o Telegram.
-- **GitHub** (ya incluido): GitHub → repositorio → **Settings** → **Secrets and variables** → **Actions** → pestaña **Variables** → **New repository variable**: `VIGILAR_URL` = `https://www.sinergia.ec`. Cada 30 minutos revisa la web y, si falla, GitHub te envía un correo.
+- **GitHub** (ya incluido): GitHub → repositorio → **Settings** → **Secrets and variables** → **Actions** → pestaña **Variables** → **New repository variable**: `VIGILAR_URL` = `https://www.sinergia.ec`. Cada hora revisa la web y, si falla, GitHub te envía un correo.
 
 > GitHub pausa las tareas programadas de repositorios públicos sin cambios por 60 días; si te llega ese aviso, entra a **Actions** y vuelve a activarla. UptimeRobot no tiene ese límite.
 
@@ -155,9 +156,14 @@ La ficha **«Sinergia Capacitación Empresarial Oportuna»** ya está en Google 
 
 Así, un ataque que intente adivinar contraseñas o llenar los formularios se corta antes de llegar al sitio, y la base gratuita no se agota.
 
+4. **(Opcional, solo si empieza a llegar spam en los formularios) Turnstile**, la casilla antispam gratuita de Cloudflare:
+   Cloudflare → **Turnstile** → **Add widget** → nombre `Sinergia`, dominio `sinergia.ec`, modo **Managed** → copia la *Site Key* y la *Secret Key*.
+   Guárdalas en Pages → **Settings** → **Variables and Secrets** como `TURNSTILE_SITEKEY` y `TURNSTILE_SECRET` (esta última, secreta) → **Retry deployment**.
+   La web ya está preparada: casi siempre la verificación es invisible y solo a veces pide tocar una casilla. Para apagarla, borra esas dos variables.
+
 ## 17. Al terminar
 - Despublica los sitios viejos de Wix (`my-site-3` y `sinergia`) para que Google no muestre páginas duplicadas.
-- **Haz privado el repositorio de GitHub antes de subir boletines** (Settings → General → Danger Zone → **Change visibility** → Private). Hoy es público: cualquier PDF que pongas en `boletines-privados/` se podría descargar desde GitHub. Cloudflare Pages sigue funcionando igual con un repositorio privado.
+- **Haz privado el repositorio de GitHub** (desde aquí no tengo permiso para cambiarlo): github.com/EstefanoRamirez/Sinergia → **Settings** → **General** → al final, **Danger Zone** → **Change visibility** → **Make private** → confirma escribiendo el nombre. Cloudflare Pages sigue publicando igual. La vigilancia corre cada hora para no pasar de los 2.000 minutos gratis al mes de GitHub Actions en repositorios privados.
 - Borra la rama vieja `sinergia-capacitacion` (GitHub → **Branches** → icono de basurero); su contenido ya está en `main`.
 - Activa la verificación en dos pasos en GitHub, Cloudflare, Google y Microsoft.
 - Nunca subas a GitHub la CLAVE de la hoja, los tokens ni contraseñas: van solo en Cloudflare y en los secretos de GitHub.
