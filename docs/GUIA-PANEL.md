@@ -2,8 +2,11 @@
 
 Panel en **www.sinergia.ec/admin** con tres pestañas: **Boletines** (lo que ven los suscriptores en www.sinergia.ec/boletines), **Calendario** (las clases de la página Webinars y la franja «Próximo programa» de la portada) y **Suscriptores**.
 
+## Cómo llegar al panel
+Desde cualquier computadora o celular: abre **www.sinergia.ec**, baja hasta el final de la página y toca el candado **«Equipo»** (abajo, junto al nombre del diseñador). También puedes escribir directamente **www.sinergia.ec/admin**.
+
 ## Entrar por primera vez
-1. Abre **www.sinergia.ec/admin**.
+1. Toca el candado **«Equipo»** al pie de la web.
 2. Toca **«Activar mi acceso u olvidé mi contraseña»** y escribe tu correo de trabajo.
 3. Revisa tu correo (y la carpeta de no deseado): llega un mensaje de Sinergia con el botón **«Crear mi contraseña»**. El enlace vale una hora.
 4. Crea tu contraseña. Ya estás dentro del panel.
@@ -41,7 +44,14 @@ Las siguientes veces solo escribes tu correo y tu contraseña. Si la olvidas, re
 - **«Descargar Excel (CSV)»** baja la lista completa. Se abre con doble clic en Excel o se importa en Google Sheets; la columna WhatsApp trae el enlace para escribirle a cada persona.
 - Son datos personales: no los compartas fuera de Sinergia y borra las copias descargadas cuando ya no las necesites.
 
+## Seguridad: la sesión se cierra sola
+Para que nadie pueda mover nada si te olvidas de salir en una computadora ajena:
+- La sesión del panel se cierra **al cerrar el navegador**, después de **20 minutos sin usar el panel** y, en todo caso, a las **4 horas**. Si pasa, solo vuelve a escribir tu correo y contraseña.
+- Si crees que dejaste el panel abierto en otra computadora, entra desde donde estés y toca **«Salir en todas las computadoras»** (arriba, junto a «Salir»). Eso cierra todas las sesiones al instante.
+- Si alguien más pudo ver tu contraseña, cámbiala con «Activar mi acceso u olvidé mi contraseña»: también cierra todas las sesiones.
+
 ## Buenas prácticas
 - No compartas tu contraseña; cada persona usa su propio correo.
-- Cierra la sesión con **Salir** si usas una computadora compartida.
+- En una computadora ajena, no aceptes que el navegador «guarde la contraseña».
+- Al terminar, toca **Salir**.
 - Si un cambio no aparece enseguida para los suscriptores, espera un minuto y recarga la página.

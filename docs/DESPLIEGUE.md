@@ -16,6 +16,8 @@ Tiempo total: 1 a 2 horas. Todo es gratis salvo el dominio, que ya tienes.
 
 ✅ Te da una dirección `https://<proyecto>.pages.dev` con la web funcionando (sin formularios todavía: al enviar uno, se abre WhatsApp).
 
+
+> La dirección de prueba que te dé Cloudflare (algo como `sinergia-abc.pages.dev`) es la tuya. **No uses `sinergia.pages.dev`**: ese nombre ya lo tiene otra persona y es otra web.
 ## 2. Base de datos de suscriptores (KV)
 Sirve para los registros y el ingreso a Boletines.
 1. Cloudflare → **Storage & Databases** → **KV** → **Create** → nombre: `sinergia-suscriptores`.

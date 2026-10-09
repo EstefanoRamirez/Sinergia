@@ -8,6 +8,8 @@
   { accion: "restablecer", token, clave } → guarda la contraseña nueva, cierra las sesiones anteriores y abre una nueva.
   { accion: "estado" }                    → dice si hay sesión y si es administradora.
   { accion: "salir" }                     → cierra la sesión.
+  { accion: "salir-todo" }                → cierra la sesión en todas las computadoras.
+  Las sesiones del panel (ADMIN_EMAILS) son cortas: 4 horas y se borran al cerrar el navegador.
 
   Las contraseñas nunca se guardan: en KV queda solo su huella (PBKDF2-SHA256 con sal aleatoria).
   Las sesiones y los enlaces de recuperación también se guardan solo como huella (SHA-256).
@@ -44,8 +46,9 @@ function claveValida(clave) {
   return typeof clave === "string" && clave.length >= 8 && clave.length <= 100;
 }
 
-async function conSesion(env, email, gen, extra = {}) {
-  return json({ ok: true, ...extra }, 200, { "Set-Cookie": await abrirSesion(env, email, gen) });
+async function conSesion(env, email, gen) {
+  const admin = await esAdmin(env, email);
+  return json({ ok: true, admin }, 200, { "Set-Cookie": await abrirSesion(env, email, gen, admin) });
 }
 
 export async function onRequestPost({ request, env, waitUntil }) {
@@ -58,6 +61,17 @@ export async function onRequestPost({ request, env, waitUntil }) {
   const espera = (p) => { if (typeof waitUntil === "function") waitUntil(p); };
 
   if (d.accion === "salir") {
+    const token = leerCookie(request, COOKIE_SESION);
+    if (/^[a-f0-9]{64}$/.test(token)) await kv.delete("ses:" + (await sha256(token)));
+    return json({ ok: true }, 200, { "Set-Cookie": `${COOKIE_SESION}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax` });
+  }
+
+  // Cierra la sesión en todas las computadoras (por si se quedó abierta en otra)
+  if (d.accion === "salir-todo") {
+    const email = await emailDeSesion(request, env);
+    if (!email) return json({ ok: false, error: "Inicia sesión" }, 401);
+    const cuenta = JSON.parse((await kv.get("cuenta:" + email)) || "null");
+    if (cuenta) await kv.put("cuenta:" + email, JSON.stringify({ ...cuenta, gen: (cuenta.gen || 0) + 1 }));
     const token = leerCookie(request, COOKIE_SESION);
     if (/^[a-f0-9]{64}$/.test(token)) await kv.delete("ses:" + (await sha256(token)));
     return json({ ok: true }, 200, { "Set-Cookie": `${COOKIE_SESION}=; Path=/; Max-Age=0; HttpOnly; Secure; SameSite=Lax` });
@@ -87,7 +101,7 @@ export async function onRequestPost({ request, env, waitUntil }) {
       gen, verificado: true, cambio: fechaEcuador()
     };
     await kv.put("cuenta:" + rec.email, JSON.stringify(cuenta));
-    return conSesion(env, rec.email, gen, { admin: await esAdmin(env, rec.email) });
+    return conSesion(env, rec.email, gen);
   }
 
   const email = texto(d.email, 120).toLowerCase();
@@ -128,7 +142,7 @@ ${botonCorreo(enlace, "Crear mi contraseña")}
     // Si no existe la cuenta se calcula igual una huella, para que la respuesta tarde lo mismo
     const huella = await huellaClave(clave, cuenta ? cuenta.sal : "00".repeat(16), cuenta ? cuenta.it : ITERACIONES);
     if (!cuenta || !iguales(huella, cuenta.h)) return json({ ok: false, error: "Correo o contraseña incorrectos." }, 400);
-    return conSesion(env, email, cuenta.gen || 0, { admin: await esAdmin(env, email) });
+    return conSesion(env, email, cuenta.gen || 0);
   }
 
   if (d.accion === "crear") {
@@ -170,7 +184,7 @@ ${botonCorreo(enlace, "Crear mi contraseña")}
       avisarDueno(env, `Sinergia web · Nueva cuenta de boletines\n${nombreCompleto} · +${p.whatsapp}\n${email}\n\nResponder: ${waCliente}`)
     ]).catch(() => {}));
 
-    return conSesion(env, email, 0, { admin: await esAdmin(env, email) });
+    return conSesion(env, email, 0);
   }
 
   return json({ ok: false, error: "Acción desconocida" }, 400);

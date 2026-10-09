@@ -5540,3 +5540,28 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
 .sg-antispam:not(:empty) {
   margin: 4px 0 14px;
 }
+
+/* Acceso del equipo: candado discreto en el pie (lleva a /admin) */
+.sg-pie-equipo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 14px;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.3s ease;
+}
+
+.sg-pie-equipo:hover,
+.sg-pie-equipo:focus-visible {
+  text-decoration-color: currentColor;
+}
+
+.sg-pie-equipo svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+}

@@ -44,6 +44,32 @@
     b.addEventListener("click", function () { acceso({ accion: "salir" }).finally(function () { ver("entrar"); }); });
   });
 
+  // Cerrar la sesión en todas las computadoras (por si quedó abierta en otra)
+  $$("[data-salir-todo]", zona).forEach(function (b) {
+    b.addEventListener("click", function () {
+      if (!window.confirm("Se cerrará la sesión del panel en todas las computadoras y celulares, incluida esta. ¿Continuar?")) return;
+      acceso({ accion: "salir-todo" }).finally(function () {
+        ver("entrar");
+        $(".sg-estado", vistas.entrar).textContent = "Listo: se cerró la sesión en todas las computadoras.";
+      });
+    });
+  });
+
+  // Por seguridad, si nadie usa el panel durante 20 minutos, la sesión se cierra sola
+  var MINUTOS_INACTIVO = 20;
+  var ultimoUso = Date.now();
+  var subiendo = false;
+  ["pointerdown", "keydown", "input", "wheel", "touchstart"].forEach(function (ev) {
+    document.addEventListener(ev, function () { ultimoUso = Date.now(); }, { passive: true, capture: true });
+  });
+  setInterval(function () {
+    if (vistas.panel.hidden || subiendo || Date.now() - ultimoUso < MINUTOS_INACTIVO * 60000) return;
+    acceso({ accion: "salir" }).finally(function () {
+      ver("entrar");
+      $(".sg-estado", vistas.entrar).textContent = "Por seguridad cerramos la sesión porque el panel no se usó durante " + MINUTOS_INACTIVO + " minutos. Vuelve a ingresar.";
+    });
+  }, 30000);
+
   var formAcceso = function (vista, armar, despues) {
     var f = $("form", vistas[vista]);
     f.addEventListener("submit", function (e) {
@@ -383,9 +409,10 @@
         });
     };
     salida.textContent = "Enviando aviso por correo…";
+    subiendo = true;
     return paso()
       .catch(function () { salida.textContent = "Se cortó la conexión. Pulsa «Continuar aviso» para seguir."; })
-      .then(function () { if (boton) boton.disabled = false; return cargar(); });
+      .then(function () { subiendo = false; ultimoUso = Date.now(); if (boton) boton.disabled = false; return cargar(); });
   };
 
   var cargar = function () {
@@ -426,6 +453,7 @@
     progreso.hidden = false;
     var barra = $("span", progreso);
     barra.style.width = "0%";
+    subiendo = true;
     var xhr = new XMLHttpRequest();
     xhr.open(editando ? "PUT" : "POST", "/api/admin/boletines");
     xhr.withCredentials = true;
@@ -433,6 +461,8 @@
       if (ev.lengthComputable) barra.style.width = Math.round(ev.loaded / ev.total * 100) + "%";
     });
     xhr.onload = function () {
+      subiendo = false;
+      ultimoUso = Date.now();
       boton.disabled = false;
       progreso.hidden = true;
       var j = {};
@@ -454,6 +484,7 @@
       }
     };
     xhr.onerror = function () {
+      subiendo = false;
       boton.disabled = false;
       progreso.hidden = true;
       estado.textContent = "No pudimos conectarnos. Revisa tu internet e intenta otra vez.";
