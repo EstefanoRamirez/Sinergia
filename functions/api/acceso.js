@@ -3,6 +3,8 @@
 
   { accion: "crear", nombre, apellido, email, whatsapp, clave, acepto, novedades } → crea la cuenta y abre sesión.
   { accion: "entrar", email, clave }      → si la contraseña es correcta, abre una sesión de 30 días (cookie __Host-sg_ses).
+                                            Los correos de ADMIN_EMAILS también pueden entrar con la contraseña
+                                            compartida del equipo (CLAVE_EQUIPO), si está configurada.
   { accion: "recuperar", email }          → envía al correo un enlace (válido 1 hora) para crear una contraseña nueva.
                                             También sirve para activar el acceso de un correo de ADMIN_EMAILS.
   { accion: "restablecer", token, clave } → guarda la contraseña nueva, cierra las sesiones anteriores y abre una nueva.
@@ -138,6 +140,22 @@ ${botonCorreo(enlace, "Crear mi contraseña")}
     if (!(await permitir(env, "entrar-ip:" + ip, 20, 900)) || !(await permitir(env, "entrar:" + email, 8, 900))) {
       return json({ ok: false, error: "Demasiados intentos. Espera 15 minutos e intenta otra vez." }, 429);
     }
+    // Contraseña compartida del equipo (variable secreta CLAVE_EQUIPO en Cloudflare): sirve solo para los correos de ADMIN_EMAILS
+    const admins = lista(env.ADMIN_EMAILS).map((c) => c.toLowerCase());
+    if (env.CLAVE_EQUIPO && admins.includes(email) && iguales(await sha256(clave), await sha256(env.CLAVE_EQUIPO))) {
+      const previa = JSON.parse((await kv.get("cuenta:" + email)) || "null");
+      let gen = previa ? previa.gen || 0 : 0;
+      if (!previa || !previa.verificado) {
+        // Primera vez: se crea su cuenta del panel (sin contraseña propia) y queda activada
+        const sal = aleatorioHex(16);
+        await kv.put("cuenta:" + email, JSON.stringify({
+          ...(previa || { sal, it: ITERACIONES, h: aleatorioHex(32), alta: fechaEcuador() }),
+          gen, verificado: true
+        }));
+      }
+      return conSesion(env, email, gen);
+    }
+
     const cuenta = JSON.parse((await kv.get("cuenta:" + email)) || "null");
     // Si no existe la cuenta se calcula igual una huella, para que la respuesta tarde lo mismo
     const huella = await huellaClave(clave, cuenta ? cuenta.sal : "00".repeat(16), cuenta ? cuenta.it : ITERACIONES);

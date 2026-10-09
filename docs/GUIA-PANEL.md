@@ -5,7 +5,15 @@ Panel en **www.sinergia.ec/admin** con tres pestañas: **Boletines** (lo que ven
 ## Cómo llegar al panel
 Desde cualquier computadora o celular: abre **www.sinergia.ec**, baja hasta el final de la página y toca el candado **«Equipo»** (abajo, junto al nombre del diseñador). También puedes escribir directamente **www.sinergia.ec/admin**.
 
-## Entrar por primera vez
+## Entrar con la contraseña del equipo
+En el panel pueden entrar **capacitacion@**, **cramirez@**, **info@** y **sistemas@sinergia.ec**. Todos usan la **misma contraseña del equipo** (te la da Estéfano):
+1. Toca el candado **«Equipo»** al pie de la web.
+2. Escribe tu correo de Sinergia y la contraseña del equipo → **Ingresar**.
+
+Para cambiar la contraseña del equipo, Estéfano la cambia en Cloudflare (variable `CLAVE_EQUIPO`) y luego alguien toca **«Salir en todas las computadoras»**.
+
+## (Opcional) Contraseña propia
+Si alguien prefiere su propia contraseña (además de la del equipo):
 1. Toca el candado **«Equipo»** al pie de la web.
 2. Toca **«Activar mi acceso u olvidé mi contraseña»** y escribe tu correo de trabajo.
 3. Revisa tu correo (y la carpeta de no deseado): llega un mensaje de Sinergia con el botón **«Crear mi contraseña»**. El enlace vale una hora.

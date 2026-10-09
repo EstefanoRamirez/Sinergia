@@ -68,7 +68,8 @@ Proyecto de Pages → **Settings** → **Variables and Secrets** → agrega (mar
 | `PLANILLA_URL` | la URL del paso 5 | No |
 | `PLANILLA_CLAVE` | la CLAVE del paso 5 | Sí |
 | `WHATSAPP_AVISOS` | el dato del paso 6 | Sí |
-| `ADMIN_EMAILS` | correos que pueden entrar al panel `/admin`, separados por coma (por ejemplo, el de la secretaria y el tuyo) | No |
+| `ADMIN_EMAILS` | correos que pueden entrar al panel «Equipo» (`/admin`), separados por coma: `capacitacion@sinergia.ec, cramirez@sinergia.ec, info@sinergia.ec, sistemas@sinergia.ec` | No |
+| `CLAVE_EQUIPO` | contraseña compartida con la que esos correos entran al panel (larga y que no sea «Sinergia + año»: por ejemplo cuatro palabras al azar y un número) | Sí |
 | `RESEND_API_KEY`, `EMAIL_FROM`, `EMAIL_TO` | solo si hiciste el paso 4 opcional | Sí / No / No |
 | `TURNSTILE_SITEKEY`, `TURNSTILE_SECRET` | solo si activas el antispam opcional del paso 16 | No / Sí |
 

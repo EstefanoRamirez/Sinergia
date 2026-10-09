@@ -3942,10 +3942,24 @@ body.sg-menu-abierto .sg-header-inner > .sg-nav-cta:not(.sg-burger) {
   transform: translateY(-6px);
 }
 
-/* Que el botón flotante de WhatsApp no tape el crédito del pie */
-@media (min-width: 901px) {
+/* Pie: derechos, enlaces legales y créditos en una sola línea en pantallas anchas
+   (el botón de WhatsApp ya se oculta al llegar al pie, así que no tapa nada) */
+@media (min-width: 1300px) {
   .sg-pie-bajo {
-    padding-right: 72px;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 22px;
+    letter-spacing: 0.02em;
+  }
+
+  .sg-pie-bajo p {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .sg-pie-legal {
+    flex-wrap: nowrap;
+    gap: 18px;
   }
 }
 
