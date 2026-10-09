@@ -1,4 +1,4 @@
-/* Panel de administración de boletines (/admin).
+/* Panel de administración (/admin): boletines (con aviso por correo), calendario de clases y suscriptores.
    Ingreso con la misma cuenta de la web; solo funciona para correos autorizados en ADMIN_EMAILS.
    Las imágenes se achican en el navegador antes de subirlas (máx. 2400 px) para que carguen rápido. */
 (function () {
@@ -84,6 +84,7 @@
   var progreso = $("[data-progreso]", form);
   var listaAdmin = $("[data-lista-admin]", zona);
   var boletines = [];
+  var hayCorreo = false;  // ¿está activado el envío de correos?
   var editando = null;   // boletín que se está editando
   var quitar = [];       // ids de imágenes que se quitarán al guardar
   var elegidos = [];     // archivos listos para subir: { archivo, ancho, alto, url }
@@ -256,6 +257,7 @@
     $("[data-form-titulo]", form).textContent = "Nuevo boletín";
     $("[data-boton-guardar]", form).firstChild.textContent = "Publicar boletín ";
     $("[data-cancelar]", form).hidden = true;
+    $("[data-avisar-campo]", form).hidden = !hayCorreo;
     $("[data-tipo-campo]", form).disabled = false;
     pintarActuales();
     ajustarEntrada();
@@ -273,6 +275,7 @@
     $("[data-form-titulo]", form).textContent = "Editar boletín";
     $("[data-boton-guardar]", form).firstChild.textContent = "Guardar cambios ";
     $("[data-cancelar]", form).hidden = false;
+    $("[data-avisar-campo]", form).hidden = true;
     pintarActuales();
     ajustarEntrada();
     form.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -320,6 +323,10 @@
       d.textContent = fechaBonita(b.fecha) + " · " + (b.tipo === "imagenes" ? (b.archivos || []).length + " imágenes" : "PDF") + (b.editadoPor ? " · editado por " + b.editadoPor : "");
       info.appendChild(t);
       info.appendChild(d);
+      var av = document.createElement("small");
+      av.className = "sg-admin-aviso-estado";
+      av.textContent = textoAviso(b.aviso);
+      info.appendChild(av);
       li.appendChild(info);
       var acciones = document.createElement("span");
       acciones.className = "sg-admin-acciones";
@@ -334,10 +341,51 @@
       bd.textContent = "Eliminar";
       bd.addEventListener("click", function () { eliminar(b); });
       acciones.appendChild(be);
+      if (hayCorreo && (!b.aviso || b.aviso.faltan > 0)) {
+        var ba = document.createElement("button");
+        ba.type = "button";
+        ba.className = "sg-enlace";
+        ba.textContent = b.aviso ? "Continuar aviso" : "Avisar por correo";
+        ba.addEventListener("click", function () {
+          if (!b.aviso && !window.confirm("¿Enviar un correo sobre «" + b.titulo + "» a todos los suscriptores que aceptaron novedades?")) return;
+          avisar(b.id, av, ba);
+        });
+        acciones.appendChild(ba);
+      }
       acciones.appendChild(bd);
       li.appendChild(acciones);
       listaAdmin.appendChild(li);
     });
+  };
+
+  var textoAviso = function (a) {
+    if (!a) return "";
+    if (!a.total) return "Aviso por correo: no había suscriptores con novedades.";
+    if (!a.faltan) return "Aviso por correo enviado a " + a.enviados + (a.enviados === 1 ? " persona." : " personas.");
+    return "Aviso por correo: enviados " + a.enviados + " de " + a.total + ". Faltan " + a.faltan + ".";
+  };
+
+  // Envía el aviso por grupos (el servidor manda 8 correos por vez) hasta terminar o hasta que Gmail pida una pausa
+  var avisar = function (id, salida, boton) {
+    if (boton) boton.disabled = true;
+    var paso = function () {
+      return fetch("/api/admin/aviso", { method: "POST", credentials: "same-origin", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id: id }) })
+        .then(function (r) { return r.json(); })
+        .then(function (j) {
+          if (!j.ok) { salida.textContent = j.error || "No se pudo enviar el aviso."; return; }
+          var a = j.aviso;
+          salida.textContent = textoAviso(a);
+          if (j.pausado) {
+            salida.textContent += " Gmail llegó a su límite de envíos por hoy (o falló la conexión): mañana pulsa «Continuar aviso».";
+            return;
+          }
+          if (a.faltan > 0) return paso();
+        });
+    };
+    salida.textContent = "Enviando aviso por correo…";
+    return paso()
+      .catch(function () { salida.textContent = "Se cortó la conexión. Pulsa «Continuar aviso» para seguir."; })
+      .then(function () { if (boton) boton.disabled = false; return cargar(); });
   };
 
   var cargar = function () {
@@ -348,6 +396,8 @@
         if (res.estado === 403) { ver("sinpermiso"); return; }
         if (!res.j || !res.j.ok) { ver("entrar"); return; }
         boletines = res.j.boletines || [];
+        hayCorreo = !!res.j.correo;
+        $("[data-avisar-campo]", form).hidden = !hayCorreo || !!editando;
         $$("[data-admin-correo]", zona).forEach(function (el) { el.textContent = res.j.email || ""; });
         ver("panel");
         pintarLista();
@@ -390,9 +440,18 @@
       if (xhr.status === 401) { ver("entrar"); return; }
       if (!j.ok) { estado.textContent = j.error || "No se pudo guardar. Intenta otra vez."; return; }
       var eraEdicion = !!editando;
+      var avisarAhora = !eraEdicion && hayCorreo && form.elements.avisar.checked && j.boletin;
       reiniciarFormulario();
       estado.textContent = eraEdicion ? "Cambios guardados." : "¡Boletín publicado! Ya lo ven los suscriptores.";
-      cargar();
+      if (avisarAhora) {
+        var salida = document.createElement("span");
+        estado.appendChild(document.createTextNode(" "));
+        estado.appendChild(salida);
+        cargar();
+        avisar(j.boletin.id, salida);
+      } else {
+        cargar();
+      }
     };
     xhr.onerror = function () {
       boton.disabled = false;
@@ -401,6 +460,157 @@
     };
     xhr.send(datos);
   });
+
+  // ---------- Pestañas ----------
+  var pestanas = $$("[data-pestana]", zona);
+  var cargadas = {};
+  var abrirPestana = function (nombre, enfocar) {
+    pestanas.forEach(function (t) {
+      var activa = t.getAttribute("data-pestana") === nombre;
+      t.setAttribute("aria-selected", String(activa));
+      t.tabIndex = activa ? 0 : -1;
+      if (activa && enfocar) t.focus();
+    });
+    $$("[data-seccion]", zona).forEach(function (sec) { sec.hidden = sec.getAttribute("data-seccion") !== nombre; });
+    if (!cargadas[nombre]) {
+      cargadas[nombre] = true;
+      if (nombre === "calendario") cargarCalendario();
+      if (nombre === "suscriptores") cargarSuscriptores();
+    }
+  };
+  pestanas.forEach(function (t, i) {
+    t.addEventListener("click", function () { abrirPestana(t.getAttribute("data-pestana")); });
+    t.addEventListener("keydown", function (e) {
+      var dir = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!dir) return;
+      e.preventDefault();
+      abrirPestana(pestanas[(i + dir + pestanas.length) % pestanas.length].getAttribute("data-pestana"), true);
+    });
+  });
+
+  // ---------- Calendario ----------
+  var formCal = $("[data-form-calendario]", zona);
+  var filas = $("[data-filas]", formCal);
+  var estadoCal = $(".sg-estado", formCal);
+  var celda = function (tr, tipo, nombre, valor, etiqueta, extra) {
+    var td = document.createElement("td");
+    var i = document.createElement("input");
+    i.type = tipo;
+    i.name = nombre;
+    i.value = valor || "";
+    i.setAttribute("aria-label", etiqueta);
+    if (extra) Object.keys(extra).forEach(function (k) { i.setAttribute(k, extra[k]); });
+    td.appendChild(i);
+    tr.appendChild(td);
+    return i;
+  };
+  var agregarFila = function (s, enfocar) {
+    s = s || {};
+    var tr = document.createElement("tr");
+    if (s.fecha && s.fecha < hoy()) tr.className = "is-pasada";
+    var f = celda(tr, "date", "fecha", s.fecha, "Fecha");
+    celda(tr, "time", "inicio", s.inicio, "Hora de inicio");
+    celda(tr, "time", "fin", s.fin, "Hora de fin");
+    celda(tr, "text", "taller", s.taller, "Taller o programa", { maxlength: "100", list: "talleres-usados" });
+    celda(tr, "text", "detalle", s.detalle, "Detalle", { maxlength: "140" });
+    var td = document.createElement("td");
+    var b = document.createElement("button");
+    b.type = "button";
+    b.className = "sg-enlace sg-admin-borrar";
+    b.textContent = "Quitar";
+    b.addEventListener("click", function () { tr.remove(); });
+    td.appendChild(b);
+    tr.appendChild(td);
+    filas.appendChild(tr);
+    if (enfocar) f.focus();
+  };
+  $("[data-agregar-fila]", formCal).addEventListener("click", function () {
+    // La clase nueva copia el taller y las horas de la última fila, para escribir menos
+    var ult = filas.lastElementChild;
+    var base = ult ? { taller: $("[name=taller]", ult).value, inicio: $("[name=inicio]", ult).value, fin: $("[name=fin]", ult).value } : {};
+    agregarFila(base, true);
+  });
+  var pintarCalendario = function (j) {
+    filas.innerHTML = "";
+    (j.sesiones || []).forEach(function (s) { agregarFila(s); });
+    if (!(j.sesiones || []).length) agregarFila({});
+    var nombres = {};
+    (j.sesiones || []).forEach(function (s) { nombres[s.taller] = true; });
+    $("#talleres-usados").innerHTML = "";
+    Object.keys(nombres).forEach(function (n) { var o = document.createElement("option"); o.value = n; $("#talleres-usados").appendChild(o); });
+    formCal.elements.destacado.value = (j.destacado && j.destacado.texto) || "";
+    formCal.elements.hasta.value = (j.destacado && j.destacado.hasta) || "";
+    $("[data-cal-editado]", formCal).textContent = j.editado ? "Última edición: " + j.editado + (j.editadoPor ? " por " + j.editadoPor : "") + "." : "";
+  };
+  var cargarCalendario = function () {
+    estadoCal.textContent = "Cargando…";
+    fetch("/api/admin/calendario", { credentials: "same-origin" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok) { estadoCal.textContent = j.error || "No se pudo cargar el calendario."; cargadas.calendario = false; return; }
+        estadoCal.textContent = "";
+        pintarCalendario(j);
+      })
+      .catch(function () { estadoCal.textContent = "No pudimos conectarnos. Intenta otra vez."; cargadas.calendario = false; });
+  };
+  formCal.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var sesiones = $$("tr", filas).map(function (tr) {
+      return {
+        fecha: $("[name=fecha]", tr).value, inicio: $("[name=inicio]", tr).value, fin: $("[name=fin]", tr).value,
+        taller: $("[name=taller]", tr).value.trim(), detalle: $("[name=detalle]", tr).value.trim()
+      };
+    });
+    var boton = $("button[type=submit]", formCal);
+    boton.disabled = true;
+    estadoCal.textContent = "Guardando…";
+    fetch("/api/admin/calendario", {
+      method: "PUT", credentials: "same-origin", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ sesiones: sesiones, destacado: { texto: formCal.elements.destacado.value.trim(), hasta: formCal.elements.hasta.value } })
+    })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        boton.disabled = false;
+        if (!j.ok) { estadoCal.textContent = j.error || "No se pudo guardar."; return; }
+        pintarCalendario(j);
+        estadoCal.textContent = "Calendario guardado. Ya se ve en la web.";
+      })
+      .catch(function () { boton.disabled = false; estadoCal.textContent = "No pudimos conectarnos. Intenta otra vez."; });
+  });
+
+  // ---------- Suscriptores ----------
+  var suscriptores = [];
+  var filasSus = $("[data-sus-filas]", zona);
+  var buscar = $("#s-buscar", zona);
+  var pintarSuscriptores = function () {
+    var q = buscar.value.trim().toLowerCase();
+    var vistos = suscriptores.filter(function (x) { return !q || (x.nombre + " " + x.email + " " + x.whatsapp).toLowerCase().indexOf(q) !== -1; });
+    filasSus.innerHTML = "";
+    vistos.slice(0, 500).forEach(function (x) {
+      var tr = document.createElement("tr");
+      [x.nombre, x.email, x.whatsapp ? "+" + x.whatsapp : "", x.novedades ? "Sí" : "No", x.cuenta ? "Sí" : "No", x.alta].forEach(function (v) {
+        var td = document.createElement("td");
+        td.textContent = v;
+        tr.appendChild(td);
+      });
+      filasSus.appendChild(tr);
+    });
+    if (!vistos.length) filasSus.innerHTML = '<tr><td colspan="6">' + (q ? "Nadie coincide con la búsqueda." : "Todavía no hay suscriptores.") + "</td></tr>";
+  };
+  buscar.addEventListener("input", pintarSuscriptores);
+  var cargarSuscriptores = function () {
+    var resumen = $("[data-sus-resumen]", zona);
+    fetch("/api/admin/suscriptores", { credentials: "same-origin" })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        if (!j.ok) { resumen.textContent = j.error || "No se pudo cargar la lista."; cargadas.suscriptores = false; return; }
+        suscriptores = j.suscriptores || [];
+        var conNovedades = suscriptores.filter(function (x) { return x.novedades; }).length;
+        resumen.textContent = suscriptores.length + (suscriptores.length === 1 ? " persona registrada" : " personas registradas") + " · " + conNovedades + " aceptan recibir novedades.";
+        pintarSuscriptores();
+      })
+      .catch(function () { resumen.textContent = "No pudimos conectarnos. Intenta otra vez."; cargadas.suscriptores = false; });
+  };
 
   var iniciar = function () {
     reiniciarFormulario();

@@ -17,6 +17,7 @@ import {
   anotarPlanilla, avisarDueno, leerCookie, textoConsentimiento, VERSION_POLITICA, enviarCorreo, puedeEnviarCorreo,
   marcoCorreo, botonCorreo, abrirSesion, emailDeSesion, esAdmin, mismoOrigen, lista, COOKIE_SESION
 } from "../../lib/servidor.js";
+import { guardarSuscriptor } from "../../lib/suscriptores.js";
 
 const ITERACIONES = 100000; // máximo que permite Cloudflare Workers para PBKDF2
 const MINUTOS_ENLACE = 60;
@@ -146,12 +147,12 @@ ${botonCorreo(enlace, "Crear mi contraseña")}
     const sal = aleatorioHex(16);
     await kv.put("cuenta:" + email, JSON.stringify({ sal, it: ITERACIONES, h: await huellaClave(clave, sal, ITERACIONES), gen: 0, alta: p.fecha }));
     const previo = JSON.parse((await kv.get("sub:" + email)) || "null");
-    await kv.put("sub:" + email, JSON.stringify({
+    await guardarSuscriptor(kv, email, {
       nombre: p.nombre, apellido: p.apellido, whatsapp: p.whatsapp,
       novedades: p.novedades || (previo && previo.novedades) || false,
       alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha,
       consentimiento: { fecha: p.fecha, version: VERSION_POLITICA }
-    }));
+    });
 
     // Aviso a Sinergia (hoja de cálculo y WhatsApp del dueño) sin hacer esperar a la persona
     const nombreCompleto = `${p.nombre} ${p.apellido}`;

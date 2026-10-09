@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <!--
-  PÁGINA: ADMIN — Panel para que el equipo de Sinergia publique, edite y elimine boletines (PDF o imágenes). No aparece en Google.
+  PÁGINA: ADMIN — Panel para que el equipo de Sinergia publique boletines (PDF o imágenes) y avise por correo, edite el calendario de clases y vea los suscriptores. No aparece en Google.
   Archivo generado: admin.html (no editar aquí; editar plantillas/paginas/admin.html y ejecutar: bash plantillas/armar-paginas.sh)
   Lo propio de esta página está entre "INICIO DEL CONTENIDO" y "FIN DEL CONTENIDO".
 -->
@@ -11,7 +11,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Administración · Sinergia</title>
-  <meta name="description" content="Panel interno para publicar boletines.">
+  <meta name="description" content="Panel interno de Sinergia.">
   <meta name="author" content="Sinergia Capacitación Empresarial Oportuna">
   <meta name="theme-color" content="#bb0f17">
   <meta name="format-detection" content="telephone=no">
@@ -20,7 +20,7 @@
   <meta property="og:locale" content="es_EC">
   <meta property="og:site_name" content="Sinergia Capacitación Empresarial">
   <meta property="og:title" content="Administración · Sinergia">
-  <meta property="og:description" content="Panel interno para publicar boletines.">
+  <meta property="og:description" content="Panel interno de Sinergia.">
   <meta property="og:url" content="https://www.sinergia.ec/admin">
   <meta property="og:image" content="https://www.sinergia.ec/images/marca/compartir.jpg">
   <meta property="og:image:width" content="1200">
@@ -34,7 +34,7 @@
   <link rel="preload" href="fonts/bricolage-grotesque-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="css/fuentes.css?v=f7e4994445">
   <link rel="stylesheet" href="css/normalize.css?v=c881348e4b">
-  <link rel="stylesheet" href="css/sinergia.css?v=676a6f6faf">
+  <link rel="stylesheet" href="css/sinergia.css?v=b4bffcd989">
   <script type="application/ld+json">{ "@context": "https://schema.org", "@type": [ "LocalBusiness", "EducationalOrganization" ], "@id": "https://www.sinergia.ec/#empresa", "name": "Sinergia Capacitación Empresarial Oportuna", "alternateName": "Sinergia", "url": "https://www.sinergia.ec/", "logo": "https://www.sinergia.ec/images/marca/icono-512.png", "image": "https://www.sinergia.ec/images/marca/compartir.jpg", "description": "Capacitación empresarial in company, webinars y talleres por Zoom, auditorías y asesorías contables, tributarias y laborales en Ecuador.", "foundingDate": "2016", "telephone": "+593-2-219-1187", "email": "info@sinergia.ec", "address": { "@type": "PostalAddress", "streetAddress": "Calle E8-A e Ismael Solís", "addressLocality": "Quito", "addressRegion": "Pichincha", "postalCode": "170803", "addressCountry": "EC" }, "areaServed": { "@type": "Country", "name": "Ecuador" }, "contactPoint": [ { "@type": "ContactPoint", "contactType": "customer service", "telephone": "+593-96-909-4855", "availableLanguage": "es" } ], "sameAs": [ "https://www.instagram.com/sinergia._ec/", "https://www.linkedin.com/company/sinergia-capacitaci%C3%B3n-empresarial/", "https://www.youtube.com/channel/UCf-d1STzwDJAYZux2KfJAIw", "https://www.facebook.com/SinergiaCapacitacionEmpresarialEcuador" ], "taxID": "1707502660001", "openingHoursSpecification": [ { "@type": "OpeningHoursSpecification", "dayOfWeek": [ "Monday", "Tuesday", "Wednesday", "Thursday", "Friday" ], "opens": "08:00", "closes": "18:00" }, { "@type": "OpeningHoursSpecification", "dayOfWeek": "Saturday", "opens": "09:00", "closes": "14:00" } ], "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJRbo_xVeX1ZER_KQJn7INdJ0" } </script>
 </head>
 
@@ -148,7 +148,7 @@
     <section class="sg-admin" data-admin>
       <div class="sg-wrap">
         <p class="sg-etiqueta"><svg aria-hidden="true"><use href="#i-lock"/></svg> Uso interno</p>
-        <h1 class="sg-admin-titulo">Panel de <em>boletines</em></h1>
+        <h1 class="sg-admin-titulo">Panel de <em>Sinergia</em></h1>
 
         <!-- Ingreso -->
         <div class="sg-acceso-caja" data-vista="entrar" hidden>
@@ -208,6 +208,13 @@
             <p><a class="sg-enlace" href="/boletines" target="_blank" rel="noopener">Ver como suscriptor</a> · <button class="sg-enlace" type="button" data-salir>Salir</button></p>
           </div>
 
+          <div class="sg-admin-pestanas" role="tablist" aria-label="Secciones del panel">
+            <button type="button" role="tab" id="tab-boletines" aria-controls="sec-boletines" aria-selected="true" data-pestana="boletines">Boletines</button>
+            <button type="button" role="tab" id="tab-calendario" aria-controls="sec-calendario" aria-selected="false" tabindex="-1" data-pestana="calendario">Calendario</button>
+            <button type="button" role="tab" id="tab-suscriptores" aria-controls="sec-suscriptores" aria-selected="false" tabindex="-1" data-pestana="suscriptores">Suscriptores</button>
+          </div>
+
+          <div role="tabpanel" id="sec-boletines" aria-labelledby="tab-boletines" data-seccion="boletines">
           <form class="sg-form sg-admin-form" data-form-boletin novalidate>
             <h2 class="sg-titulo" data-form-titulo>Nuevo boletín</h2>
             <fieldset class="sg-admin-tipo" data-tipo-campo>
@@ -233,6 +240,7 @@
               <input class="sg-oculto" id="b-archivos" name="archivos" type="file" accept="application/pdf">
               <ul class="sg-admin-previas" data-previas></ul>
             </div>
+            <label class="sg-check sg-admin-avisar" data-avisar-campo><input type="checkbox" name="avisar" checked> <span>Avisar por correo a los suscriptores que aceptaron recibir novedades</span></label>
             <div class="sg-admin-progreso" data-progreso hidden><span></span></div>
             <div class="sg-btns">
               <button class="sg-btn" type="submit" data-boton-guardar>Publicar boletín <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -243,6 +251,53 @@
 
           <h2 class="sg-titulo sg-mt-lg">Publicados</h2>
           <ul class="sg-admin-lista" data-lista-admin><li class="sg-admin-vacio">Cargando…</li></ul>
+          </div>
+
+          <!-- Calendario de clases (se ve en Webinars y en la franja «Próximo programa» de la portada) -->
+          <div role="tabpanel" id="sec-calendario" aria-labelledby="tab-calendario" data-seccion="calendario" hidden>
+            <form class="sg-form sg-admin-form" data-form-calendario novalidate>
+              <h2 class="sg-titulo">Calendario de clases</h2>
+              <p class="sg-admin-ayuda">Cada fila es una clase. Se muestran en el calendario de <a href="/webinars#calendario" target="_blank" rel="noopener">Webinars</a> y la próxima aparece en la portada. Las clases pasadas se pueden dejar: el calendario solo muestra el mes actual.</p>
+              <div class="sg-admin-tabla-caja">
+                <table class="sg-admin-tabla">
+                  <thead><tr><th scope="col">Fecha</th><th scope="col">Inicio</th><th scope="col">Fin</th><th scope="col">Taller o programa</th><th scope="col">Detalle (módulo, tema)</th><th scope="col"><span class="sg-oculto">Quitar</span></th></tr></thead>
+                  <tbody data-filas></tbody>
+                </table>
+              </div>
+              <datalist id="talleres-usados"></datalist>
+              <p><button class="sg-btn sg-btn--linea" type="button" data-agregar-fila>Agregar clase <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></p>
+              <fieldset class="sg-admin-destacado">
+                <legend>Aviso corto en la portada (opcional)</legend>
+                <div class="sg-campos">
+                  <div class="sg-campo sg-campo--todo"><label for="c-destacado">Texto</label><input id="c-destacado" name="destacado" maxlength="120" placeholder="Ej.: $280 con pronto pago hasta el 14 de octubre"></div>
+                  <div class="sg-campo"><label for="c-hasta">Mostrar hasta</label><input id="c-hasta" name="hasta" type="date"></div>
+                </div>
+              </fieldset>
+              <div class="sg-btns">
+                <button class="sg-btn" type="submit">Guardar calendario <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+              <p class="sg-admin-ayuda" data-cal-editado></p>
+            </form>
+          </div>
+
+          <!-- Suscriptores -->
+          <div role="tabpanel" id="sec-suscriptores" aria-labelledby="tab-suscriptores" data-seccion="suscriptores" hidden>
+            <div class="sg-admin-form">
+              <div class="sg-admin-subcabeza">
+                <h2 class="sg-titulo">Suscriptores</h2>
+                <a class="sg-btn" href="/api/admin/suscriptores?formato=csv" download>Descargar Excel (CSV) <svg aria-hidden="true"><use href="#i-download"/></svg></a>
+              </div>
+              <p class="sg-admin-ayuda" data-sus-resumen>Cargando…</p>
+              <div class="sg-campo sg-admin-buscar"><label for="s-buscar">Buscar</label><input id="s-buscar" type="search" placeholder="Nombre, correo o número" autocomplete="off"></div>
+              <div class="sg-admin-tabla-caja">
+                <table class="sg-admin-tabla sg-admin-tabla--datos">
+                  <thead><tr><th scope="col">Nombre</th><th scope="col">Correo</th><th scope="col">WhatsApp</th><th scope="col">Novedades</th><th scope="col">Cuenta</th><th scope="col">Alta</th></tr></thead>
+                  <tbody data-sus-filas></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -285,7 +340,7 @@
         </nav>
         <div class="sg-pie-col sg-pie-inscribete">
           <p class="sg-pie-label">Novedades</p>
-          <p>Webinars, boletines y novedades en tu WhatsApp.</p>
+          <p>Webinars, boletines y novedades en tu WhatsApp y tu correo.</p>
           <button class="sg-nav-cta" type="button" data-abrir-registro>Inscríbete <span class="sg-punto" aria-hidden="true"></span></button>
         </div>
       </div>
@@ -331,7 +386,7 @@
               </select>
             </div>
           </div>
-          <label class="sg-check"><input type="checkbox" name="novedades" value="si"> <span>Quiero recibir novedades por WhatsApp.</span></label>
+          <label class="sg-check"><input type="checkbox" name="novedades" value="si"> <span>Quiero recibir novedades por WhatsApp y correo.</span></label>
           <label class="sg-check"><input type="checkbox" name="acepto" value="si" required> <span>Acepto la <a href="/privacidad" target="_blank">Política de privacidad y protección de datos</a>. *</span></label>
           <div class="sg-trampa" aria-hidden="true"><label>No llenar<input name="sitio_web" tabindex="-1" autocomplete="off"></label></div>
           <button class="sg-btn" type="submit">Registrarse <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -356,8 +411,8 @@
   <script src="js/vendor/ScrollTrigger.min.js?v=5445d0e95e" defer></script>
   <script src="js/vendor/SplitText.min.js?v=8b36329704" defer></script>
   <script src="js/vendor/lenis.min.js?v=b2a2c84df1" defer></script>
-  <script src="js/sitio.js?v=0eaeeb9f67" defer></script>
-  <script src="js/admin.js?v=391baf40ee" defer></script>
+  <script src="js/sitio.js?v=8367eed149" defer></script>
+  <script src="js/admin.js?v=51b1b48fa7" defer></script>
 </body>
 
 </html>

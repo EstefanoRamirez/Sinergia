@@ -1,5 +1,6 @@
 {
-  "_ayuda": "Fechas que muestra el calendario de la página Webinars. Cada sesión: fecha (AAAA-MM-DD), hora de inicio y fin, y el nombre que se ve. Para agregar un taller, copia una sesión y cambia los datos.",
+  "_ayuda": "Fechas que muestra el calendario de la página Webinars. Cada sesión: fecha (AAAA-MM-DD), hora de inicio y fin, y el nombre que se ve. Para agregar un taller, copia una sesión y cambia los datos. «destacado» es el aviso corto de la franja «Próximo programa» de la portada (se oculta solo después de la fecha «hasta»). Lo normal es editar todo esto desde el panel /admin; este archivo es el respaldo.",
+  "destacado": { "texto": "$280 con pronto pago hasta el 14 de octubre", "hasta": "2026-10-14" },
   "sesiones": [
     { "fecha": "2026-10-15", "inicio": "19:15", "fin": "21:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 1 · Estados financieros y activos corrientes" },
     { "fecha": "2026-10-17", "inicio": "08:00", "fin": "13:30", "taller": "Programa de Especialización en NIIF", "detalle": "Módulo 1 · Estados financieros y activos corrientes" },

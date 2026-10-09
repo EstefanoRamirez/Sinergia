@@ -16,6 +16,7 @@ import {
   enviarCorreo, anotarPlanilla, avisarDueno, escribirCliente, marcoCorreo, botonCorreo, WHATSAPP_SINERGIA,
   textoConsentimiento, VERSION_POLITICA, mismoOrigen
 } from "../../lib/servidor.js";
+import { guardarSuscriptor } from "../../lib/suscriptores.js";
 
 const TIPOS = { registro: "Registro / suscripción", inscripcion: "Inscripción a webinar", contacto: "Mensaje de contacto" };
 
@@ -57,12 +58,12 @@ export async function onRequestPost({ request, env }) {
   let suscrito = false;
   if (env.SUSCRIPTORES && (tipo !== "contacto" || p.novedades)) {
     const previo = JSON.parse((await env.SUSCRIPTORES.get("sub:" + p.email)) || "null");
-    await env.SUSCRIPTORES.put("sub:" + p.email, JSON.stringify({
+    await guardarSuscriptor(env.SUSCRIPTORES, p.email, {
       nombre: p.nombre, apellido: p.apellido, whatsapp: p.whatsapp,
       novedades: p.novedades || (previo && previo.novedades) || false,
       alta: (previo && previo.alta) || p.fecha, actualizado: p.fecha,
       consentimiento: { fecha: p.fecha, version: VERSION_POLITICA }
-    }));
+    });
     suscrito = true;
   }
 

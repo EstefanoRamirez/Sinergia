@@ -1,8 +1,8 @@
-Administración · Sinergia|Panel interno para publicar boletines.|admin|ADMIN — Panel para que el equipo de Sinergia publique, edite y elimine boletines (PDF o imágenes). No aparece en Google.
+Administración · Sinergia|Panel interno de Sinergia.|admin|ADMIN — Panel para que el equipo de Sinergia publique boletines (PDF o imágenes) y avise por correo, edite el calendario de clases y vea los suscriptores. No aparece en Google.
     <section class="sg-admin" data-admin>
       <div class="sg-wrap">
         <p class="sg-etiqueta"><svg aria-hidden="true"><use href="#i-lock"/></svg> Uso interno</p>
-        <h1 class="sg-admin-titulo">Panel de <em>boletines</em></h1>
+        <h1 class="sg-admin-titulo">Panel de <em>Sinergia</em></h1>
 
         <!-- Ingreso -->
         <div class="sg-acceso-caja" data-vista="entrar" hidden>
@@ -62,6 +62,13 @@ Administración · Sinergia|Panel interno para publicar boletines.|admin|ADMIN �
             <p><a class="sg-enlace" href="boletines.html" target="_blank" rel="noopener">Ver como suscriptor</a> · <button class="sg-enlace" type="button" data-salir>Salir</button></p>
           </div>
 
+          <div class="sg-admin-pestanas" role="tablist" aria-label="Secciones del panel">
+            <button type="button" role="tab" id="tab-boletines" aria-controls="sec-boletines" aria-selected="true" data-pestana="boletines">Boletines</button>
+            <button type="button" role="tab" id="tab-calendario" aria-controls="sec-calendario" aria-selected="false" tabindex="-1" data-pestana="calendario">Calendario</button>
+            <button type="button" role="tab" id="tab-suscriptores" aria-controls="sec-suscriptores" aria-selected="false" tabindex="-1" data-pestana="suscriptores">Suscriptores</button>
+          </div>
+
+          <div role="tabpanel" id="sec-boletines" aria-labelledby="tab-boletines" data-seccion="boletines">
           <form class="sg-form sg-admin-form" data-form-boletin novalidate>
             <h2 class="sg-titulo" data-form-titulo>Nuevo boletín</h2>
             <fieldset class="sg-admin-tipo" data-tipo-campo>
@@ -87,6 +94,7 @@ Administración · Sinergia|Panel interno para publicar boletines.|admin|ADMIN �
               <input class="sg-oculto" id="b-archivos" name="archivos" type="file" accept="application/pdf">
               <ul class="sg-admin-previas" data-previas></ul>
             </div>
+            <label class="sg-check sg-admin-avisar" data-avisar-campo><input type="checkbox" name="avisar" checked> <span>Avisar por correo a los suscriptores que aceptaron recibir novedades</span></label>
             <div class="sg-admin-progreso" data-progreso hidden><span></span></div>
             <div class="sg-btns">
               <button class="sg-btn" type="submit" data-boton-guardar>Publicar boletín <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
@@ -97,6 +105,53 @@ Administración · Sinergia|Panel interno para publicar boletines.|admin|ADMIN �
 
           <h2 class="sg-titulo sg-mt-lg">Publicados</h2>
           <ul class="sg-admin-lista" data-lista-admin><li class="sg-admin-vacio">Cargando…</li></ul>
+          </div>
+
+          <!-- Calendario de clases (se ve en Webinars y en la franja «Próximo programa» de la portada) -->
+          <div role="tabpanel" id="sec-calendario" aria-labelledby="tab-calendario" data-seccion="calendario" hidden>
+            <form class="sg-form sg-admin-form" data-form-calendario novalidate>
+              <h2 class="sg-titulo">Calendario de clases</h2>
+              <p class="sg-admin-ayuda">Cada fila es una clase. Se muestran en el calendario de <a href="webinars.html#calendario" target="_blank" rel="noopener">Webinars</a> y la próxima aparece en la portada. Las clases pasadas se pueden dejar: el calendario solo muestra el mes actual.</p>
+              <div class="sg-admin-tabla-caja">
+                <table class="sg-admin-tabla">
+                  <thead><tr><th scope="col">Fecha</th><th scope="col">Inicio</th><th scope="col">Fin</th><th scope="col">Taller o programa</th><th scope="col">Detalle (módulo, tema)</th><th scope="col"><span class="sg-oculto">Quitar</span></th></tr></thead>
+                  <tbody data-filas></tbody>
+                </table>
+              </div>
+              <datalist id="talleres-usados"></datalist>
+              <p><button class="sg-btn sg-btn--linea" type="button" data-agregar-fila>Agregar clase <svg aria-hidden="true"><use href="#i-arrow"/></svg></button></p>
+              <fieldset class="sg-admin-destacado">
+                <legend>Aviso corto en la portada (opcional)</legend>
+                <div class="sg-campos">
+                  <div class="sg-campo sg-campo--todo"><label for="c-destacado">Texto</label><input id="c-destacado" name="destacado" maxlength="120" placeholder="Ej.: $280 con pronto pago hasta el 14 de octubre"></div>
+                  <div class="sg-campo"><label for="c-hasta">Mostrar hasta</label><input id="c-hasta" name="hasta" type="date"></div>
+                </div>
+              </fieldset>
+              <div class="sg-btns">
+                <button class="sg-btn" type="submit">Guardar calendario <svg aria-hidden="true"><use href="#i-arrow"/></svg></button>
+              </div>
+              <p class="sg-estado" role="status" aria-live="polite"></p>
+              <p class="sg-admin-ayuda" data-cal-editado></p>
+            </form>
+          </div>
+
+          <!-- Suscriptores -->
+          <div role="tabpanel" id="sec-suscriptores" aria-labelledby="tab-suscriptores" data-seccion="suscriptores" hidden>
+            <div class="sg-admin-form">
+              <div class="sg-admin-subcabeza">
+                <h2 class="sg-titulo">Suscriptores</h2>
+                <a class="sg-btn" href="/api/admin/suscriptores?formato=csv" download>Descargar Excel (CSV) <svg aria-hidden="true"><use href="#i-download"/></svg></a>
+              </div>
+              <p class="sg-admin-ayuda" data-sus-resumen>Cargando…</p>
+              <div class="sg-campo sg-admin-buscar"><label for="s-buscar">Buscar</label><input id="s-buscar" type="search" placeholder="Nombre, correo o número" autocomplete="off"></div>
+              <div class="sg-admin-tabla-caja">
+                <table class="sg-admin-tabla sg-admin-tabla--datos">
+                  <thead><tr><th scope="col">Nombre</th><th scope="col">Correo</th><th scope="col">WhatsApp</th><th scope="col">Novedades</th><th scope="col">Cuenta</th><th scope="col">Alta</th></tr></thead>
+                  <tbody data-sus-filas></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

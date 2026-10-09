@@ -12,30 +12,11 @@
 
   Los archivos se revisan por sus primeros bytes (no por el nombre) y se guardan en KV (lib/boletines.js).
 */
-import { json, emailDeSesion, esAdmin, mismoOrigen, texto, fechaEcuador, aleatorioHex } from "../../../lib/servidor.js";
+import { json, texto, fechaEcuador, aleatorioHex, puedeEnviarCorreo } from "../../../lib/servidor.js";
+import { autorizar, fechaValida, hoyIso } from "../../../lib/admin.js";
 import { leerLista, guardarLista, tipoReal, TIPOS_PERMITIDOS, MAX_IMAGENES } from "../../../lib/boletines.js";
 
 const MAX_PETICION = 90 * 1024 * 1024;
-
-async function autorizar(request, env) {
-  if (!env.SUSCRIPTORES) return { error: json({ ok: false, error: "La base de datos no está activada." }, 503) };
-  if (request.method !== "GET" && !mismoOrigen(request)) return { error: json({ ok: false, error: "Origen no permitido" }, 403) };
-  const email = await emailDeSesion(request, env);
-  if (!email) return { error: json({ ok: false, error: "Inicia sesión" }, 401) };
-  if (!(await esAdmin(env, email))) return { error: json({ ok: false, error: "Esta cuenta no tiene permisos de administración." }, 403) };
-  return { email };
-}
-
-function fechaValida(f) {
-  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(f || "");
-  if (!m) return false;
-  const d = new Date(Date.UTC(+m[1], +m[2] - 1, +m[3]));
-  return d.getUTCFullYear() === +m[1] && d.getUTCMonth() === +m[2] - 1 && d.getUTCDate() === +m[3];
-}
-
-function hoyIso() {
-  return new Date(Date.now() - 5 * 3600 * 1000).toISOString().slice(0, 10);
-}
 
 // Revisa y guarda los archivos recibidos. Devuelve { archivos } o { error }.
 async function guardarArchivos(env, form, tipoBoletin) {
@@ -90,7 +71,14 @@ export async function onRequest({ request, env }) {
   const auth = await autorizar(request, env);
   if (auth.error) return auth.error;
 
-  if (request.method === "GET") return json({ ok: true, email: auth.email, boletines: await leerLista(env) });
+  if (request.method === "GET") {
+    // Junto a cada boletín va el estado de su aviso por correo (si se envió)
+    const avisos = {};
+    const r = await env.SUSCRIPTORES.list({ prefix: "aviso:", limit: 1000 });
+    r.keys.forEach((k) => { if (k.metadata) avisos[k.name.slice(6)] = k.metadata; });
+    const boletines = (await leerLista(env)).map((b) => ({ ...b, aviso: avisos[b.id] || null }));
+    return json({ ok: true, email: auth.email, boletines, correo: puedeEnviarCorreo(env) });
+  }
 
   if (request.method === "POST") {
     const form = await leerFormulario(request);
@@ -154,6 +142,7 @@ export async function onRequest({ request, env }) {
     if (!b) return json({ ok: false, error: "Ese boletín ya no existe." }, 404);
     await guardarLista(env, lista.filter((x) => x.id !== id));
     await borrarArchivos(env, b.archivos);
+    await env.SUSCRIPTORES.delete("aviso:" + id);
     return json({ ok: true });
   }
 

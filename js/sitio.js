@@ -265,6 +265,19 @@
         .from($$("text", fig), { opacity: 0, duration: 0.6, stagger: 0.04 }, 0.7);
     });
 
+    // Cifras: cuentan desde cero cuando aparecen
+    $$("[data-contar]").forEach(function (el) {
+      var fin = parseInt(el.getAttribute("data-contar"), 10) || 0;
+      var prefijo = el.getAttribute("data-prefijo") || "";
+      var o = { v: 0 };
+      el.textContent = prefijo + "0";
+      gsap.to(o, {
+        v: fin, duration: 2, ease: "power3.out",
+        scrollTrigger: { trigger: el, start: "top bottom-=40" },
+        onUpdate: function () { el.textContent = prefijo + miles(Math.round(o.v)); }
+      });
+    });
+
     // Testimonios: las tarjetas entran girando un poco
     $$(".sg-testimonios").forEach(function (g) {
       gsap.from($$(".sg-tarjeta", g), { y: 80, rotate: 2, opacity: 0, duration: 1.2, ease: "power3.out", stagger: 0.12, scrollTrigger: { trigger: g, start: "top 85%" } });
@@ -513,6 +526,32 @@
   };
 
   // Bloques que aparecen o desaparecen solos según la fecha: data-hasta="AAAA-MM-DD" / data-desde="AAAA-MM-DD"
+  var miles = function (n) { return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, "."); };
+
+  // Calendario: lo edita la secretaria en /admin (/api/calendario). Si eso falla, se usa el archivo datos/calendario.json.
+  var calendario = null;
+  var cargarCalendario = function () {
+    if (calendario) return calendario;
+    var leerJson = function (url) {
+      return fetch(url, { cache: "no-cache" }).then(function (r) {
+        if (!r.ok) throw new Error(r.status);
+        return r.json();
+      });
+    };
+    var limpiar = function (j) {
+      if (!j || !Array.isArray(j.sesiones)) throw new Error("sin datos");
+      return {
+        sesiones: j.sesiones.filter(function (s) { return s && /^\d{4}-\d{2}-\d{2}$/.test(s.fecha); })
+          .sort(function (a, b) { return (a.fecha + (a.inicio || "")).localeCompare(b.fecha + (b.inicio || "")); }),
+        destacado: j.destacado && typeof j.destacado.texto === "string" ? j.destacado : null
+      };
+    };
+    calendario = /^https?:$/.test(location.protocol)
+      ? leerJson("/api/calendario").then(limpiar).catch(function () { return leerJson("/datos/calendario.json").then(limpiar); })
+      : Promise.reject(new Error("sin servidor"));
+    return calendario;
+  };
+
   var aplicarFechas = function () {
     var hoy = hoyEcuador().iso;
     $$("[data-hasta]").forEach(function (el) { if (hoy > el.getAttribute("data-hasta")) el.hidden = true; });
@@ -520,6 +559,11 @@
   };
   var initFechas = function () {
     aplicarFechas();
+    // Años desde la fundación (cambia solo cada año)
+    $$("[data-anios]").forEach(function (el) {
+      var n = hoyEcuador().a - (parseInt(el.getAttribute("data-anios"), 10) || 0);
+      if (n > 0) { el.textContent = n; el.setAttribute("data-contar", n); }
+    });
     // Botones que eligen una opción del formulario de inscripción
     $$("[data-elegir]").forEach(function (b) {
       b.addEventListener("click", function () {
@@ -597,14 +641,43 @@
     };
 
     dibujar();
-    if (!/^https?:$/.test(location.protocol)) return;
-    fetch("/datos/calendario.json", { cache: "no-cache" })
-      .then(function (r) { return r.json(); })
-      .then(function (j) {
-        sesiones = (j && Array.isArray(j.sesiones) ? j.sesiones : []).filter(function (s) { return s && /^\d{4}-\d{2}-\d{2}$/.test(s.fecha); });
-        dibujar();
-      })
+    cargarCalendario()
+      .then(function (c) { sesiones = c.sesiones; dibujar(); })
       .catch(function () { dibujar(); });
+  };
+
+  // ---------- Franja «Próximo programa» de la portada: se arma con el calendario ----------
+  var initProximo = function () {
+    var franja = $("[data-proximo]");
+    if (!franja) return;
+    var DIAS = ["domingo", "lunes", "martes", "miércoles", "jueves", "viernes", "sábado"];
+    var MESES = ["enero", "febrero", "marzo", "abril", "mayo", "junio", "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"];
+    var fechaLarga = function (iso) {
+      var p = iso.split("-").map(Number);
+      var d = new Date(Date.UTC(p[0], p[1] - 1, p[2]));
+      return DIAS[d.getUTCDay()] + " " + p[2] + " de " + MESES[p[1] - 1];
+    };
+    cargarCalendario().then(function (c) {
+      var hoy = hoyEcuador().iso;
+      var proxima = c.sesiones.filter(function (s) { return s.fecha >= hoy; })[0];
+      if (!proxima) { franja.hidden = true; return; }
+      var nombre = String(proxima.taller || "").replace(/^Programa de /, "") || "Próxima clase";
+      var primera = c.sesiones.filter(function (s) { return s.taller === proxima.taller; })[0];
+      var empezo = primera && primera.fecha < proxima.fecha && primera.fecha < hoy;
+      $("[data-proximo-etq]", franja).textContent = empezo ? "En curso · próxima clase" : (/^Programa/.test(proxima.taller || "") ? "Próximo programa" : "Próximo taller");
+      $("[data-proximo-titulo]", franja).textContent = nombre;
+      $("[data-proximo-fecha]", franja).textContent = (empezo ? "" : (proxima.fecha === hoy ? "Empieza " : "Inicia el ")) +
+        (proxima.fecha === hoy ? "hoy" : fechaLarga(proxima.fecha)) + (proxima.inicio ? " · " + proxima.inicio : "");
+      var aviso = $("[data-proximo-aviso]", franja);
+      var d = c.destacado;
+      if (d && d.texto && (!d.hasta || hoy <= d.hasta)) {
+        aviso.textContent = d.texto;
+        aviso.hidden = false;
+      } else {
+        aviso.hidden = true;
+      }
+      franja.hidden = false;
+    }).catch(function () {});
   };
 
   // El botón flotante de WhatsApp se oculta cuando el pie (que ya muestra los contactos) ocupa la pantalla
@@ -696,9 +769,33 @@
     var excluidas = ["privacidad", "terminos", "cookies", "boletines", "404", "contacto", "gracias", "admin"];
     var visto = parseInt(leer("sg-registro-visto"), 10) || 0;
     var reciente = Date.now() - visto < 7 * 24 * 3600 * 1000;
-    if (!leer("sg-registrado") && !reciente && excluidas.indexOf(pagina) === -1) {
-      setTimeout(abrir, html.classList.contains("sg-carga-on") ? 5200 : 3500);
-    }
+    if (leer("sg-registrado") || reciente || excluidas.indexOf(pagina) !== -1) return;
+
+    // No interrumpe apenas llega la persona: se abre cuando ya leyó media página, cuando va a salir
+    // (el mouse se va hacia arriba) o después de 40 segundos; y nunca mientras escribe en un formulario.
+    var listo = false;
+    var quitar = function () {
+      window.removeEventListener("scroll", alBajar);
+      document.removeEventListener("mouseout", alSalir);
+    };
+    var intentar = function () {
+      if (!listo || dlg.open || $("dialog[open]")) return;
+      var activo = document.activeElement;
+      if (activo && /^(INPUT|TEXTAREA|SELECT)$/.test(activo.tagName)) return;
+      quitar();
+      abrir();
+    };
+    var alBajar = function () {
+      var alto = document.documentElement.scrollHeight - innerHeight;
+      if (alto > 0 && scrollY / alto >= 0.5) intentar();
+    };
+    var alSalir = function (e) {
+      if (!e.relatedTarget && e.clientY <= 0) intentar();
+    };
+    setTimeout(function () { listo = true; alBajar(); }, 8000);
+    setTimeout(intentar, 40000);
+    window.addEventListener("scroll", alBajar, { passive: true });
+    document.addEventListener("mouseout", alSalir);
   };
 
   // ---------- Aviso de cookies ----------
@@ -930,6 +1027,7 @@
     initBotonWa();
     initFechas();
     initCalendario();
+    initProximo();
     initTransiciones();
     initAnimaciones();
     initCursor();
