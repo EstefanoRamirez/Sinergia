@@ -1070,7 +1070,20 @@
     document.addEventListener("mouseleave", function () { c.classList.add("is-oculto"); });
   };
 
+  // Revisión sin servidor (abriendo el .html con doble clic): los enlaces "/nosotros" apuntarían a C:/nosotros,
+  // así que se convierten en "nosotros.html". Publicada la web, esto no hace nada.
+  var initArchivoLocal = function () {
+    if (location.protocol !== "file:") return;
+    $$('a[href^="/"]:not([href^="//"])').forEach(function (a) {
+      var m = a.getAttribute("href").match(/^\/([^?#]*)(.*)$/);
+      var ruta = m[1].replace(/\/$/, "");
+      var archivo = !ruta ? "index.html" : /[./]/.test(ruta) ? ruta : ruta + ".html";
+      a.setAttribute("href", archivo + m[2]);
+    });
+  };
+
   var iniciar = function () {
+    initArchivoLocal();
     initLenis();
     initWhatsApp();
     initEncabezado();
