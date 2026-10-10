@@ -39,14 +39,26 @@ termina con **✅ Cómo saber que salió bien**.
 
 ---
 
-## Fase 1 · Poner el repositorio en privado (2 min)
+## Fase 1 · Ordenar GitHub: repositorio privado y borrar la rama vieja (5 min)
+
+### 1a. Poner el repositorio en privado
 El código y los textos quedan visibles solo para ti. Cloudflare igual puede publicarlo.
 1. Abre **github.com/EstefanoRamirez/Sinergia** → **Settings** (arriba a la derecha del repositorio).
 2. Baja hasta el final, a **Danger Zone** → **Change visibility** → **Change to private**.
 3. Confirma (GitHub te pide escribir el nombre del repositorio o tu contraseña).
-4. Ya que estás ahí: **Branches** → borra la rama vieja `sinergia-capacitacion` (icono de basurero). Su contenido ya está en `main`.
 
 ✅ Junto al nombre del repositorio aparece la etiqueta **Private**.
+
+### 1b. Borrar la rama vieja `sinergia-capacitacion`
+Es una copia antigua de la web. Ya se comprobó que **todo su contenido está en `main`**, así que borrarla no pierde nada; solo evita confusiones.
+1. Abre **github.com/EstefanoRamirez/Sinergia/branches**.
+2. Busca la rama **`sinergia-capacitacion`**.
+3. Toca el **icono de basurero** 🗑️ a su derecha.
+
+⚠️ **No borres `main`**: es la rama que publica la web.
+Si te equivocas, GitHub muestra un botón **Restore** durante un rato para recuperarla.
+
+✅ En **Branches** queda solo `main`.
 
 > En privado, GitHub da 2.000 minutos gratis al mes para tareas automáticas. La web usa unos 750 (vigilancia cada hora y respaldo semanal).
 
